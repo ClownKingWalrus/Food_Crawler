@@ -17,6 +17,7 @@ namespace Food_Crawler
             Black,
             Yellow
         }
+
         //fighting attributes
         private int health;
         private int armor;
