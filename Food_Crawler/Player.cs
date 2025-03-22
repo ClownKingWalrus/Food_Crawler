@@ -17,6 +17,7 @@ namespace Food_Crawler
             Black,
             Yellow
         }
+
         //fighting attributes
         //possibly add a bag for limited loot size
         private int health;
