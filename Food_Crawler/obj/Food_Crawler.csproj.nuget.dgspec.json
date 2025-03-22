@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\butte\\Desktop\\Coding_Repos_Projects\\Food_Crawler\\Food_Crawler\\Food_Crawler.csproj": {}
+    "C:\\Users\\butte\\Desktop\\Coding_Repos_Projects\\Food_Crawler\\Food_Crawler\\Food_Crawler\\Food_Crawler.csproj": {}
   },
   "projects": {
-    "C:\\Users\\butte\\Desktop\\Coding_Repos_Projects\\Food_Crawler\\Food_Crawler\\Food_Crawler.csproj": {
+    "C:\\Users\\butte\\Desktop\\Coding_Repos_Projects\\Food_Crawler\\Food_Crawler\\Food_Crawler\\Food_Crawler.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\butte\\Desktop\\Coding_Repos_Projects\\Food_Crawler\\Food_Crawler\\Food_Crawler.csproj",
+        "projectUniqueName": "C:\\Users\\butte\\Desktop\\Coding_Repos_Projects\\Food_Crawler\\Food_Crawler\\Food_Crawler\\Food_Crawler.csproj",
         "projectName": "Food_Crawler",
-        "projectPath": "C:\\Users\\butte\\Desktop\\Coding_Repos_Projects\\Food_Crawler\\Food_Crawler\\Food_Crawler.csproj",
+        "projectPath": "C:\\Users\\butte\\Desktop\\Coding_Repos_Projects\\Food_Crawler\\Food_Crawler\\Food_Crawler\\Food_Crawler.csproj",
         "packagesPath": "C:\\Users\\butte\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\butte\\Desktop\\Coding_Repos_Projects\\Food_Crawler\\Food_Crawler\\obj\\",
+        "outputPath": "C:\\Users\\butte\\Desktop\\Coding_Repos_Projects\\Food_Crawler\\Food_Crawler\\Food_Crawler\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
