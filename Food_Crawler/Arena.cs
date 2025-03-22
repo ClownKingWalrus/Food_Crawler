@@ -18,30 +18,37 @@ namespace Food_Crawler
         {
             if (enemey.GetLootBag() == null) {
                 System.Console.WriteLine($"{enemey.GetName()} Was broke and had no loot fight an investor next time");
+                System.Threading.Thread.Sleep(1500);
                 return;
             }
             System.Console.WriteLine("The enemey was not completly broke here his the loot");
+            System.Threading.Thread.Sleep(1500);
             enemey.PrintAllIngredients();
             System.Console.WriteLine("You throw the loot into your bag");
+            System.Threading.Thread.Sleep(1500);
             if (player.GetLootBag() != null) {
                 player.PushLootIntoBag(ref player, ref enemey);
             } else {
                 System.Console.WriteLine("Did you lose your loot bag or somthing? its null let me reconsruct your loot bag for you");
+                System.Threading.Thread.Sleep(1500);
                 player.SetNewLootBag();
                 System.Console.WriteLine("pushing in enemey loot into your bag homeslice breadslice dawg");
+                System.Threading.Thread.Sleep(1500);
                 player.PushLootIntoBag(ref player, ref enemey);
             }
         }
 
-        //death checker
+        //death checker MAKE THIS BOOL SO WE CAN RETURN OUT OF BATTLE ALL TOGETHER AS IT STANDS THIS CONTNUES BATTLE AS WE ONLY RETURN OUT OF THIS FUNCTION :(
         public static void DeathChecker(ref Player player, ref Player enemey)
         {
             if (player.GetHealth() <= 0) {
                 System.Console.WriteLine($"You died your Health is {player.GetHealth()}");
+                System.Threading.Thread.Sleep(1500);
                 return;
             } 
             if (enemey.GetHealth() <= 0) {
                 System.Console.WriteLine($"{enemey.GetName()} Died a violent death {enemey.GetName()} HP: {enemey.GetHealth()}");
+                System.Threading.Thread.Sleep(1500);
                 LootPhase(ref player, ref enemey);
                 return;
             }
@@ -50,24 +57,29 @@ namespace Food_Crawler
         //first strike attack phase
         public static void InitalStrikePhase(ref Player player, ref Player enemey, Random randNumGen) {
             if (player.GetSpeed() > enemey.GetSpeed()) {
-                System.Console.WriteLine($"{enemey.GetName()} sees you sprinting towards him like a mad man ${enemey.GetName()} wishes he did more legs");
-                System.Console.WriteLine($"{player.GetName()} is rolling for attack must be above 5");
+                System.Console.WriteLine($"{enemey.GetName()} sees you sprinting towards him like a mad man {enemey.GetName()} wishes he did more legs");
+                System.Threading.Thread.Sleep(1500);
+                System.Console.WriteLine($"{player.GetName()} is rolling for inital attack chance must be above 5");
+                System.Threading.Thread.Sleep(1500);
                 int randomNum = 0;
                 for (int i = 0; i < 3; i++)
                 {
                     randomNum = randNumGen.Next(10);
                     System.Console.WriteLine(randomNum);
                     System.Console.WriteLine($"{enemey.GetName()} is sweating");
-                    System.Threading.Thread.Sleep(800);
+                    System.Threading.Thread.Sleep(1500);
                 }
                 System.Console.WriteLine($"{player.GetName()} Rolled: {randomNum}");
                 if (randomNum > 5)
                 {
                     System.Console.WriteLine($"{enemey.GetName()} sheds a tear");
+                    System.Threading.Thread.Sleep(1500);
                     int dmg = enemey.GetDamage() - player.GetArmor() / 2;
                     System.Console.WriteLine($"{enemey.GetName()} armor reduced this much Damage: {enemey.GetArmor() / 2}");
-                    System.Console.WriteLine($"{player.GetName()} just dealt {dmg}");
-                    player.SetHealth(player.GetHealth() - dmg);
+                    System.Threading.Thread.Sleep(1500);
+                    System.Console.WriteLine($"{player.GetName()} just dealt {dmg} damage");
+                    System.Threading.Thread.Sleep(1500);
+                    enemey.SetHealth(enemey.GetHealth() - dmg);
                     DeathChecker(ref player, ref enemey);
                 }
                 else
@@ -76,20 +88,22 @@ namespace Food_Crawler
                 }
             } else if (enemey.GetSpeed() > player.GetSpeed()) {
                 System.Console.WriteLine("It's pretty fast its approaching for an attack");
-                System.Console.WriteLine($"{enemey.GetName()} is rolling for attack must be above 5");
+                System.Threading.Thread.Sleep(1500);
+                System.Console.WriteLine($"{enemey.GetName()} is rolling for intital attack chance must be above 5");
+                System.Threading.Thread.Sleep(1500);
                 int randomNum = 0;
                 for (int i = 0; i < 3; i++)
                 {
                     randomNum = randNumGen.Next(10);
                     System.Console.WriteLine(randomNum);
-                    System.Threading.Thread.Sleep(800);
+                    System.Threading.Thread.Sleep(1500);
                 }
                 System.Console.WriteLine($"{enemey.GetName()} Rolled: {randomNum}");
                 if (randomNum > 5)
                 {
                     int dmg = enemey.GetDamage() - player.GetArmor() / 2;
                     System.Console.WriteLine($"Your armor reduced this much damage: {player.GetArmor() / 2}");
-                    System.Console.WriteLine($"{enemey.GetName()} just dealt {dmg}");
+                    System.Console.WriteLine($"{enemey.GetName()} just dealt {dmg} damage");
                     player.SetHealth(player.GetHealth() - dmg);
                     DeathChecker(ref player, ref enemey);
                 }
@@ -132,22 +146,29 @@ namespace Food_Crawler
             int randomNum = 0;
             if (isPlayer) {
                 System.Console.WriteLine("1 = HunkerDown 1.5x armor  2 = Dodge");
+                System.Threading.Thread.Sleep(1500);
                 int choice = 0;
-                while (choice != 1 || choice != 2) { //this should ensure either 1 or 2 is pressed
-                    choice = Convert.ToInt16(System.Console.Read());
+                while (choice != 1 && choice != 2) { //this should ensure either 1 or 2 is pressed
+                    choice = Convert.ToInt32(Console.ReadLine());
                 }
                 randomNum = choice;
             } else {
                 randomNum = randNumGen.Next(1, 2);
             }
-                System.Console.WriteLine($"{player.GetName()} Strike at {enemey.GetName()} For: {player.GetDamage()}");
+                
+            System.Console.WriteLine($"{player.GetName()} Strike at {enemey.GetName()} For: {player.GetDamage()}");
+            System.Threading.Thread.Sleep(1500);
             if (randomNum == 1)
             { //if the enemey decides to hunker down
                 System.Console.WriteLine($"{enemey.GetName()} Decides to hunker down increasing is armor by half for a total of {enemey.GetArmor() + enemey.GetArmor() / 2}");
+                System.Threading.Thread.Sleep(1500);
+                
                 System.Console.WriteLine($"{player.GetName()} Damage is currently {player.GetDamage()}");
+                System.Threading.Thread.Sleep(1500);
                 int dmg = player.GetDamage();
                 dmg = dmg - (enemey.GetArmor() + (enemey.GetArmor() / 2));
                 System.Console.WriteLine($"{player.GetName()} Damage is reduced to {dmg}");
+                System.Threading.Thread.Sleep(1500);
                 enemey.SetHealth(enemey.GetHealth() - dmg);
                 DeathChecker(ref player, ref enemey);
 
@@ -159,14 +180,22 @@ namespace Food_Crawler
                     System.Console.WriteLine($"{enemey.GetName()} and rolls");
                     randomNum = randNumGen.Next(enemey.GetSpeed() / 2);
                     System.Console.WriteLine(randomNum);
-                    System.Threading.Thread.Sleep(800);
+                    System.Threading.Thread.Sleep(1500);
                 }
                 System.Console.WriteLine($"{enemey.GetName()} Rolled: {randomNum}");
+                if (randomNum <= 0)
+                {
+                    System.Console.WriteLine($"giving two pity points because {enemey.GetName} managed to roll a zero :[]");
+                    System.Threading.Thread.Sleep(1500);
+                    randomNum = 2;
+                }
                 System.Console.WriteLine($"Initating Roll phase Highest number decides winner");
                 if (DodgeChance(randomNum, player.GetSpeed(), randNumGen)) {
                     System.Console.WriteLine($"{enemey.GetName()} weaves your attack by the luck of the gods");
+                    System.Threading.Thread.Sleep(1500);
                 } else {
                     System.Console.WriteLine($"{enemey.GetName()} Gets clobberd over the head for {dmg}");
+                    System.Threading.Thread.Sleep(1500);
                     enemey.SetHealth(enemey.GetHealth() - dmg);
                     DeathChecker(ref player, ref enemey);
                 }
@@ -176,21 +205,24 @@ namespace Food_Crawler
         public static void NormalStrikePhase(ref Player player, ref Player enemey, Random randNumGen)
         {
             if (player.GetSpeed() > enemey.GetSpeed()) {
-                NormalStrikePhaseMain(ref player, ref enemey, randNumGen, true);
-                NormalStrikePhaseMain(ref enemey, ref player, randNumGen, false);
+                NormalStrikePhaseMain(ref player, ref enemey, randNumGen, false);
+                NormalStrikePhaseMain(ref enemey, ref player, randNumGen, true);
             } else if (enemey.GetSpeed() > player.GetSpeed()) {
-                NormalStrikePhaseMain(ref enemey, ref player, randNumGen, false);
-                NormalStrikePhaseMain(ref player, ref enemey, randNumGen, true);
+                NormalStrikePhaseMain(ref enemey, ref player, randNumGen, true);
+                NormalStrikePhaseMain(ref player, ref enemey, randNumGen, false);
             } else { //same speed
                 System.Console.WriteLine("Since you are just as fast as eachother you coin flip to see who attacks first");
+                System.Threading.Thread.Sleep(1500);
                 if (randNumGen.Next(1) == 1) {
                     System.Console.WriteLine($"good job {player.GetName()} won the coin flip");
-                    NormalStrikePhaseMain(ref player, ref enemey, randNumGen, true);
-                    NormalStrikePhaseMain(ref enemey, ref player, randNumGen, false);
+                    System.Threading.Thread.Sleep(1500);
+                    NormalStrikePhaseMain(ref player, ref enemey, randNumGen, false);
+                    NormalStrikePhaseMain(ref enemey, ref player, randNumGen, true);
                 } else {
                     System.Console.WriteLine($"{enemey.GetName()} won the coin flip");
-                    NormalStrikePhaseMain(ref enemey, ref player, randNumGen, false);
-                    NormalStrikePhaseMain(ref player, ref enemey, randNumGen, true);
+                    System.Threading.Thread.Sleep(1500);
+                    NormalStrikePhaseMain(ref enemey, ref player, randNumGen, true);
+                    NormalStrikePhaseMain(ref player, ref enemey, randNumGen, false);
                 }
             }
         }
@@ -199,6 +231,7 @@ namespace Food_Crawler
         {
             //this will need to be changed to be visual at some point
             System.Console.WriteLine($"You Encounterd {enemey.GetName()}");
+            System.Threading.Thread.Sleep(1500);
             //First strike attack phase
             InitalStrikePhase(ref player, ref enemey, randNumGen);
             while (player.GetHealth() > 0 || enemey.GetHealth() > 0)

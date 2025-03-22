@@ -24,14 +24,41 @@ namespace Food_Crawler
         private int weight;
         private int speed; //all good fighting games have some rng to them
         private int damage;
-        private List<int>? ingredientPouch = new List<int>(); //someone should make a ingredient class
+        private List<int>? ingredientPouch; //someone should make a ingredient class
 
         //players customization
         private string? name = "Player";
         PlayersColor currentColor = PlayersColor.Red; //we can treat this as a upgrade or a customization option
+        
+        //constuctor
+        public Player(int H, int A, int W, int S, int D)
+        {
+            this.health = H;
+            this.armor = A;
+            this.weight = W;
+            this.speed = S;
+            this.damage = D;
+        }
+
+        public Player(int H, int A, int S, int D)
+        {
+            this.health = H;
+            this.armor = A;
+            this.speed = S;
+            this.damage = D;
+        }
+
+        public Player(int H, int A, int S, int D, List<int> l)
+        {
+            this.health = H;
+            this.armor = A;
+            this.speed = S;
+            this.damage = D;
+            ingredientPouch = new List<int>(l);
+        }
+
 
         //setter functions 
-
         public void SetHealth(int Health)
         {
             this.health = Health;
@@ -60,6 +87,11 @@ namespace Food_Crawler
         public void SetNewLootBag()
         {
             this.ingredientPouch = new List<int>();
+        }
+
+        public void SetName(string Name)
+        {
+            this.name = Name;
         }
 
         //getter functions
