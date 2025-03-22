@@ -12,7 +12,6 @@ namespace Food_Crawler
 {
     class Arena
     {
-
         //loot phase function
         public static void LootPhase(ref Player player, ref Player enemey)
         {
@@ -49,7 +48,26 @@ namespace Food_Crawler
             if (enemey.GetHealth() <= 0) {
                 System.Console.WriteLine($"{enemey.GetName()} Died a violent death {enemey.GetName()} HP: {enemey.GetHealth()}");
                 System.Threading.Thread.Sleep(1500);
+
+                // Loot phase
                 LootPhase(ref player, ref enemey);
+
+                // Stat boost from eating the enemy
+                System.Console.WriteLine("You take a bite out of the fallen enemy...");
+                System.Threading.Thread.Sleep(1500);
+
+                // TEMP: Using Meat as default until enemey.GetFoodType() is implemented
+                var boost = StatBoostHandler.GetStatBoostFromFood(StatBoostHandler.FoodType.Meat);
+
+                player.SetAttack(player.GetAttack() + boost.atk);
+                player.SetArmor(player.GetArmor() + boost.def);
+                player.SetMagic(player.GetMagic() + boost.mag);
+                player.SetSpeed(player.GetSpeed() + boost.spd);
+
+                System.Console.WriteLine("You feel your stats shift after consuming the enemy:");
+                boost.Display();
+
+                System.Threading.Thread.Sleep(1500);
                 return;
             }
         }
@@ -113,7 +131,6 @@ namespace Food_Crawler
             }
         }
 
-        //true = player one wins/ false = player two wins
         public static bool DodgeChance(int playerOne, int playerTwo, Random randNumGen)
         {
             int playerOneHighestNum = 0;
@@ -148,21 +165,21 @@ namespace Food_Crawler
                 System.Console.WriteLine("1 = HunkerDown 1.5x armor  2 = Dodge");
                 System.Threading.Thread.Sleep(1500);
                 int choice = 0;
-                while (choice != 1 && choice != 2) { //this should ensure either 1 or 2 is pressed
+                while (choice != 1 && choice != 2) {
                     choice = Convert.ToInt32(Console.ReadLine());
                 }
                 randomNum = choice;
             } else {
                 randomNum = randNumGen.Next(1, 2);
             }
-                
+
             System.Console.WriteLine($"{player.GetName()} Strike at {enemey.GetName()} For: {player.GetDamage()}");
             System.Threading.Thread.Sleep(1500);
             if (randomNum == 1)
-            { //if the enemey decides to hunker down
+            {
                 System.Console.WriteLine($"{enemey.GetName()} Decides to hunker down increasing is armor by half for a total of {enemey.GetArmor() + enemey.GetArmor() / 2}");
                 System.Threading.Thread.Sleep(1500);
-                
+
                 System.Console.WriteLine($"{player.GetName()} Damage is currently {player.GetDamage()}");
                 System.Threading.Thread.Sleep(1500);
                 int dmg = player.GetDamage();
@@ -172,7 +189,7 @@ namespace Food_Crawler
                 enemey.SetHealth(enemey.GetHealth() - dmg);
                 DeathChecker(ref player, ref enemey);
 
-            } else { //if the enemey decides to dodge
+            } else {
                 int dmg = player.GetDamage();
                 System.Console.WriteLine($"{enemey.GetName()} Decides not to become a shish kebob and attempts to dodge");
                 for (int i = 0; i < 3; i++)
@@ -210,7 +227,7 @@ namespace Food_Crawler
             } else if (enemey.GetSpeed() > player.GetSpeed()) {
                 NormalStrikePhaseMain(ref enemey, ref player, randNumGen, true);
                 NormalStrikePhaseMain(ref player, ref enemey, randNumGen, false);
-            } else { //same speed
+            } else {
                 System.Console.WriteLine("Since you are just as fast as eachother you coin flip to see who attacks first");
                 System.Threading.Thread.Sleep(1500);
                 if (randNumGen.Next(1) == 1) {
@@ -226,13 +243,11 @@ namespace Food_Crawler
                 }
             }
         }
-        //if you dont know what call by reference is look it up
+
         public static void NormalFight(ref Player player, ref Player enemey, Random randNumGen)
         {
-            //this will need to be changed to be visual at some point
             System.Console.WriteLine($"You Encounterd {enemey.GetName()}");
             System.Threading.Thread.Sleep(1500);
-            //First strike attack phase
             InitalStrikePhase(ref player, ref enemey, randNumGen);
             while (player.GetHealth() > 0 || enemey.GetHealth() > 0)
             {
