@@ -12,6 +12,14 @@ namespace Food_Crawler
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
             Application.Run(new Form1());
+
+            //this is where our actual application runs
+            //initalize objects we need
+            //temp players
+            Player player = new Player();
+            Player player2 = new Player();
+            Random randNumGen = new Random();
+            Arena.NormalFight(ref player, ref player2, randNumGen);
         }
     }
 }

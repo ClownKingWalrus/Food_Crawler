@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Food_Crawler")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4c0dc16ba2a69784fdce63b91ab8699864fb1a85")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f521ff2ebb40a6d3532a239fc4b7f9b184addbc4")]
 [assembly: System.Reflection.AssemblyProductAttribute("Food_Crawler")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Food_Crawler")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
