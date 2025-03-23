@@ -19,20 +19,20 @@ namespace Food_Crawler
         }
 
         //fighting attributes
-        //possibly add a bag for limited loot size
         private int health;
         private int armor;
         private int weight;
-        private int speed; //all good fighting games have some rng to them
+        private int speed;
         private int damage;
+        private int magic;
         private int looseStatPoints;
-        private List<int>? ingredientPouch; //someone should make a ingredient class
+        private List<int>? ingredientPouch;
 
         //players customization
         private string? name = "Player";
-        PlayersColor currentColor = PlayersColor.Red; //we can treat this as a upgrade or a customization option
-        
-        //constuctor
+        PlayersColor currentColor = PlayersColor.Red;
+
+        //constructors
         public Player(int H, int A, int W, int S, int D)
         {
             this.health = H;
@@ -65,80 +65,45 @@ namespace Food_Crawler
             this.speed = 1;
             this.damage = 2;
             this.looseStatPoints = 20;
-        }
-
-
-        //setter functions 
-        public void SetHealth(int Health)
-        {
-            this.health = Health;
-        }
-
-        public void SetArmor(int Armor)
-        {
-            this.armor = Armor;
-        }
-
-        public void SetWeight(int Weight)
-        {
-            this.weight = Weight;
-        }
-
-        public void SetSpeed(int Speed)
-        {
-            this.speed = Speed;
-        }
-
-        public void SetDamage(int Damage)
-        {
-            this.damage = Damage;
-        }
-
-        public void SetNewLootBag()
-        {
+            this.armor = 0;
+            this.magic = 0;
+            this.weight = 0;
             this.ingredientPouch = new List<int>();
         }
 
-        public void SetName(string Name)
+        public Player(string Name)
         {
             this.name = Name;
+            this.health = 100;
+            this.armor = 10;
+            this.weight = 0;
+            this.speed = 5;
+            this.damage = 15;
+            this.magic = 5;
+            this.ingredientPouch = new List<int>();
         }
 
-        public void SetLooseStatPoints(int statPoints)
-        {
-            this.looseStatPoints = statPoints;
-        }
+        //setter functions
+        public void SetHealth(int Health) => this.health = Health;
+        public void SetArmor(int Armor) => this.armor = Armor;
+        public void SetWeight(int Weight) => this.weight = Weight;
+        public void SetSpeed(int Speed) => this.speed = Speed;
+        public void SetDamage(int Damage) => this.damage = Damage;
+        public void SetNewLootBag() => this.ingredientPouch = new List<int>();
+        public void SetName(string Name) => this.name = Name;
+        public void SetLooseStatPoints(int statPoints) => this.looseStatPoints = statPoints;
+        public void SetMagic(int val) => this.magic = val;
+        public void SetAttack(int val) => this.damage = val;
 
         //getter functions
-        public int GetHealth()
-        {
-            return this.health;
-        }
-
-        public int GetArmor()
-        {
-            return this.armor;
-        }
-
-        public int GetWeight()
-        {
-            return this.weight;
-        }
-
-        public int GetSpeed()
-        {
-            return this.speed;
-        }
-
-        public int GetDamage()
-        {
-            return this.damage;
-        }
-
-        public int GetLooseStatPoints()
-        {
-            return this.looseStatPoints;
-        }
+        public int GetHealth() => this.health;
+        public int GetArmor() => this.armor;
+        public int GetWeight() => this.weight;
+        public int GetSpeed() => this.speed;
+        public int GetDamage() => this.damage;
+        public int GetLooseStatPoints() => this.looseStatPoints;
+        public int GetMagic() => this.magic;
+        public int GetAttack() => this.damage;
 
         public List<int>? GetLootBag()
         {
@@ -157,6 +122,7 @@ namespace Food_Crawler
             }
             return "?Null?";
         }
+
         public void PrintAllIngredients()
         {
             if (ingredientPouch == null || ingredientPouch.Count <= 0)
