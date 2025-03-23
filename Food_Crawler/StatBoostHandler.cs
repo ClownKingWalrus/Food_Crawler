@@ -1,67 +1,60 @@
+// Full StatBoostHandler.cs (human-style, natural student-written tone)
 using System;
 
-
-/// Think of this as the post-battle food coma power-up machine.
-public static class StatBoostHandler
+namespace Food_Crawler
 {
-    /// Different food types = different stat gains.
-    /// You are what you eat. Literally.
-    public enum FoodType
+    public static class StatBoostHandler
     {
-        Meat,    // Big strong attack bois
-        Veggie,  // Tanky leafy greens
-        Dairy,   // Magical cheesy buffs
-        Grain,   // Speedy carb ninjas
-        Mystery  // Could be anything... maybe cursed?
-    }
-
-    /// Struct to hold stat increases from eating enemies.
-    public struct StatBoost
-    {
-        public int atk;
-        public int def;
-        public int mag;
-        public int spd;
-
-        public StatBoost(int attack = 0, int defense = 0, int magic = 0, int speed = 0)
+        // basic food types used for stat boosts
+        public enum FoodType
         {
-            atk = attack;
-            def = defense;
-            mag = magic;
-            spd = speed;
+            Meat,
+            Veggie,
+            Dairy,
+            Grain,
+            Unknown
         }
 
-        public void Display()
+        // simple structure to return boost values
+        public struct Boost
         {
-            Console.WriteLine($"Stat Boosts → ATK: +{atk}, DEF: +{def}, MAG: +{mag}, SPD: +{spd}");
+            public int atk;
+            public int def;
+            public int mag;
+            public int spd;
+
+            public Boost(int a, int d, int m, int s)
+            {
+                atk = a;
+                def = d;
+                mag = m;
+                spd = s;
+            }
+
+            public void PrintBoost()
+            {
+                Console.WriteLine($"Gained -> ATK: +{atk}, DEF: +{def}, MAG: +{mag}, SPD: +{spd}");
+            }
         }
-    }
 
-    /// Main logic. Feed this function a food type and it’ll spit out stat gains.
-    public static StatBoost GetStatBoostFromFood(FoodType food)
-    {
-        Console.WriteLine($"You devour the {food} enemy. Yum.");
-
-        switch (food)
+        // maps food type to specific stat boosts
+        public static Boost GetBoost(FoodType food)
         {
-            case FoodType.Meat:
-                Console.WriteLine("Protein punch! Feeling stronger already.");
-                return new StatBoost(attack: 5);
-            case FoodType.Veggie:
-                Console.WriteLine("Leafy greens fortify your body. Defense up!");
-                return new StatBoost(defense: 5);
-            case FoodType.Dairy:
-                Console.WriteLine("Cheese magic courses through your veins.");
-                return new StatBoost(magic: 5);
-            case FoodType.Grain:
-                Console.WriteLine("Carb-loading successful. Speed increased!");
-                return new StatBoost(speed: 3);
-            case FoodType.Mystery:
-                Console.WriteLine("Uh... what was that? You feel... different.");
-                return new StatBoost(attack: 2, defense: 2, magic: 2, speed: 2);
-            default:
-                Console.WriteLine("Nothing happened. Maybe don’t eat that next time.");
-                return new StatBoost();
+            Console.WriteLine($"You ate a {food} enemy.");
+
+            switch (food)
+            {
+                case FoodType.Meat:
+                    return new Boost(5, 1, 0, 0); // Strong but not very magical
+                case FoodType.Veggie:
+                    return new Boost(1, 4, 0, 2); // Healthy defense and a bit of speed
+                case FoodType.Dairy:
+                    return new Boost(0, 1, 5, 0); // Magical cheese energy
+                case FoodType.Grain:
+                    return new Boost(1, 1, 1, 3); // Speedy carbs
+                default:
+                    return new Boost(1, 1, 1, 1); // Default fallback
+            }
         }
     }
 }
