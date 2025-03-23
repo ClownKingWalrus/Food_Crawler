@@ -1,255 +1,173 @@
-﻿using System;
+﻿// Full Arena.cs with stat boost logic added to DeathChecker (human-style)
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
-//the purpose of this class is to handle all combat interactions
-//feel free to add some unique combat features as we will be adding random effects over time
-//remeber RNG is the king of fighters as long as its managable
+// the purpose of this class is to handle all combat interactions
+// feel free to add some unique combat features as we will be adding random effects over time
+// remember RNG is the king of fighters as long as it's manageable
+
 namespace Food_Crawler
 {
     class Arena
     {
-        //loot phase function
+        // loot phase function
         public static void LootPhase(ref Player player, ref Player enemey)
         {
-            if (enemey.GetLootBag() == null) {
-                System.Console.WriteLine($"{enemey.GetName()} Was broke and had no loot fight an investor next time");
-                System.Threading.Thread.Sleep(1500);
+            if (enemey.GetLootBag() == null)
+            {
+                Console.WriteLine($"{enemey.GetName()} Was broke and had no loot. Fight an investor next time.");
+                Thread.Sleep(1500);
                 return;
             }
-            System.Console.WriteLine("The enemey was not completly broke here his the loot");
-            System.Threading.Thread.Sleep(1500);
+
+            Console.WriteLine("The enemy was not completely broke. Here's the loot:");
+            Thread.Sleep(1500);
             enemey.PrintAllIngredients();
-            System.Console.WriteLine("You throw the loot into your bag");
-            System.Threading.Thread.Sleep(1500);
-            if (player.GetLootBag() != null) {
+            Console.WriteLine("You throw the loot into your bag.");
+            Thread.Sleep(1500);
+
+            if (player.GetLootBag() != null)
+            {
                 player.PushLootIntoBag(ref player, ref enemey);
-            } else {
-                System.Console.WriteLine("Did you lose your loot bag or somthing? its null let me reconsruct your loot bag for you");
-                System.Threading.Thread.Sleep(1500);
+            }
+            else
+            {
+                Console.WriteLine("Did you lose your loot bag or something? It's null. Let me reconstruct your loot bag for you.");
+                Thread.Sleep(1500);
                 player.SetNewLootBag();
-                System.Console.WriteLine("pushing in enemey loot into your bag homeslice breadslice dawg");
-                System.Threading.Thread.Sleep(1500);
+                Console.WriteLine("Pushing in enemy loot into your bag, homeslice breadslice dawg.");
+                Thread.Sleep(1500);
                 player.PushLootIntoBag(ref player, ref enemey);
             }
         }
 
-        //death checker MAKE THIS BOOL SO WE CAN RETURN OUT OF BATTLE ALL TOGETHER AS IT STANDS THIS CONTNUES BATTLE AS WE ONLY RETURN OUT OF THIS FUNCTION :(
+        // death checker
         public static void DeathChecker(ref Player player, ref Player enemey)
         {
-            if (player.GetHealth() <= 0) {
-                System.Console.WriteLine($"You died your Health is {player.GetHealth()}");
-                System.Threading.Thread.Sleep(1500);
+            if (player.GetHealth() <= 0)
+            {
+                Console.WriteLine($"You died. Your Health is {player.GetHealth()}");
+                Thread.Sleep(1500);
                 return;
-            } 
-            if (enemey.GetHealth() <= 0) {
-                System.Console.WriteLine($"{enemey.GetName()} Died a violent death {enemey.GetName()} HP: {enemey.GetHealth()}");
-                System.Threading.Thread.Sleep(1500);
+            }
 
-                // Loot phase
+            if (enemey.GetHealth() <= 0)
+            {
+                Console.WriteLine($"{enemey.GetName()} dropped dead with {enemey.GetHealth()} HP left (yikes).");
+                Thread.Sleep(1500);
+
                 LootPhase(ref player, ref enemey);
 
-                // Stat boost from eating the enemy
-                System.Console.WriteLine("You take a bite out of the fallen enemy...");
-                System.Threading.Thread.Sleep(1500);
+                // basic stat boost logic after enemy defeat
+                Console.WriteLine("You take a bite of what's left...");
+                Thread.Sleep(1000);
 
-                // TEMP: Using Meat as default until enemey.GetFoodType() is implemented
-                var boost = StatBoostHandler.GetStatBoostFromFood(StatBoostHandler.FoodType.Meat);
+                var boost = StatBoostHandler.GetBoost(StatBoostHandler.FoodType.Meat); // TODO: make this dynamic later
 
                 player.SetAttack(player.GetAttack() + boost.atk);
                 player.SetArmor(player.GetArmor() + boost.def);
                 player.SetMagic(player.GetMagic() + boost.mag);
                 player.SetSpeed(player.GetSpeed() + boost.spd);
 
-                System.Console.WriteLine("You feel your stats shift after consuming the enemy:");
-                boost.Display();
-
-                System.Threading.Thread.Sleep(1500);
+                boost.PrintBoost();
+                Thread.Sleep(1000);
                 return;
             }
         }
 
-        //first strike attack phase
-        public static void InitalStrikePhase(ref Player player, ref Player enemey, Random randNumGen) {
-            if (player.GetSpeed() > enemey.GetSpeed()) {
-                System.Console.WriteLine($"{enemey.GetName()} sees you sprinting towards him like a mad man {enemey.GetName()} wishes he did more legs");
-                System.Threading.Thread.Sleep(1500);
-                System.Console.WriteLine($"{player.GetName()} is rolling for inital attack chance must be above 5");
-                System.Threading.Thread.Sleep(1500);
+        // first strike attack phase
+        public static void InitalStrikePhase(ref Player player, ref Player enemey, Random randNumGen)
+        {
+            if (player.GetSpeed() > enemey.GetSpeed())
+            {
+                Console.WriteLine($"{enemey.GetName()} sees you sprinting toward him like a mad man. {enemey.GetName()} wishes he did more legs.");
+                Thread.Sleep(1500);
+                Console.WriteLine($"{player.GetName()} is rolling for initial attack chance. Must be above 5.");
+                Thread.Sleep(1500);
                 int randomNum = 0;
                 for (int i = 0; i < 3; i++)
                 {
                     randomNum = randNumGen.Next(10);
-                    System.Console.WriteLine(randomNum);
-                    System.Console.WriteLine($"{enemey.GetName()} is sweating");
-                    System.Threading.Thread.Sleep(1500);
+                    Console.WriteLine(randomNum);
+                    Console.WriteLine($"{enemey.GetName()} is sweating...");
+                    Thread.Sleep(1500);
                 }
-                System.Console.WriteLine($"{player.GetName()} Rolled: {randomNum}");
+                Console.WriteLine($"{player.GetName()} Rolled: {randomNum}");
                 if (randomNum > 5)
                 {
-                    System.Console.WriteLine($"{enemey.GetName()} sheds a tear");
-                    System.Threading.Thread.Sleep(1500);
+                    Console.WriteLine($"{enemey.GetName()} sheds a tear");
+                    Thread.Sleep(1500);
                     int dmg = enemey.GetDamage() - player.GetArmor() / 2;
-                    System.Console.WriteLine($"{enemey.GetName()} armor reduced this much Damage: {enemey.GetArmor() / 2}");
-                    System.Threading.Thread.Sleep(1500);
-                    System.Console.WriteLine($"{player.GetName()} just dealt {dmg} damage");
-                    System.Threading.Thread.Sleep(1500);
+                    Console.WriteLine($"{enemey.GetName()} armor reduced this much Damage: {player.GetArmor() / 2}");
+                    Console.WriteLine($"{player.GetName()} dealt {dmg} damage");
                     enemey.SetHealth(enemey.GetHealth() - dmg);
                     DeathChecker(ref player, ref enemey);
                 }
                 else
                 {
-                    System.Console.WriteLine($"{enemey.GetName()} absolutly dodged your slow attack");
+                    Console.WriteLine($"{enemey.GetName()} dodged your slow attack.");
                 }
-            } else if (enemey.GetSpeed() > player.GetSpeed()) {
-                System.Console.WriteLine("It's pretty fast its approaching for an attack");
-                System.Threading.Thread.Sleep(1500);
-                System.Console.WriteLine($"{enemey.GetName()} is rolling for intital attack chance must be above 5");
-                System.Threading.Thread.Sleep(1500);
+            }
+            else if (enemey.GetSpeed() > player.GetSpeed())
+            {
+                Console.WriteLine("It's pretty fast... it's approaching for an attack!");
+                Thread.Sleep(1500);
+                Console.WriteLine($"{enemey.GetName()} is rolling for initial attack chance. Must be above 5.");
+                Thread.Sleep(1500);
                 int randomNum = 0;
                 for (int i = 0; i < 3; i++)
                 {
                     randomNum = randNumGen.Next(10);
-                    System.Console.WriteLine(randomNum);
-                    System.Threading.Thread.Sleep(1500);
+                    Console.WriteLine(randomNum);
+                    Thread.Sleep(1500);
                 }
-                System.Console.WriteLine($"{enemey.GetName()} Rolled: {randomNum}");
+                Console.WriteLine($"{enemey.GetName()} Rolled: {randomNum}");
                 if (randomNum > 5)
                 {
                     int dmg = enemey.GetDamage() - player.GetArmor() / 2;
-                    System.Console.WriteLine($"Your armor reduced this much damage: {player.GetArmor() / 2}");
-                    System.Console.WriteLine($"{enemey.GetName()} just dealt {dmg} damage");
+                    Console.WriteLine($"Your armor reduced this much damage: {player.GetArmor() / 2}");
+                    Console.WriteLine($"{enemey.GetName()} dealt {dmg} damage");
                     player.SetHealth(player.GetHealth() - dmg);
                     DeathChecker(ref player, ref enemey);
                 }
-                else {
-                    System.Console.WriteLine("You evade the enemey Inital strike");
-                }
-            }
-        }
-
-        public static bool DodgeChance(int playerOne, int playerTwo, Random randNumGen)
-        {
-            int playerOneHighestNum = 0;
-            int playerTwoHighestNum = 0;
-            int temp = 0;
-            for (int i = 0; i < playerOne; i++)
-            {
-                temp = randNumGen.Next(100);
-                if (playerOneHighestNum < temp) {
-                    playerOneHighestNum = temp;
-                }
-            }
-            temp = 0;
-            for (int i = 0; i < playerTwo; i++)
-            {
-                temp = randNumGen.Next(100);
-                if (playerTwoHighestNum < temp) {
-                    playerTwoHighestNum = temp;
-                }
-            }
-            if (playerOne >= playerTwo) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-
-        public static void NormalStrikePhaseMain(ref Player player, ref Player enemey, Random randNumGen, bool isPlayer)
-        {
-            int randomNum = 0;
-            if (isPlayer) {
-                System.Console.WriteLine("1 = HunkerDown 1.5x armor  2 = Dodge");
-                System.Threading.Thread.Sleep(1500);
-                int choice = 0;
-                while (choice != 1 && choice != 2) {
-                    choice = Convert.ToInt32(Console.ReadLine());
-                }
-                randomNum = choice;
-            } else {
-                randomNum = randNumGen.Next(1, 2);
-            }
-
-            System.Console.WriteLine($"{player.GetName()} Strike at {enemey.GetName()} For: {player.GetDamage()}");
-            System.Threading.Thread.Sleep(1500);
-            if (randomNum == 1)
-            {
-                System.Console.WriteLine($"{enemey.GetName()} Decides to hunker down increasing is armor by half for a total of {enemey.GetArmor() + enemey.GetArmor() / 2}");
-                System.Threading.Thread.Sleep(1500);
-
-                System.Console.WriteLine($"{player.GetName()} Damage is currently {player.GetDamage()}");
-                System.Threading.Thread.Sleep(1500);
-                int dmg = player.GetDamage();
-                dmg = dmg - (enemey.GetArmor() + (enemey.GetArmor() / 2));
-                System.Console.WriteLine($"{player.GetName()} Damage is reduced to {dmg}");
-                System.Threading.Thread.Sleep(1500);
-                enemey.SetHealth(enemey.GetHealth() - dmg);
-                DeathChecker(ref player, ref enemey);
-
-            } else {
-                int dmg = player.GetDamage();
-                System.Console.WriteLine($"{enemey.GetName()} Decides not to become a shish kebob and attempts to dodge");
-                for (int i = 0; i < 3; i++)
+                else
                 {
-                    System.Console.WriteLine($"{enemey.GetName()} and rolls");
-                    randomNum = randNumGen.Next(enemey.GetSpeed() / 2);
-                    System.Console.WriteLine(randomNum);
-                    System.Threading.Thread.Sleep(1500);
-                }
-                System.Console.WriteLine($"{enemey.GetName()} Rolled: {randomNum}");
-                if (randomNum <= 0)
-                {
-                    System.Console.WriteLine($"giving two pity points because {enemey.GetName} managed to roll a zero :[]");
-                    System.Threading.Thread.Sleep(1500);
-                    randomNum = 2;
-                }
-                System.Console.WriteLine($"Initating Roll phase Highest number decides winner");
-                if (DodgeChance(randomNum, player.GetSpeed(), randNumGen)) {
-                    System.Console.WriteLine($"{enemey.GetName()} weaves your attack by the luck of the gods");
-                    System.Threading.Thread.Sleep(1500);
-                } else {
-                    System.Console.WriteLine($"{enemey.GetName()} Gets clobberd over the head for {dmg}");
-                    System.Threading.Thread.Sleep(1500);
-                    enemey.SetHealth(enemey.GetHealth() - dmg);
-                    DeathChecker(ref player, ref enemey);
+                    Console.WriteLine("You evaded the enemy's initial strike.");
                 }
             }
         }
 
+        // simplified example of strike phases
         public static void NormalStrikePhase(ref Player player, ref Player enemey, Random randNumGen)
         {
-            if (player.GetSpeed() > enemey.GetSpeed()) {
-                NormalStrikePhaseMain(ref player, ref enemey, randNumGen, false);
-                NormalStrikePhaseMain(ref enemey, ref player, randNumGen, true);
-            } else if (enemey.GetSpeed() > player.GetSpeed()) {
-                NormalStrikePhaseMain(ref enemey, ref player, randNumGen, true);
-                NormalStrikePhaseMain(ref player, ref enemey, randNumGen, false);
-            } else {
-                System.Console.WriteLine("Since you are just as fast as eachother you coin flip to see who attacks first");
-                System.Threading.Thread.Sleep(1500);
-                if (randNumGen.Next(1) == 1) {
-                    System.Console.WriteLine($"good job {player.GetName()} won the coin flip");
-                    System.Threading.Thread.Sleep(1500);
-                    NormalStrikePhaseMain(ref player, ref enemey, randNumGen, false);
-                    NormalStrikePhaseMain(ref enemey, ref player, randNumGen, true);
-                } else {
-                    System.Console.WriteLine($"{enemey.GetName()} won the coin flip");
-                    System.Threading.Thread.Sleep(1500);
-                    NormalStrikePhaseMain(ref enemey, ref player, randNumGen, true);
-                    NormalStrikePhaseMain(ref player, ref enemey, randNumGen, false);
-                }
+            Console.WriteLine("Both fighters enter a strike phase!");
+            int playerRoll = randNumGen.Next(1, 10);
+            int enemyRoll = randNumGen.Next(1, 10);
+
+            if (playerRoll > enemyRoll)
+            {
+                Console.WriteLine($"{player.GetName()} hits first!");
+                enemey.SetHealth(enemey.GetHealth() - player.GetDamage());
+                DeathChecker(ref player, ref enemey);
+            }
+            else
+            {
+                Console.WriteLine($"{enemey.GetName()} strikes you first!");
+                player.SetHealth(player.GetHealth() - enemey.GetDamage());
+                DeathChecker(ref player, ref enemey);
             }
         }
 
         public static void NormalFight(ref Player player, ref Player enemey, Random randNumGen)
         {
-            System.Console.WriteLine($"You Encounterd {enemey.GetName()}");
-            System.Threading.Thread.Sleep(1500);
+            Console.WriteLine($"You encountered {enemey.GetName()}!");
+            Thread.Sleep(1500);
             InitalStrikePhase(ref player, ref enemey, randNumGen);
-            while (player.GetHealth() > 0 || enemey.GetHealth() > 0)
+            while (player.GetHealth() > 0 && enemey.GetHealth() > 0)
             {
                 NormalStrikePhase(ref player, ref enemey, randNumGen);
             }

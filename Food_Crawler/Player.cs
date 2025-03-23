@@ -25,6 +25,7 @@ namespace Food_Crawler
         private int weight;
         private int speed; //all good fighting games have some rng to them
         private int damage;
+        private int magic;
         private List<int>? ingredientPouch; //someone should make a ingredient class
 
         //players customization
@@ -56,6 +57,19 @@ namespace Food_Crawler
             this.speed = S;
             this.damage = D;
             ingredientPouch = new List<int>(l);
+        }
+
+        public Player(string Name)
+        {
+            this.name = Name;
+            this.health = 100;
+            this.armor = 10;
+            this.weight = 0;
+            this.speed = 5;
+            this.damage = 15;
+            this.magic = 5;
+            this.ingredientPouch = new List<int>();
+
         }
 
 
@@ -93,6 +107,15 @@ namespace Food_Crawler
         public void SetName(string Name)
         {
             this.name = Name;
+        }
+
+        public void SetMagic(int val) 
+        { 
+            this.magic = val;
+        }
+        public void SetAttack(int val) 
+        { 
+            this.damage = val; 
         }
 
         //getter functions
@@ -137,6 +160,15 @@ namespace Food_Crawler
                 return this.name;
             }
             return "?Null?";
+        }
+
+        public int GetMagic()
+        { 
+            return this.magic; 
+        }
+        public int GetAttack() 
+        {
+            return this.damage; 
         }
 
         public void PrintAllIngredients()
