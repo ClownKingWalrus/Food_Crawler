@@ -1,26 +1,30 @@
 using System.Runtime.InteropServices;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Food_Crawler
 {
     public partial class Form1 : Form
     {
-            [DllImport("kernel32.dll", SetLastError = true)]
-            [return: MarshalAs(UnmanagedType.Bool)]
-            static extern bool AllocConsole();
+        public String ResourcesPath = @"..\..\..\Resources";
+        public Image TestImage;
+        //[DllImport("kernel32.dll", SetLastError = true)]
+        //[return: MarshalAs(UnmanagedType.Bool)]
+        //static extern bool AllocConsole();
         public Form1()
         {
-            AllocConsole();
+            //AllocConsole(); //console for testing
             InitializeComponent();
+            String paintDoorsPath = ResourcesPath + "/paintdoors.png";
+            TestImage = Image.FromFile(paintDoorsPath);
 
-            //this is where our actual application runs
-            //initalize objects we need
-            //temp players
-            Player player = new Player(15, 2, 5, 6);
-            Player enemey = new Player(14, 2, 3, 6);
-            enemey.SetName("enemey");
-            Random randNumGen = new Random();
-            Arena.NormalFight(ref player, ref enemey, randNumGen);
-            return;
+            this.StartScreenPictureBox.SizeMode = PictureBoxSizeMode.CenterImage;
+            this.StartScreenPictureBox.SizeMode = PictureBoxSizeMode.Zoom;
+            this.StartScreenPictureBox.Image = TestImage;
+        }
+
+        private void StartMenuButton_Click(object sender, EventArgs e)
+        {
+            RoomSwapper.Room2(this.StartMenuTextBox, this.StartMenuButton, this.StartScreenPictureBox, this.TestImage, this.ResourcesPath);
         }
     }
 }
