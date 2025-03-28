@@ -103,7 +103,7 @@ namespace Food_Crawler
             this.name = Name;
         }
 
-        public void SetStatPoints(int statPoints)
+        public void SetLooseStatPoints(int statPoints)
         {
             this.looseStatPoints = statPoints;
         }
@@ -134,6 +134,11 @@ namespace Food_Crawler
             return this.damage;
         }
 
+        public int GetLooseStatPoints()
+        {
+            return this.looseStatPoints;
+        }
+
         public List<int>? GetLootBag()
         {
             if (this.ingredientPouch != null)
@@ -150,11 +155,6 @@ namespace Food_Crawler
                 return this.name;
             }
             return "?Null?";
-        }
-
-        public int GetLooseStatPoints()
-        {
-            return this.looseStatPoints;
         }
         public void PrintAllIngredients()
         {

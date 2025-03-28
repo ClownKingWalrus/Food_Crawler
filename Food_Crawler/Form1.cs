@@ -5,10 +5,11 @@ namespace Food_Crawler
 {
     public partial class Form1 : Form
     {
-        Button healthButton;
-        Button armorButton;
-        Button speedButton;
-        Button damageButton;
+        Button? healthButton;
+        Button? armorButton;
+        Button? speedButton;
+        Button? damageButton;
+
         Player mainPlayer;
         public String ResourcesPath = @"..\..\..\Resources";
         public Image TestImage;
