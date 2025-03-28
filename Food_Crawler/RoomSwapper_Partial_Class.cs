@@ -40,10 +40,10 @@ namespace Food_Crawler
             speedButton = new Button();
 
             //set up their parameters
-            ButtonCreator(ref healthButton, "healbutton", 300, 230, 70, 70, "HP", healthButtonFunc);
-            ButtonCreator(ref armorButton, "armorButton", 900, 230, 70, 70, "AMR", ArmorButtonFunc);
-            ButtonCreator(ref damageButton, "damageButton", 270, 600, 70, 70, "DMG", DamageButtonFunc);
-            ButtonCreator(ref speedButton, "speedButton", 1600, 230, 70, 70, "SPD", speedButtonFunc);
+            ButtonCreator(ref healthButton, "healbuttonForm", 300, 230, 70, 70, "HP", healthButtonFunc);
+            ButtonCreator(ref armorButton, "armorButtonForm", 900, 230, 70, 70, "AMR", ArmorButtonFunc);
+            ButtonCreator(ref damageButton, "damageButtonForm", 270, 600, 70, 70, "DMG", DamageButtonFunc);
+            ButtonCreator(ref speedButton, "speedButtonForm", 1600, 230, 70, 70, "SPD", speedButtonFunc);
 
             //set img seperatly might automate later?
             string paintUpgrade = ResourcesPath + "/paintUpgrade.png";
@@ -55,32 +55,102 @@ namespace Food_Crawler
             armorButton.Image = upgradeImage;
             damageButton.Image = upgradeImage;
             speedButton.Image = upgradeImage;
+
+            //set up all labels
+            healthLabel = null;
+            armorLabel = null;
+            damageLabel = null;
+            speedLabel = null;
+            looseStatPoints = null;
+
+            healthLabel = new Label();
+            armorLabel = new Label();
+            damageLabel = new Label();
+            speedLabel = new Label();
+            looseStatPoints = new Label();
+
+            //set params for the labels UPDATE SO IT AUTO AJUST THE LABELS
+            LabelCreator(ref healthLabel, "healthLabelForm", 30, 0, 100, 70, $"HP: {mainPlayer.GetHealth()}");
+            LabelCreator(ref armorLabel, "armorLabelForm", healthLabel.Location.X + healthLabel.Size.Width + 30, 0, 100, 70, $"AMR: {mainPlayer.GetArmor()}");
+            LabelCreator(ref damageLabel, "damageLabelForm", armorLabel.Location.X + armorLabel.Size.Width + 30, 0, 100, 70, $"DMG: {mainPlayer.GetDamage()}");
+            LabelCreator(ref speedLabel, "speedLabelForm", damageLabel.Location.X + damageLabel.Size.Width + 30, 0, 100, 70, $"SPD: {mainPlayer.GetSpeed()}");
+            LabelCreator(ref looseStatPoints, "looseStatPointsForm", speedLabel.Location.X + speedLabel.Size.Width + 30, 0, 100, 70, $"LSP: {mainPlayer.GetLooseStatPoints()}");
+            Application.DoEvents();
+            while (mainPlayer.GetLooseStatPoints() > 0)
+            {
+                Application.DoEvents();
+            }
         }
            
 
         //EXTRA BUTTON FUNCTIONS
         public void healthButtonFunc(Object sender, EventArgs e)
         {
-            mainPlayer.SetHealth(mainPlayer.GetHealth() + 1);
-            mainPlayer.SetLooseStatPoints(mainPlayer.GetLooseStatPoints() - 1);
+            if (mainPlayer.GetLooseStatPoints() > 0)
+            {
+                mainPlayer.SetHealth(mainPlayer.GetHealth() + 1);
+                mainPlayer.SetLooseStatPoints(mainPlayer.GetLooseStatPoints() - 1);
+                //visually update
+                PlayerStatsLabelUpdater();
+            }
         }
 
         public void speedButtonFunc(Object sender, EventArgs e)
         {
-            mainPlayer.SetSpeed(mainPlayer.GetSpeed() + 1);
-            mainPlayer.SetLooseStatPoints(mainPlayer.GetLooseStatPoints() - 1);
+            if (mainPlayer.GetLooseStatPoints() > 0)
+            {
+                mainPlayer.SetSpeed(mainPlayer.GetSpeed() + 1);
+                mainPlayer.SetLooseStatPoints(mainPlayer.GetLooseStatPoints() - 1);
+                //update labels
+                PlayerStatsLabelUpdater();
+            }
         }
 
         public void ArmorButtonFunc(Object sender, EventArgs e)
         {
-            mainPlayer.SetArmor(mainPlayer.GetArmor() + 1);
-            mainPlayer.SetLooseStatPoints(mainPlayer.GetLooseStatPoints() - 1);
+            if (mainPlayer.GetLooseStatPoints() > 0)
+            {
+                mainPlayer.SetArmor(mainPlayer.GetArmor() + 1);
+                mainPlayer.SetLooseStatPoints(mainPlayer.GetLooseStatPoints() - 1);
+                //update labels
+                PlayerStatsLabelUpdater();
+            }
         }
 
         public void DamageButtonFunc(Object sender, EventArgs e)
         {
-            mainPlayer.SetDamage(mainPlayer.GetDamage() + 1);
-            mainPlayer.SetLooseStatPoints(mainPlayer.GetLooseStatPoints() - 1);
+            if (mainPlayer.GetLooseStatPoints() > 0)
+            {
+                mainPlayer.SetDamage(mainPlayer.GetDamage() + 1);
+                mainPlayer.SetLooseStatPoints(mainPlayer.GetLooseStatPoints() - 1);
+                //update labels
+                PlayerStatsLabelUpdater();
+            }
+        }
+
+        public void PlayerStatsLabelUpdater()
+        {
+            if (healthLabel == null || armorLabel == null || damageLabel == null || speedLabel == null || looseStatPoints == null)
+            {
+                healthLabel = null;
+                armorLabel = null;
+                damageLabel = null;
+                speedLabel = null;
+                looseStatPoints = null;
+
+                healthLabel = new Label();
+                armorLabel = new Label();
+                damageLabel = new Label();
+                speedLabel = new Label();
+                looseStatPoints = new Label();
+
+            }
+            //this is probably overkill but im not trying to figure out why label.Location.X = some number does not work thats not very fortnite
+            LabelCreator(ref healthLabel, "healthLabelForm", 30, 0, 100, 70, $"HP: {mainPlayer.GetHealth()}");
+            LabelCreator(ref armorLabel, "armorLabelForm", healthLabel.Location.X + healthLabel.Size.Width + 30, 0, 100, 70, $"AMR: {mainPlayer.GetArmor()}");
+            LabelCreator(ref damageLabel, "damageLabelForm", armorLabel.Location.X + armorLabel.Size.Width + 30, 0, 100, 70, $"DMG: {mainPlayer.GetDamage()}");
+            LabelCreator(ref speedLabel, "speedLabelForm", damageLabel.Location.X + damageLabel.Size.Width + 30, 0, 100, 70, $"SPD: {mainPlayer.GetSpeed()}");
+            LabelCreator(ref looseStatPoints, "looseStatPointsForm", speedLabel.Location.X + speedLabel.Size.Width + 30, 0, 100, 70, $"LSP: {mainPlayer.GetLooseStatPoints()}");
         }
 
         public void ButtonCreator(ref Button button, string name, int x, int y, int sizeX, int sizeY, string text, EventHandler theFunction)
@@ -92,9 +162,27 @@ namespace Food_Crawler
             button.UseVisualStyleBackColor = true;
             button.BackColor = Color.Aqua;
             button.Click += theFunction;
+            //set up to the Forms
             Controls.Add(button);
             button.Show();
             button.BringToFront();
+        }
+
+        public void LabelCreator(ref Label label, string name, int x, int y, int sizeX, int sizeY, string text)
+        {
+            label.Location = new Point(x, y);
+            label.Name = name;
+            label.Size = new Size(sizeX, sizeY);
+            label.AutoSize = true;
+            label.Text = text;
+            label.BorderStyle = BorderStyle.Fixed3D;
+            label.BackColor = Color.Khaki;
+            label.Font = new Font("Poor Richard", 26);
+            //label.Click += theFunction; //we might be able to do somthin wth this later
+            //set up to the forms
+            Controls.Add(label);
+            label.Show();
+            label.BringToFront();
         }
 
         //Image Util

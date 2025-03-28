@@ -64,6 +64,7 @@ namespace Food_Crawler
             this.health = 1;
             this.speed = 1;
             this.damage = 2;
+            this.looseStatPoints = 20;
         }
 
 

@@ -9,6 +9,11 @@ namespace Food_Crawler
         Button? armorButton;
         Button? speedButton;
         Button? damageButton;
+        Label? healthLabel;
+        Label? armorLabel;
+        Label? speedLabel;
+        Label? damageLabel;
+        Label? looseStatPoints;
 
         Player mainPlayer;
         public String ResourcesPath = @"..\..\..\Resources";
