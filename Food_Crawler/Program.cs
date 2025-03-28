@@ -10,7 +10,6 @@ namespace Food_Crawler
         {
             //initalize objects we need
             //temp players
-            //Player player = new Player(15, 2, 5, 6);
             //Player enemey = new Player(14, 2, 3, 6);
             //enemey.SetName("enemey");
             //Random randNumGen = new Random();
@@ -21,10 +20,7 @@ namespace Food_Crawler
             ApplicationConfiguration.Initialize();
             //System.Console.WriteLine("As you enter the dungeon you reflect on your life");
             //System.Console.WriteLine("You have 20 points to spend, spend them how you like");
-            Form1 mainForm = new Form1();
-            RoomSwapper roomSwapper = new RoomSwapper(); //dont delete this holds function pointers
-            
-            Application.Run(mainForm);
+            Application.Run(new Form1());
 
         }
     }

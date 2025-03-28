@@ -46,7 +46,7 @@
             // 
             // StartMenuButton
             // 
-            StartMenuButton.Location = new Point(1184, 987);
+            StartMenuButton.Location = new Point(1197, 987);
             StartMenuButton.Name = "StartMenuButton";
             StartMenuButton.Size = new Size(895, 140);
             StartMenuButton.TabIndex = 1;

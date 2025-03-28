@@ -5,6 +5,11 @@ namespace Food_Crawler
 {
     public partial class Form1 : Form
     {
+        Button healthButton;
+        Button armorButton;
+        Button speedButton;
+        Button damageButton;
+        Player mainPlayer;
         public String ResourcesPath = @"..\..\..\Resources";
         public Image TestImage;
         //[DllImport("kernel32.dll", SetLastError = true)]
@@ -16,6 +21,12 @@ namespace Food_Crawler
             InitializeComponent();
             String paintDoorsPath = ResourcesPath + "/paintdoors.png";
             TestImage = Image.FromFile(paintDoorsPath);
+            mainPlayer = new Player();
+            //functions = new List<Action<int>>()
+            //{
+            //    Room1,
+            //    Room2
+            //};
 
             this.StartScreenPictureBox.SizeMode = PictureBoxSizeMode.CenterImage;
             this.StartScreenPictureBox.SizeMode = PictureBoxSizeMode.Zoom;
@@ -24,7 +35,7 @@ namespace Food_Crawler
 
         private void StartMenuButton_Click(object sender, EventArgs e)
         {
-            RoomSwapper.Room2(this.StartMenuTextBox, this.StartMenuButton, this.StartScreenPictureBox, this.TestImage, this.ResourcesPath);
+            Room2();
         }
     }
 }
