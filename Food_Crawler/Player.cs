@@ -25,6 +25,7 @@ namespace Food_Crawler
         private int weight;
         private int speed; //all good fighting games have some rng to them
         private int damage;
+        private int looseStatPoints;
         private List<int>? ingredientPouch; //someone should make a ingredient class
 
         //players customization
@@ -56,6 +57,14 @@ namespace Food_Crawler
             this.speed = S;
             this.damage = D;
             ingredientPouch = new List<int>(l);
+        }
+
+        public Player()
+        {
+            this.health = 1;
+            this.speed = 1;
+            this.damage = 2;
+            this.looseStatPoints = 20;
         }
 
 
@@ -95,6 +104,11 @@ namespace Food_Crawler
             this.name = Name;
         }
 
+        public void SetLooseStatPoints(int statPoints)
+        {
+            this.looseStatPoints = statPoints;
+        }
+
         //getter functions
         public int GetHealth()
         {
@@ -121,6 +135,11 @@ namespace Food_Crawler
             return this.damage;
         }
 
+        public int GetLooseStatPoints()
+        {
+            return this.looseStatPoints;
+        }
+
         public List<int>? GetLootBag()
         {
             if (this.ingredientPouch != null)
@@ -138,7 +157,6 @@ namespace Food_Crawler
             }
             return "?Null?";
         }
-
         public void PrintAllIngredients()
         {
             if (ingredientPouch == null || ingredientPouch.Count <= 0)
