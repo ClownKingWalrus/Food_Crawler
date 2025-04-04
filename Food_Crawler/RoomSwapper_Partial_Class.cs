@@ -26,6 +26,7 @@ namespace Food_Crawler
             TestImage = Image.FromFile(ReflectionPath);
             StartScreenPictureBox.Image = TestImage;
             StartMenuTextBox.Text = "Memories surge through your veins";
+<<<<<<< HEAD
             
             //set all buttons null so we not doing funky gamer stuff
             healthButton = null;
@@ -86,12 +87,21 @@ namespace Food_Crawler
         public void GenericFight() //this will currently allow an enemey but there is a possiblitly that it will change
         {
 
+=======
+
+            //Create all buttons for stat upgrades
+            healthButton = null;
+
+            healthButton = new Button();
+            ButtonCreator(ref healthButton, "healbutton", 300, 230, 70, 70, "HP", healthButtonFunc);
+>>>>>>> d5d2f66 (working version and finally got room functions working)
         }
            
 
         //EXTRA BUTTON FUNCTIONS
         public void healthButtonFunc(Object sender, EventArgs e)
         {
+<<<<<<< HEAD
             if (mainPlayer.GetLooseStatPoints() > 0)
             {
                 mainPlayer.SetHealth(mainPlayer.GetHealth() + 1);
@@ -99,10 +109,14 @@ namespace Food_Crawler
                 //visually update
                 PlayerStatsLabelUpdater();
             }
+=======
+            mainPlayer.SetHealth(mainPlayer.GetHealth() + 1);
+>>>>>>> d5d2f66 (working version and finally got room functions working)
         }
 
         public void speedButtonFunc(Object sender, EventArgs e)
         {
+<<<<<<< HEAD
             if (mainPlayer.GetLooseStatPoints() > 0)
             {
                 mainPlayer.SetSpeed(mainPlayer.GetSpeed() + 1);
@@ -110,10 +124,14 @@ namespace Food_Crawler
                 //update labels
                 PlayerStatsLabelUpdater();
             }
+=======
+            mainPlayer.SetSpeed(mainPlayer.GetSpeed() + 1);
+>>>>>>> d5d2f66 (working version and finally got room functions working)
         }
 
         public void ArmorButtonFunc(Object sender, EventArgs e)
         {
+<<<<<<< HEAD
             if (mainPlayer.GetLooseStatPoints() > 0)
             {
                 mainPlayer.SetArmor(mainPlayer.GetArmor() + 1);
@@ -121,10 +139,14 @@ namespace Food_Crawler
                 //update labels
                 PlayerStatsLabelUpdater();
             }
+=======
+            mainPlayer.SetArmor(mainPlayer.GetArmor() + 1);
+>>>>>>> d5d2f66 (working version and finally got room functions working)
         }
 
         public void DamageButtonFunc(Object sender, EventArgs e)
         {
+<<<<<<< HEAD
             if (mainPlayer.GetLooseStatPoints() > 0)
             {
                 mainPlayer.SetDamage(mainPlayer.GetDamage() + 1);
@@ -157,6 +179,9 @@ namespace Food_Crawler
             LabelCreator(ref damageLabel, "damageLabelForm", armorLabel.Location.X + armorLabel.Size.Width + 30, 0, 100, 70, $"DMG: {mainPlayer.GetDamage()}");
             LabelCreator(ref speedLabel, "speedLabelForm", damageLabel.Location.X + damageLabel.Size.Width + 30, 0, 100, 70, $"SPD: {mainPlayer.GetSpeed()}");
             LabelCreator(ref looseStatPoints, "looseStatPointsForm", speedLabel.Location.X + speedLabel.Size.Width + 30, 0, 100, 70, $"LSP: {mainPlayer.GetLooseStatPoints()}");
+=======
+            mainPlayer.SetDamage(mainPlayer.GetDamage() + 1);
+>>>>>>> d5d2f66 (working version and finally got room functions working)
         }
 
         public void ButtonCreator(ref Button button, string name, int x, int y, int sizeX, int sizeY, string text, EventHandler theFunction)
@@ -168,11 +193,15 @@ namespace Food_Crawler
             button.UseVisualStyleBackColor = true;
             button.BackColor = Color.Aqua;
             button.Click += theFunction;
+<<<<<<< HEAD
             //set up to the Forms
+=======
+>>>>>>> d5d2f66 (working version and finally got room functions working)
             Controls.Add(button);
             button.Show();
             button.BringToFront();
         }
+<<<<<<< HEAD
 
         public void LabelCreator(ref Label label, string name, int x, int y, int sizeX, int sizeY, string text)
         {
@@ -197,5 +226,7 @@ namespace Food_Crawler
             Image upgradeImageResized = (Image)(new Bitmap(image, new Size(x, y)));
             return upgradeImageResized;
         }
+=======
+>>>>>>> d5d2f66 (working version and finally got room functions working)
     }
 }
