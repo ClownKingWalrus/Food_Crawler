@@ -5,6 +5,9 @@ namespace Food_Crawler
 {
     public partial class Form1 : Form
     {
+        //[DllImport("kernel32.dll", SetLastError = true)]
+        //[return: MarshalAs(UnmanagedType.Bool)]
+        //static extern bool AllocConsole();
         Button? healthButton;
         Button? armorButton;
         Button? speedButton;
@@ -15,12 +18,11 @@ namespace Food_Crawler
         Label? damageLabel;
         Label? looseStatPoints;
 
-        Player mainPlayer;
         public String ResourcesPath = @"..\..\..\Resources";
         public Image TestImage;
-        //[DllImport("kernel32.dll", SetLastError = true)]
-        //[return: MarshalAs(UnmanagedType.Bool)]
-        //static extern bool AllocConsole();
+
+        Player mainPlayer;
+        public int TowerLevel = 0;
         public Form1()
         {
             //AllocConsole(); //console for testing

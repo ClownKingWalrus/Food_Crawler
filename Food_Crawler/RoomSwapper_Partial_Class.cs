@@ -84,7 +84,7 @@ namespace Food_Crawler
 
         //Fighting Rooms
         public void GenericFight() //this will currently allow an enemey but there is a possiblitly that it will change
-        {
+        {//since we need to pass in the enemey and player we will decide how to generate a enemey here
 
         }
            
