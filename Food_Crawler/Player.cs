@@ -9,6 +9,11 @@ namespace Food_Crawler
 {
     class Player
     {
+        public struct Weapons//temp will make its own class at some point
+        {
+            public string weaponpng;
+            public int damage;
+        }
         private enum PlayersColor
         {
             Red,
@@ -26,6 +31,8 @@ namespace Food_Crawler
         private int speed; //all good fighting games have some rng to them
         private int damage;
         private int looseStatPoints;
+        private Weapons weapon;
+        
         private List<int>? ingredientPouch; //someone should make a ingredient class
 
         //players customization
@@ -109,6 +116,11 @@ namespace Food_Crawler
             this.looseStatPoints = statPoints;
         }
 
+        public void SetWeapons(Weapons weapn)
+        {
+            this.weapon = weapn;
+        }
+
         //getter functions
         public int GetHealth()
         {
@@ -156,6 +168,11 @@ namespace Food_Crawler
                 return this.name;
             }
             return "?Null?";
+        }
+
+        public Weapons GetWeapon()
+        {
+            return this.weapon;
         }
         public void PrintAllIngredients()
         {
