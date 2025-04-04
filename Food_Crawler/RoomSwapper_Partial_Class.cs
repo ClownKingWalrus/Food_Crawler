@@ -81,6 +81,12 @@ namespace Food_Crawler
                 Application.DoEvents();
             }
         }
+
+        //Fighting Rooms
+        public void GenericFight() //this will currently allow an enemey but there is a possiblitly that it will change
+        {
+
+        }
            
 
         //EXTRA BUTTON FUNCTIONS
