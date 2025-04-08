@@ -26,9 +26,12 @@ namespace Food_Crawler
             //generate a enemey with some random stats based on this
             Enemey tempEnemey = new Enemey(randNumGen.Next(1, TowerMultiplier), randNumGen.Next(1, TowerMultiplier), 
                 randNumGen.Next(1, TowerMultiplier), randNumGen.Next(1, TowerMultiplier), randNumGen.Next(1, TowerMultiplier));
-
+            if (tempEnemey.GetLootBag() == null)
+            {
+                tempEnemey.SetNewLootBag();
+            }
             //make weapon
-            int weaponNum = randNumGen.Next(3);
+            int weaponNum = randNumGen.Next(1, 3);
             Weapons weapon = new();
             switch (weaponNum) {
                 case 1: //beatin stick
@@ -45,7 +48,17 @@ namespace Food_Crawler
                     break;
             }
             tempEnemey.SetWeapons(weapon);
-            
+
+            //generate fake loot
+            int amount = 0;
+            amount = randNumGen.Next(0, 5);
+
+            for (int i = 0; i < amount; i++)
+            {
+                int randloot = randNumGen.Next(1, 100);
+                tempEnemey.GetLootBag().Add(randloot);
+            }
+            tempEnemey.SetName("Gobo"); ;
             return tempEnemey;
         }
     }

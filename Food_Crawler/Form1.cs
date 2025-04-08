@@ -20,6 +20,7 @@ namespace Food_Crawler
         PictureBox? enemeyPictureBox;
         PictureBox? enemeyWeaponPictureBox;
         PictureBox? playerPictureBox;
+        public bool gameOver = false;
 
         public String ResourcesPath = @"..\..\..\Resources";
         public Image mainImage;
@@ -33,6 +34,9 @@ namespace Food_Crawler
             String paintDoorsPath = ResourcesPath + "/paintdoors.png";
             mainImage = Image.FromFile(paintDoorsPath);
             mainPlayer = new Player();
+            mainPlayer.SetHealth(1000);
+            mainPlayer.SetSpeed(1000);
+            mainPlayer.SetDamage(100);
             //functions = new List<Action<int>>()
             //{
             //    Room1,

@@ -175,17 +175,21 @@ namespace Food_Crawler
         {
             return this.weapon;
         }
-        public void PrintAllIngredients()
+        public void PrintAllIngredients(Form1 mainForm)
         {
             if (ingredientPouch == null || ingredientPouch.Count <= 0)
             {
-                System.Console.WriteLine("No Ingredients");
+                mainForm.GetNarratorTextBox().Text = "No Ingredients";
+                Application.DoEvents();
                 return;
             }
-
+            String tempConstruct = "Ingridents: ";
             for (int i = 0; i < ingredientPouch.Count; i++)
             {
-                System.Console.WriteLine(ingredientPouch[i]);
+                mainForm.GetNarratorTextBox().Text = tempConstruct + $"{ingredientPouch[i]} | ";
+                Application.DoEvents();
+                System.Threading.Thread.Sleep(500);
+                tempConstruct = mainForm.GetNarratorTextBox().Text;
             }
         }
 

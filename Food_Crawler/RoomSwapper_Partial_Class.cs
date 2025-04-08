@@ -158,6 +158,14 @@ namespace Food_Crawler
             }
         }
 
+        public void DisableButton(Object sender, EventArgs e)
+        {
+            if (sender is Button button)
+            {
+                button.Enabled = false;
+            }
+        }
+
         public void PlayerStatsLabelUpdater()
         {
             if (healthLabel == null || armorLabel == null || damageLabel == null || speedLabel == null || looseStatPoints == null)
@@ -181,6 +189,7 @@ namespace Food_Crawler
             LabelCreator(ref damageLabel, "damageLabelForm", armorLabel.Location.X + armorLabel.Size.Width + 30, 0, 100, 70, $"DMG: {mainPlayer.GetDamage()}");
             LabelCreator(ref speedLabel, "speedLabelForm", damageLabel.Location.X + damageLabel.Size.Width + 30, 0, 100, 70, $"SPD: {mainPlayer.GetSpeed()}");
             LabelCreator(ref looseStatPoints, "looseStatPointsForm", speedLabel.Location.X + speedLabel.Size.Width + 30, 0, 100, 70, $"LSP: {mainPlayer.GetLooseStatPoints()}");
+            Application.DoEvents();
         }
 
         public void ButtonCreator(ref Button button, string name, int x, int y, int sizeX, int sizeY, string text, EventHandler theFunction)
