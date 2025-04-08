@@ -21,7 +21,7 @@ namespace Food_Crawler
         {
             //temporary will pass random generator
             Random randNumGen = new();
-            string ResPath = @"..\..\..\ResourcePath\";
+            string ResPath = @"..\..\..\Resources";
             int TowerMultiplier = TowerLevel * 5;
             //generate a enemey with some random stats based on this
             Enemey tempEnemey = new Enemey(randNumGen.Next(1, TowerMultiplier), randNumGen.Next(1, TowerMultiplier), 
@@ -32,15 +32,15 @@ namespace Food_Crawler
             Weapons weapon = new();
             switch (weaponNum) {
                 case 1: //beatin stick
-                    weapon.weaponpng = ResPath + "beatingstick_Weapon.png";
+                    weapon.weaponpng = ResPath + @"\beatingstick_Weapon.png";
                     weapon.damage = 1 * TowerLevel;
                     break;
                 case 2: //knife
-                    weapon.weaponpng = ResPath + "knife_Weapon.png";
+                    weapon.weaponpng = ResPath + @"\Knife_Weapon.png";
                     weapon.damage = 2 * TowerLevel;
                     break;
                 case 3: //sickle
-                    weapon.weaponpng = ResPath + "Sickle_Weapon.png";
+                    weapon.weaponpng = ResPath + @"\Sickle_Weapon.png";
                     weapon.damage = 3 * TowerLevel;
                     break;
             }

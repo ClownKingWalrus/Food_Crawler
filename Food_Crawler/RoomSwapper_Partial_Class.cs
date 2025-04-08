@@ -14,8 +14,8 @@ namespace Food_Crawler
         public void Room1()
         {   //Self Reflection Room
             String ReflectionPath = ResourcesPath + "/ReflectionOfSelf.png";
-            TestImage = Image.FromFile(ReflectionPath);
-            StartScreenPictureBox.Image = TestImage;
+            mainImage = Image.FromFile(ReflectionPath);
+            StartScreenPictureBox.Image = mainImage;
             StartMenuTextBox.Text = "Well your not as dashing as you remeber";
 
         }
@@ -23,8 +23,8 @@ namespace Food_Crawler
         {
             //Stats Room for inital point investment
             String ReflectionPath = ResourcesPath + "/StatusScreen.png";
-            TestImage = Image.FromFile(ReflectionPath);
-            StartScreenPictureBox.Image = TestImage;
+            mainImage = Image.FromFile(ReflectionPath);
+            StartScreenPictureBox.Image = mainImage;
             StartMenuTextBox.Text = "Memories surge through your veins";
             
             //set all buttons null so we not doing funky gamer stuff
@@ -89,8 +89,27 @@ namespace Food_Crawler
             Random tempRandGen = new();
             Enemey tempEnemey = Enemey.GenerateEnemey(TowerLevel);
 
+
+            //gui change
+            String ArenaGui = ResourcesPath + @"\arena.png";
+            mainImage = Image.FromFile(ArenaGui);
+            StartScreenPictureBox.Image = mainImage;
+            StartMenuTextBox.Text = "you encounter an enemey";
+            String EnemeyImagePath = ResourcesPath + @"\Goblin.png";
+            Image EnemeyImage = Image.FromFile(EnemeyImagePath);
+            enemeyPictureBox = null;
+            enemeyPictureBox = new();
+            PictureBoxCreator(ref enemeyPictureBox, 500, 500, this.StartScreenPictureBox.Width- 1000, this.Height - 1000, EnemeyImage);;
+
+            //full weapon path already
+            String EnemeyWeaponPath = tempEnemey.GetWeapon().weaponpng;
+            Image EnemeyWeaponImage = Image.FromFile(EnemeyWeaponPath);
+            enemeyWeaponPictureBox = null;
+            enemeyWeaponPictureBox = new();
+            PictureBoxCreator(ref enemeyWeaponPictureBox, 200, 200, enemeyPictureBox.Location.X, enemeyPictureBox.Location.Y + enemeyPictureBox.Height/2, EnemeyWeaponImage);
+
             //we can launch the fight like so
-            Arena.LaunchFight(ref mainPlayer, ref tempEnemey, tempRandGen);
+            Arena.LaunchFight(ref mainPlayer, ref tempEnemey, tempRandGen, this);
         }
            
 
@@ -194,6 +213,18 @@ namespace Food_Crawler
             Controls.Add(label);
             label.Show();
             label.BringToFront();
+        }
+
+        public void PictureBoxCreator(ref PictureBox pictureBox, int sizex, int sizey, int locationx, int locationy, Image image)
+        {
+            pictureBox.Location = new Point(locationx, locationy);
+            pictureBox.Width = sizex;
+            pictureBox.Height = sizey;
+            image = ImageResizer(image, sizex, sizey);
+            pictureBox.Image = image;
+            Controls.Add(pictureBox);
+            pictureBox.Show();
+            pictureBox.BringToFront();
         }
 
         //Image Util

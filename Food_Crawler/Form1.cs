@@ -17,18 +17,21 @@ namespace Food_Crawler
         Label? speedLabel;
         Label? damageLabel;
         Label? looseStatPoints;
+        PictureBox? enemeyPictureBox;
+        PictureBox? enemeyWeaponPictureBox;
+        PictureBox? playerPictureBox;
 
         public String ResourcesPath = @"..\..\..\Resources";
-        public Image TestImage;
+        public Image mainImage;
 
         Player mainPlayer;
-        public int TowerLevel = 0;
+        public int TowerLevel = 1;
         public Form1()
         {
             //AllocConsole(); //console for testing
             InitializeComponent();
             String paintDoorsPath = ResourcesPath + "/paintdoors.png";
-            TestImage = Image.FromFile(paintDoorsPath);
+            mainImage = Image.FromFile(paintDoorsPath);
             mainPlayer = new Player();
             //functions = new List<Action<int>>()
             //{
@@ -38,12 +41,17 @@ namespace Food_Crawler
 
             this.StartScreenPictureBox.SizeMode = PictureBoxSizeMode.CenterImage;
             this.StartScreenPictureBox.SizeMode = PictureBoxSizeMode.Zoom;
-            this.StartScreenPictureBox.Image = TestImage;
+            this.StartScreenPictureBox.Image = mainImage;
         }
 
         private void StartMenuButton_Click(object sender, EventArgs e)
         {
-            Room2();
+            GenericFight();
+        }
+
+        public TextBox GetNarratorTextBox()
+        {
+            return this.StartMenuTextBox;
         }
     }
 }

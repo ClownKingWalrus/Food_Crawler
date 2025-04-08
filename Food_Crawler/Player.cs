@@ -11,6 +11,7 @@ namespace Food_Crawler
     {
         public struct Weapons//temp will make its own class at some point
         {
+            //might make the full weapon math var in future
             public string weaponpng;
             public int damage;
         }
@@ -188,7 +189,7 @@ namespace Food_Crawler
             }
         }
 
-        public void PushLootIntoBag(ref Player player, ref Player enemey)
+        public void PushLootIntoBag(ref Player player, ref Enemey enemey)
         {
             if (enemey.GetLootBag() != null && player.GetLootBag() != null)
             {
