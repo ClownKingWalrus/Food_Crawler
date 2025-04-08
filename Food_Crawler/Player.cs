@@ -9,6 +9,12 @@ namespace Food_Crawler
 {
     class Player
     {
+        public struct Weapons//temp will make its own class at some point
+        {
+            //might make the full weapon math var in future
+            public string weaponpng;
+            public int damage;
+        }
         private enum PlayersColor
         {
             Red,
@@ -26,6 +32,8 @@ namespace Food_Crawler
         private int speed; //all good fighting games have some rng to them
         private int damage;
         private int looseStatPoints;
+        private Weapons weapon;
+        
         private List<int>? ingredientPouch; //someone should make a ingredient class
 
         //players customization
@@ -109,6 +117,11 @@ namespace Food_Crawler
             this.looseStatPoints = statPoints;
         }
 
+        public void SetWeapons(Weapons weapn)
+        {
+            this.weapon = weapn;
+        }
+
         //getter functions
         public int GetHealth()
         {
@@ -157,21 +170,30 @@ namespace Food_Crawler
             }
             return "?Null?";
         }
-        public void PrintAllIngredients()
+
+        public Weapons GetWeapon()
+        {
+            return this.weapon;
+        }
+        public void PrintAllIngredients(Form1 mainForm)
         {
             if (ingredientPouch == null || ingredientPouch.Count <= 0)
             {
-                System.Console.WriteLine("No Ingredients");
+                mainForm.GetNarratorTextBox().Text = "No Ingredients";
+                Application.DoEvents();
                 return;
             }
-
+            String tempConstruct = "Ingridents: ";
             for (int i = 0; i < ingredientPouch.Count; i++)
             {
-                System.Console.WriteLine(ingredientPouch[i]);
+                mainForm.GetNarratorTextBox().Text = tempConstruct + $"{ingredientPouch[i]} | ";
+                Application.DoEvents();
+                System.Threading.Thread.Sleep(500);
+                tempConstruct = mainForm.GetNarratorTextBox().Text;
             }
         }
 
-        public void PushLootIntoBag(ref Player player, ref Player enemey)
+        public void PushLootIntoBag(ref Player player, ref Enemey enemey)
         {
             if (enemey.GetLootBag() != null && player.GetLootBag() != null)
             {

@@ -5,6 +5,9 @@ namespace Food_Crawler
 {
     public partial class Form1 : Form
     {
+        //[DllImport("kernel32.dll", SetLastError = true)]
+        //[return: MarshalAs(UnmanagedType.Bool)]
+        //static extern bool AllocConsole();
         Button? healthButton;
         Button? armorButton;
         Button? speedButton;
@@ -14,20 +17,26 @@ namespace Food_Crawler
         Label? speedLabel;
         Label? damageLabel;
         Label? looseStatPoints;
+        PictureBox? enemeyPictureBox;
+        PictureBox? enemeyWeaponPictureBox;
+        PictureBox? playerPictureBox;
+        public bool gameOver = false;
+
+        public String ResourcesPath = @"..\..\..\Resources";
+        public Image mainImage;
 
         Player mainPlayer;
-        public String ResourcesPath = @"..\..\..\Resources";
-        public Image TestImage;
-        //[DllImport("kernel32.dll", SetLastError = true)]
-        //[return: MarshalAs(UnmanagedType.Bool)]
-        //static extern bool AllocConsole();
+        public int TowerLevel = 1;
         public Form1()
         {
             //AllocConsole(); //console for testing
             InitializeComponent();
             String paintDoorsPath = ResourcesPath + "/paintdoors.png";
-            TestImage = Image.FromFile(paintDoorsPath);
+            mainImage = Image.FromFile(paintDoorsPath);
             mainPlayer = new Player();
+            mainPlayer.SetHealth(1000);
+            mainPlayer.SetSpeed(1000);
+            mainPlayer.SetDamage(100);
             //functions = new List<Action<int>>()
             //{
             //    Room1,
@@ -36,12 +45,17 @@ namespace Food_Crawler
 
             this.StartScreenPictureBox.SizeMode = PictureBoxSizeMode.CenterImage;
             this.StartScreenPictureBox.SizeMode = PictureBoxSizeMode.Zoom;
-            this.StartScreenPictureBox.Image = TestImage;
+            this.StartScreenPictureBox.Image = mainImage;
         }
 
         private void StartMenuButton_Click(object sender, EventArgs e)
         {
-            Room2();
+            GenericFight();
+        }
+
+        public TextBox GetNarratorTextBox()
+        {
+            return this.StartMenuTextBox;
         }
     }
 }
