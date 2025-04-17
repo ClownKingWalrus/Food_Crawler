@@ -12,6 +12,11 @@ namespace Food_Crawler
         Button? armorButton;
         Button? speedButton;
         Button? damageButton;
+        Button? BuyHealthPotButton;
+        Button? BuyKnifeButton;
+        Button? CheckMoneyButton;
+        Button? BuyBananaButton;
+        Button? BuyHelmetButton;
         Label? healthLabel;
         Label? armorLabel;
         Label? speedLabel;
@@ -34,9 +39,7 @@ namespace Food_Crawler
             String paintDoorsPath = ResourcesPath + "/paintdoors.png";
             mainImage = Image.FromFile(paintDoorsPath);
             mainPlayer = new Player();
-            mainPlayer.SetHealth(1000);
-            mainPlayer.SetSpeed(1000);
-            mainPlayer.SetDamage(100);
+            Room1();
             //functions = new List<Action<int>>()
             //{
             //    Room1,
@@ -50,12 +53,7 @@ namespace Food_Crawler
 
         private void StartMenuButton_Click(object sender, EventArgs e)
         {
-            GenericFight();
-        }
-
-        public TextBox GetNarratorTextBox()
-        {
-            return this.StartMenuTextBox;
+            Shop();
         }
     }
 }

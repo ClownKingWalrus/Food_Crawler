@@ -16,6 +16,7 @@ namespace Food_Crawler
             String ReflectionPath = ResourcesPath + "/ReflectionOfSelf.png";
             mainImage = Image.FromFile(ReflectionPath);
             StartScreenPictureBox.Image = mainImage;
+            StartMenuTextBox.ReadOnly = true;
             StartMenuTextBox.Text = "Well your not as dashing as you remeber";
 
         }
@@ -26,7 +27,7 @@ namespace Food_Crawler
             mainImage = Image.FromFile(ReflectionPath);
             StartScreenPictureBox.Image = mainImage;
             StartMenuTextBox.Text = "Memories surge through your veins";
-            
+
             //set all buttons null so we not doing funky gamer stuff
             healthButton = null;
             armorButton = null;
@@ -69,6 +70,8 @@ namespace Food_Crawler
             speedLabel = new Label();
             looseStatPoints = new Label();
 
+
+
             //set params for the labels UPDATE SO IT AUTO AJUST THE LABELS
             LabelCreator(ref healthLabel, "healthLabelForm", 30, 0, 100, 70, $"HP: {mainPlayer.GetHealth()}");
             LabelCreator(ref armorLabel, "armorLabelForm", healthLabel.Location.X + healthLabel.Size.Width + 30, 0, 100, 70, $"AMR: {mainPlayer.GetArmor()}");
@@ -80,6 +83,72 @@ namespace Food_Crawler
             {
                 Application.DoEvents();
             }
+        }
+
+        public void Shop() //Lucas
+        {
+            String Background = ResourcesPath + "/Shop.png";
+            TestImage = Image.FromFile(Background);
+            StartScreenPictureBox.Image = TestImage;
+            StartMenuTextBox.ReadOnly = true;
+            StartMenuTextBox.Text = "What do you want to buy weary traveler?";
+
+            CheckMoneyButton = null;
+
+            CheckMoneyButton = new Button();
+
+            string MoneyFile = ResourcesPath + "/Money.png";
+            Image MoneyImage = Image.FromFile(MoneyFile);
+            MoneyImage = ImageResizer(MoneyImage, CheckMoneyButton.Width * 3, CheckMoneyButton.Height * 9);
+            CheckMoneyButton.Image = MoneyImage;
+
+            ButtonCreator(ref CheckMoneyButton, "MoneyForm", 50, 30, 200, 200, "", CheckMoneyFunc);
+
+            BuyHealthPotButton = null;
+
+            BuyHealthPotButton = new Button();
+
+            string HPotFile = ResourcesPath + "/HealthPotion.png";
+            Image HPotImage = Image.FromFile(HPotFile);
+            HPotImage = ImageResizer(HPotImage, BuyHealthPotButton.Width, BuyHealthPotButton.Height * 3);
+            BuyHealthPotButton.Image = HPotImage;
+
+            ButtonCreator(ref BuyHealthPotButton, "HealthPotForm", 550, 30, 80, 80, "", BuyHealthPotFunc);
+
+            BuyKnifeButton = null;
+
+            BuyKnifeButton = new Button();
+
+            string KnifeFile = ResourcesPath + "/Knife.png";
+            Image KnifeImage = Image.FromFile(KnifeFile);
+            KnifeImage = ImageResizer(KnifeImage, BuyKnifeButton.Width, BuyKnifeButton.Height * 3);
+            BuyKnifeButton.Image = KnifeImage;
+
+            ButtonCreator(ref BuyKnifeButton, "KnifeForm", 650, 30, 80, 80, "", BuyKnifeFunc);
+
+            BuyBananaButton = null;
+
+            BuyBananaButton = new Button();
+
+            string BananaFile = ResourcesPath + "/Banana.png";
+            Image BananaImage = Image.FromFile(BananaFile);
+            BananaImage = ImageResizer(BananaImage, BuyBananaButton.Width, BuyBananaButton.Height * 3);
+            BuyBananaButton.Image = BananaImage;
+
+            ButtonCreator(ref BuyBananaButton, "BananaForm", 750, 30, 80, 80, "", BuyBananaFunc);
+
+            BuyHelmetButton = null;
+
+            BuyHelmetButton = new Button();
+
+            string HelmetFile = ResourcesPath + "/Helmet.png";
+            Image HelmetImage = Image.FromFile(HelmetFile);
+            HelmetImage = ImageResizer(HelmetImage, BuyHelmetButton.Width, BuyHelmetButton.Height * 3);
+            BuyHelmetButton.Image = HelmetImage;
+
+            ButtonCreator(ref BuyHelmetButton, "HelmetForm", 850, 30, 80, 80, "", BuyHelmetFunc);
+
+
         }
 
         //Fighting Rooms
@@ -111,7 +180,95 @@ namespace Food_Crawler
             //we can launch the fight like so
             Arena.LaunchFight(ref mainPlayer, ref tempEnemey, tempRandGen, this);
         }
-           
+
+        public void CheckMoneyFunc(Object sender, EventArgs e) //Lucas
+        {
+            String CashSound = ResourcesPath + "/MoneySound.wav";
+            System.Media.SoundPlayer player = new System.Media.SoundPlayer(CashSound);
+            player.Play();
+
+            string money = mainPlayer.GetMoney().ToString();
+            MessageBox.Show($"You Have ${money}");
+        }
+
+        public void BuyHealthPotFunc(Object sender, EventArgs e) //Lucas
+        {
+            int money = mainPlayer.GetMoney();
+
+            if (money >= 8)
+            {
+                String BuySound = ResourcesPath + "/ItemGot.wav";
+                System.Media.SoundPlayer player = new System.Media.SoundPlayer(BuySound);
+                player.Play();
+
+                mainPlayer.IncreaseHealthPotion();
+                mainPlayer.PrintAllPotions();
+
+                mainPlayer.SetMoney(money - 8);
+            }
+            else
+            {
+                MessageBox.Show("You don't have enough money for that. Remaining balance is $" + money.ToString());
+            }
+        }
+
+        public void BuyKnifeFunc(Object sender, EventArgs e) //Lucas
+        {
+            int money = mainPlayer.GetMoney();
+            if (money >= 3)
+            {
+                String BuySound = ResourcesPath + "/ItemGot.wav";
+                System.Media.SoundPlayer player = new System.Media.SoundPlayer(BuySound);
+                player.Play();
+
+                mainPlayer.SetDamage(mainPlayer.GetDamage() + 1);
+                mainPlayer.SetMoney(money - 3);
+                MessageBox.Show("You bought a knife and gained 1 damage.\nYour damage is now: " + mainPlayer.GetDamage().ToString());
+            }
+            else
+            {
+                MessageBox.Show("You don't have enough money for that. Remaining balance is $" + money.ToString());
+            }
+        }
+
+        public void BuyBananaFunc(Object sender, EventArgs e) //Lucas
+        {
+            int money = mainPlayer.GetMoney();
+            if (money >= 4)
+            {
+                String BuySound = ResourcesPath + "/ItemGot.wav";
+                System.Media.SoundPlayer player = new System.Media.SoundPlayer(BuySound);
+                player.Play();
+
+                mainPlayer.SetSpeed(mainPlayer.GetSpeed() + 1);
+                mainPlayer.SetMoney(money - 4);
+                MessageBox.Show("You bought a banana and gained 1 speed.\nYour speed is now: " + mainPlayer.GetSpeed().ToString());
+            }
+            else
+            {
+                MessageBox.Show("You don't have enough money for that. Remaining balance is $" + money.ToString());
+            }
+        }
+
+        public void BuyHelmetFunc(Object sender, EventArgs e) //Lucas
+        {
+            int money = mainPlayer.GetMoney();
+            if (money >= 3)
+            {
+                String BuySound = ResourcesPath + "/ItemGot.wav";
+                System.Media.SoundPlayer player = new System.Media.SoundPlayer(BuySound);
+                player.Play();
+
+                mainPlayer.SetArmor(mainPlayer.GetArmor() + 1);
+                mainPlayer.SetMoney(money - 3);
+                MessageBox.Show("You bought a helmet and gained 1 armor point.\nYour armor is now: " + mainPlayer.GetArmor().ToString());
+            }
+            else
+            {
+                MessageBox.Show("You don't have enough money for that. Remaining balance is $" + money.ToString());
+            }
+        }
+
 
         //EXTRA BUTTON FUNCTIONS
         public void healthButtonFunc(Object sender, EventArgs e)
@@ -120,6 +277,10 @@ namespace Food_Crawler
             {
                 mainPlayer.SetHealth(mainPlayer.GetHealth() + 1);
                 mainPlayer.SetLooseStatPoints(mainPlayer.GetLooseStatPoints() - 1);
+                //play sound as you upgrade
+                String upgradeSound = ResourcesPath + "/upgradeSound.wav";
+                System.Media.SoundPlayer player = new System.Media.SoundPlayer(upgradeSound);
+                player.Play();
                 //visually update
                 PlayerStatsLabelUpdater();
             }
@@ -131,6 +292,10 @@ namespace Food_Crawler
             {
                 mainPlayer.SetSpeed(mainPlayer.GetSpeed() + 1);
                 mainPlayer.SetLooseStatPoints(mainPlayer.GetLooseStatPoints() - 1);
+                //play sound as you upgrade
+                String upgradeSound = ResourcesPath + "/upgradeSound.wav";
+                System.Media.SoundPlayer player = new System.Media.SoundPlayer(upgradeSound);
+                player.Play();
                 //update labels
                 PlayerStatsLabelUpdater();
             }
@@ -142,6 +307,10 @@ namespace Food_Crawler
             {
                 mainPlayer.SetArmor(mainPlayer.GetArmor() + 1);
                 mainPlayer.SetLooseStatPoints(mainPlayer.GetLooseStatPoints() - 1);
+                //play sound as you upgrade
+                String upgradeSound = ResourcesPath + "/upgradeSound.wav";
+                System.Media.SoundPlayer player = new System.Media.SoundPlayer(upgradeSound);
+                player.Play();
                 //update labels
                 PlayerStatsLabelUpdater();
             }
@@ -153,6 +322,10 @@ namespace Food_Crawler
             {
                 mainPlayer.SetDamage(mainPlayer.GetDamage() + 1);
                 mainPlayer.SetLooseStatPoints(mainPlayer.GetLooseStatPoints() - 1);
+                //play sound as you upgrade
+                String upgradeSound = ResourcesPath + "/upgradeSound.wav";
+                System.Media.SoundPlayer player = new System.Media.SoundPlayer(upgradeSound);
+                player.Play();
                 //update labels
                 PlayerStatsLabelUpdater();
             }
