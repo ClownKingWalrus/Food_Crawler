@@ -19,27 +19,51 @@ namespace Food_Crawler
             if (enemey.GetLootBag() == null) {
                 mainForm.GetNarratorTextBox().Text = $"{enemey.GetName()} Was broke and had no loot fight an investor next time";
                 Application.DoEvents();
-                System.Threading.Thread.Sleep(1500);
+                mainForm.NextButtonClicked(mainForm.NextButton);
+                while (mainForm.NextButton.Enabled == true)
+                {
+                    Application.DoEvents();
+                }
                 return;
             }
             mainForm.GetNarratorTextBox().Text = "The enemey was not completly broke here his the loot";
             Application.DoEvents();
-            System.Threading.Thread.Sleep(1500);
+            mainForm.NextButtonClicked(mainForm.NextButton);
+            while (mainForm.NextButton.Enabled == true)
+            {
+                Application.DoEvents();
+            }
             enemey.PrintAllIngredients(mainForm);
-            System.Threading.Thread.Sleep(1500);
+            mainForm.NextButtonClicked(mainForm.NextButton);
+            while (mainForm.NextButton.Enabled == true)
+            {
+                Application.DoEvents();
+            }
             mainForm.GetNarratorTextBox().Text = "You throw the loot into your bag";
             Application.DoEvents();
-            System.Threading.Thread.Sleep(1500);
+            mainForm.NextButtonClicked(mainForm.NextButton);
+            while (mainForm.NextButton.Enabled == true)
+            {
+                Application.DoEvents();
+            }
             if (player.GetLootBag() != null) {
                 player.PushLootIntoBag(ref player, ref enemey);
             } else {
                 mainForm.GetNarratorTextBox().Text = "Did you lose your loot bag or somthing? its null let me reconsruct your loot bag for you";
                 Application.DoEvents();
-                System.Threading.Thread.Sleep(1500);
+                mainForm.NextButtonClicked(mainForm.NextButton);
+                while (mainForm.NextButton.Enabled == true)
+                {
+                    Application.DoEvents();
+                }
                 player.SetNewLootBag();
                 mainForm.GetNarratorTextBox().Text = "pushing in enemey loot into your bag homeslice breadslice dawg";
                 Application.DoEvents();
-                System.Threading.Thread.Sleep(1500);
+                mainForm.NextButtonClicked(mainForm.NextButton);
+                while (mainForm.NextButton.Enabled == true)
+                {
+                    Application.DoEvents();
+                }
                 player.PushLootIntoBag(ref player, ref enemey);
             }
         }
@@ -51,13 +75,40 @@ namespace Food_Crawler
             if (player.GetHealth() <= 0) {
                 mainForm.GetNarratorTextBox().Text = $"You died your Health is {player.GetHealth()}";
                 Application.DoEvents();
-                System.Threading.Thread.Sleep(1500);
+
+                mainForm.NextButtonClicked(mainForm.NextButton);
+                while (mainForm.NextButton.Enabled == true)
+                {
+                    Application.DoEvents();
+                }
+
                 return true;
             } 
             if (enemey.GetHealth() <= 0) {
                 mainForm.GetNarratorTextBox().Text = $"{enemey.GetName()} Died a violent death {enemey.GetName()} HP: {enemey.GetHealth()}";
                 Application.DoEvents();
-                System.Threading.Thread.Sleep(1500);
+
+                mainForm.NextButtonClicked(mainForm.NextButton);
+                while (mainForm.NextButton.Enabled == true)
+                {
+                    Application.DoEvents();
+                }
+                //temporary
+                Random rand = new();
+                int lspGained = 0;
+                int exphpmuli = 0;
+                if (player.GetHealth() < enemey.GetDamage())
+                {
+                    exphpmuli = 10;
+                } else if (player.GetHealth() < (enemey.GetDamage() * 2)) {
+                    exphpmuli = 5;
+                } else {
+                    exphpmuli = 2;
+                }
+                lspGained = rand.Next(1, 5);
+                lspGained = lspGained + exphpmuli;
+                mainForm.GetNarratorTextBox().Text = $"LSP gained from fight is {lspGained} for a total of {lspGained + player.GetLooseStatPoints()}";
+                player.SetLooseStatPoints(player.GetLooseStatPoints() + lspGained);
                 LootPhase(ref player, ref enemey, mainForm);
                 return true;
             }
@@ -69,10 +120,20 @@ namespace Food_Crawler
             if (player.GetSpeed() > enemey.GetSpeed()) {
                 mainForm.GetNarratorTextBox().Text = $"{enemey.GetName()} sees you sprinting towards him like a mad man {enemey.GetName()} wishes he did more legs";
                 Application.DoEvents();
-                System.Threading.Thread.Sleep(1500);
+                mainForm.NextButtonClicked(mainForm.NextButton);
+                while (mainForm.NextButton.Enabled == true)
+                {
+                    Application.DoEvents();
+                }
                 mainForm.GetNarratorTextBox().Text = $"{player.GetName()} is rolling for inital attack chance must be above 5";
                 Application.DoEvents();
-                System.Threading.Thread.Sleep(1500);
+
+                mainForm.NextButtonClicked(mainForm.NextButton);
+                while (mainForm.NextButton.Enabled == true)
+                {
+                    Application.DoEvents();
+                }
+
                 int randomNum = 0;
                 for (int i = 0; i < 3; i++)
                 {
@@ -92,18 +153,37 @@ namespace Food_Crawler
                 }
                 mainForm.GetNarratorTextBox().Text = $"{player.GetName()} Rolled: {randomNum}";
                 Application.DoEvents();
+                mainForm.NextButtonClicked(mainForm.NextButton);
+
+                while (mainForm.NextButton.Enabled == true)
+                {
+                    Application.DoEvents();
+                }
+
                 if (randomNum > 5)
                 {
                     mainForm.GetNarratorTextBox().Text = $"{enemey.GetName()} sheds a tear";
                     Application.DoEvents();
-                    System.Threading.Thread.Sleep(1500);
+                    mainForm.NextButtonClicked(mainForm.NextButton);
+                    while (mainForm.NextButton.Enabled == true)
+                    {
+                        Application.DoEvents();
+                    }
                     int dmg = player.GetDamage() - enemey.GetArmor() / 2;
                     mainForm.GetNarratorTextBox().Text = $"{enemey.GetName()} armor reduced this much Damage: {enemey.GetArmor() / 2}";
                     Application.DoEvents();
-                    System.Threading.Thread.Sleep(1500);
+                    mainForm.NextButtonClicked(mainForm.NextButton);
+                    while (mainForm.NextButton.Enabled == true)
+                    {
+                        Application.DoEvents();
+                    }
                     mainForm.GetNarratorTextBox().Text = $"{player.GetName()} just dealt {dmg} damage";
                     Application.DoEvents();
-                    System.Threading.Thread.Sleep(1500);
+                    mainForm.NextButtonClicked(mainForm.NextButton);
+                    while (mainForm.NextButton.Enabled == true)
+                    {
+                        Application.DoEvents();
+                    }
                     enemey.SetHealth(enemey.GetHealth() - dmg);
                     if (DeathChecker(ref player, ref enemey, mainForm))
                     {
@@ -114,15 +194,28 @@ namespace Food_Crawler
                 {
                     mainForm.GetNarratorTextBox().Text = $"{enemey.GetName()} absolutly dodged your slow attack";
                     Application.DoEvents();
-                    System.Threading.Thread.Sleep(1500);
+
+                    mainForm.NextButtonClicked(mainForm.NextButton);
+                    while (mainForm.NextButton.Enabled == true)
+                    {
+                        Application.DoEvents();
+                    }
                 }
             } else if (enemey.GetSpeed() > player.GetSpeed()) {
                 mainForm.GetNarratorTextBox().Text = "It's pretty fast its approaching for an attack";
                 Application.DoEvents();
-                System.Threading.Thread.Sleep(1500);
+                mainForm.NextButtonClicked(mainForm.NextButton);
+                while (mainForm.NextButton.Enabled == true)
+                {
+                    Application.DoEvents();
+                }
                 mainForm.GetNarratorTextBox().Text = $"{enemey.GetName()} is rolling for intital attack chance must be above 5";
                 Application.DoEvents();
-                System.Threading.Thread.Sleep(1500);
+                mainForm.NextButtonClicked(mainForm.NextButton);
+                while (mainForm.NextButton.Enabled == true)
+                {
+                    Application.DoEvents();
+                }
                 int randomNum = 0;
                 for (int i = 0; i < 3; i++)
                 {
@@ -139,16 +232,30 @@ namespace Food_Crawler
                 }
                 mainForm.GetNarratorTextBox().Text = $"{enemey.GetName()} Rolled: {randomNum}";
                 Application.DoEvents();
-                System.Threading.Thread.Sleep(1500);
+
+                mainForm.NextButtonClicked(mainForm.NextButton);
+                while (mainForm.NextButton.Enabled == true)
+                {
+                    Application.DoEvents();
+                }
+
                 if (randomNum > 5)
                 {
                     int dmg = enemey.GetDamage() - player.GetArmor() / 2;
                     mainForm.GetNarratorTextBox().Text = $"Your armor reduced this much damage: {player.GetArmor() / 2}";
                     Application.DoEvents();
-                    System.Threading.Thread.Sleep(1500);
+                    mainForm.NextButtonClicked(mainForm.NextButton);
+                    while (mainForm.NextButton.Enabled == true)
+                    {
+                        Application.DoEvents();
+                    }
                     mainForm.GetNarratorTextBox().Text = $"{enemey.GetName()} just dealt {dmg} damage";
                     Application.DoEvents();
-                    System.Threading.Thread.Sleep(1500);
+                    mainForm.NextButtonClicked(mainForm.NextButton);
+                    while (mainForm.NextButton.Enabled == true)
+                    {
+                        Application.DoEvents();
+                    }
                     player.SetHealth(player.GetHealth() - dmg);
                     if (DeathChecker(ref player, ref enemey, mainForm))
                     {
@@ -158,6 +265,11 @@ namespace Food_Crawler
                 else {
                     mainForm.GetNarratorTextBox().Text = "You evade the enemey Inital strike";
                     Application.DoEvents();
+                    mainForm.NextButtonClicked(mainForm.NextButton);
+                    while (mainForm.NextButton.Enabled == true)
+                    {
+                        Application.DoEvents();
+                    }
                 }
             }
             return false;
@@ -197,20 +309,36 @@ namespace Food_Crawler
             randNumGen.Next(1, 2);
             mainForm.GetNarratorTextBox().Text = $"{player.GetName()} Strike at {enemey.GetName()} For: {player.GetDamage()}";
             Application.DoEvents();
-            System.Threading.Thread.Sleep(1500);
+            mainForm.NextButtonClicked(mainForm.NextButton);
+            while (mainForm.NextButton.Enabled == true)
+            {
+                Application.DoEvents();
+            }
             if (randomNum == 1)
             { //if the enemey decides to hunker down
                 mainForm.GetNarratorTextBox().Text = $"{enemey.GetName()} Decides to hunker down increasing is armor by half for a total of {enemey.GetArmor() + enemey.GetArmor() / 2}";
                 Application.DoEvents();
-                System.Threading.Thread.Sleep(1500);
+                mainForm.NextButtonClicked(mainForm.NextButton);
+                while (mainForm.NextButton.Enabled == true)
+                {
+                    Application.DoEvents();
+                }
                 mainForm.GetNarratorTextBox().Text = $"{player.GetName()} Damage is currently {player.GetDamage()}";
                 Application.DoEvents();
-                System.Threading.Thread.Sleep(1500);
+                mainForm.NextButtonClicked(mainForm.NextButton);
+                while (mainForm.NextButton.Enabled == true)
+                {
+                    Application.DoEvents();
+                }
                 int dmg = player.GetDamage();
                 dmg = dmg - (enemey.GetArmor() + (enemey.GetArmor() / 2));
                 mainForm.GetNarratorTextBox().Text = $"{player.GetName()} Damage is reduced to {dmg}";
                 Application.DoEvents();
-                System.Threading.Thread.Sleep(1500);
+                mainForm.NextButtonClicked(mainForm.NextButton);
+                while (mainForm.NextButton.Enabled == true)
+                {
+                    Application.DoEvents();
+                }
                 enemey.SetHealth(enemey.GetHealth() - dmg);
                 if (DeathChecker(ref player, ref enemey, mainForm)) { return true; }
 
@@ -238,28 +366,48 @@ namespace Food_Crawler
                 }
                 mainForm.GetNarratorTextBox().Text = $"{enemey.GetName()} Rolled: {randomNum}";
                 Application.DoEvents();
-                System.Threading.Thread.Sleep(1500);
+                mainForm.NextButtonClicked(mainForm.NextButton);
+                while (mainForm.NextButton.Enabled == true)
+                {
+                    Application.DoEvents();
+                }
                 if (randomNum <= 0)
                 {
                     mainForm.GetNarratorTextBox().Text = $"giving two pity points because {enemey.GetName} managed to roll a zero :[]";
                     Application.DoEvents();
-                    System.Threading.Thread.Sleep(1500);
+                    mainForm.NextButtonClicked(mainForm.NextButton);
+                    while (mainForm.NextButton.Enabled == true)
+                    {
+                        Application.DoEvents();
+                    }
                     randomNum = 2;
                 }
                 mainForm.GetNarratorTextBox().Text = $"Initating Roll phase Highest number decides winner";
                 Application.DoEvents();
-                System.Threading.Thread.Sleep(1500);
+                mainForm.NextButtonClicked(mainForm.NextButton);
+                while (mainForm.NextButton.Enabled == true)
+                {
+                    Application.DoEvents();
+                }
                 if (DodgeChance(randomNum, player.GetSpeed(), randNumGen, mainForm))
                 {
                     mainForm.GetNarratorTextBox().Text = $"{enemey.GetName()} weaves your attack by the luck of the gods";
                     Application.DoEvents();
-                    System.Threading.Thread.Sleep(1500);
+                    mainForm.NextButtonClicked(mainForm.NextButton);
+                    while (mainForm.NextButton.Enabled == true)
+                    {
+                        Application.DoEvents();
+                    }
                 }
                 else
                 {
                     mainForm.GetNarratorTextBox().Text = $"{enemey.GetName()} Gets clobberd over the head for {dmg}";
                     Application.DoEvents();
-                    System.Threading.Thread.Sleep(1500);
+                    mainForm.NextButtonClicked(mainForm.NextButton);
+                    while (mainForm.NextButton.Enabled == true)
+                    {
+                        Application.DoEvents();
+                    }
                     enemey.SetHealth(enemey.GetHealth() - dmg);
                     if (DeathChecker(ref player, ref enemey, mainForm))
                     {
@@ -298,20 +446,36 @@ namespace Food_Crawler
 
             mainForm.GetNarratorTextBox().Text = $"{enemey.GetName()} Strike at {player.GetName()} For: {enemey.GetDamage()}";
             Application.DoEvents();
-            System.Threading.Thread.Sleep(1500);
+            mainForm.NextButtonClicked(mainForm.NextButton);
+            while (mainForm.NextButton.Enabled == true)
+            {
+                Application.DoEvents();
+            }
             if (randomNum == 1)
             { //if the player decides to hunker down
                 mainForm.GetNarratorTextBox().Text = $"{player.GetName()} Decides to hunker down increasing is armor by half for a total of {player.GetArmor() + player.GetArmor() / 2}";
                 Application.DoEvents();
-                System.Threading.Thread.Sleep(1500);
+                mainForm.NextButtonClicked(mainForm.NextButton);
+                while (mainForm.NextButton.Enabled == true)
+                {
+                    Application.DoEvents();
+                }
                 mainForm.GetNarratorTextBox().Text = $"{enemey.GetName()} Damage is currently {enemey.GetDamage()}";
                 Application.DoEvents();
-                System.Threading.Thread.Sleep(1500);
+                mainForm.NextButtonClicked(mainForm.NextButton);
+                while (mainForm.NextButton.Enabled == true)
+                {
+                    Application.DoEvents();
+                }
                 int dmg = player.GetDamage();
                 dmg = dmg - (player.GetArmor() + (player.GetArmor() / 2));
                 mainForm.GetNarratorTextBox().Text = $"{player.GetName()} Damage is reduced to {dmg}";
                 Application.DoEvents();
-                System.Threading.Thread.Sleep(1500);
+                mainForm.NextButtonClicked(mainForm.NextButton);
+                while (mainForm.NextButton.Enabled == true)
+                {
+                    Application.DoEvents();
+                }
                 player.SetHealth(player.GetHealth() - dmg);
                 if(DeathChecker(ref player, ref enemey, mainForm)) {return true;}
 
@@ -321,7 +485,11 @@ namespace Food_Crawler
                 int dmg = enemey.GetDamage();
                 mainForm.GetNarratorTextBox().Text = $"{player.GetName()} Decides not to become a shish kebob and attempts to dodge";
                 Application.DoEvents();
-                System.Threading.Thread.Sleep(1500);
+                mainForm.NextButtonClicked(mainForm.NextButton);
+                while (mainForm.NextButton.Enabled == true)
+                {
+                    Application.DoEvents();
+                }
                 for (int i = 0; i < 3; i++)
                 {
                     randomNum = randNumGen.Next(player.GetSpeed() / 2);
@@ -350,7 +518,11 @@ namespace Food_Crawler
                 }
                 mainForm.GetNarratorTextBox().Text = $"Initating Roll phase Highest number decides winner";
                 Application.DoEvents();
-                System.Threading.Thread.Sleep(1500);
+                mainForm.NextButtonClicked(mainForm.NextButton);
+                while (mainForm.NextButton.Enabled == true)
+                {
+                    Application.DoEvents();
+                }
                 if (DodgeChance(randomNum, enemey.GetSpeed(), randNumGen, mainForm))
                 {
                     mainForm.GetNarratorTextBox().Text = $"{player.GetName()} weaves the attack by the luck of the gods";
@@ -394,11 +566,19 @@ namespace Food_Crawler
             } else { //same speed
                 mainForm.GetNarratorTextBox().Text = "Since you are just as fast as eachother you coin flip to see who attacks first";
                 Application.DoEvents();
-                System.Threading.Thread.Sleep(1500);
+                mainForm.NextButtonClicked(mainForm.NextButton);
+                while (mainForm.NextButton.Enabled == true)
+                {
+                    Application.DoEvents();
+                }
                 if (randNumGen.Next(1) == 1) {
                     mainForm.GetNarratorTextBox().Text = $"good job {player.GetName()} won the coin flip";
                     Application.DoEvents();
-                    System.Threading.Thread.Sleep(1500);
+                    mainForm.NextButtonClicked(mainForm.NextButton);
+                    while (mainForm.NextButton.Enabled == true)
+                    {
+                        Application.DoEvents();
+                    }
                     if (NormalStrikePhaseMainPlayerTurn(ref player, ref enemey, randNumGen, false, mainForm))
                     {
                         return true;
@@ -410,7 +590,11 @@ namespace Food_Crawler
                 } else {
                     mainForm.GetNarratorTextBox().Text = $"{enemey.GetName()} won the coin flip";
                     Application.DoEvents();
-                    System.Threading.Thread.Sleep(1500);
+                    mainForm.NextButtonClicked(mainForm.NextButton);
+                    while (mainForm.NextButton.Enabled == true)
+                    {
+                        Application.DoEvents();
+                    }
                     if (NormalStrikePhaseMainEnemeyTurn(ref enemey, ref player, randNumGen, true, mainForm))
                     {
                         return true;
@@ -429,10 +613,14 @@ namespace Food_Crawler
             mainForm.PlayerStatsLabelUpdater();
             mainForm.GetNarratorTextBox().Text = $"You Encounterd {enemey.GetName()}";
             Application.DoEvents();
-            System.Threading.Thread.Sleep(1500);
+            mainForm.NextButtonClicked(mainForm.NextButton);
+            while (mainForm.NextButton.Enabled == true)
+            {
+                Application.DoEvents();
+            }
             //First strike attack phase
             InitalStrikePhase(ref player, ref enemey, randNumGen, mainForm);
-            while (true)
+            while (true && enemey.GetHealth() > 0)
             {
                 if (NormalStrikePhase(ref player, ref enemey, randNumGen, mainForm))
                 {

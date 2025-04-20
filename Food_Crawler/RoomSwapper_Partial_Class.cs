@@ -18,7 +18,12 @@ namespace Food_Crawler
             StartScreenPictureBox.Image = mainImage;
             StartMenuTextBox.ReadOnly = true;
             StartMenuTextBox.Text = "Well your not as dashing as you remeber";
-
+            NextButtonClicked(NextButton);
+            while (NextButton.Enabled == true)
+            {
+                Application.DoEvents();
+            }
+            
         }
         public void Room2()
         {
@@ -69,7 +74,7 @@ namespace Food_Crawler
             damageLabel = new Label();
             speedLabel = new Label();
             looseStatPoints = new Label();
-
+            
 
 
             //set params for the labels UPDATE SO IT AUTO AJUST THE LABELS
@@ -78,18 +83,36 @@ namespace Food_Crawler
             LabelCreator(ref damageLabel, "damageLabelForm", armorLabel.Location.X + armorLabel.Size.Width + 30, 0, 100, 70, $"DMG: {mainPlayer.GetDamage()}");
             LabelCreator(ref speedLabel, "speedLabelForm", damageLabel.Location.X + damageLabel.Size.Width + 30, 0, 100, 70, $"SPD: {mainPlayer.GetSpeed()}");
             LabelCreator(ref looseStatPoints, "looseStatPointsForm", speedLabel.Location.X + speedLabel.Size.Width + 30, 0, 100, 70, $"LSP: {mainPlayer.GetLooseStatPoints()}");
+            
             Application.DoEvents();
             while (mainPlayer.GetLooseStatPoints() > 0)
             {
                 Application.DoEvents();
             }
+            this.Controls.Remove(healthButton);
+            this.Controls.Remove(speedButton);
+            this.Controls.Remove(armorButton);
+            this.Controls.Remove(damageButton);
+            healthButton.Dispose();
+            speedButton.Dispose();
+            armorButton.Dispose();
+            damageButton.Dispose();
+
+
+
+            NextButtonClicked(NextButton);
+            while (NextButton.Enabled == true)
+            {
+                Application.DoEvents();
+            }
+
         }
 
         public void Shop() //Lucas
         {
             String Background = ResourcesPath + "/Shop.png";
-            TestImage = Image.FromFile(Background);
-            StartScreenPictureBox.Image = TestImage;
+            mainImage = Image.FromFile(Background);
+            StartScreenPictureBox.Image = mainImage;
             StartMenuTextBox.ReadOnly = true;
             StartMenuTextBox.Text = "What do you want to buy weary traveler?";
 
@@ -147,8 +170,27 @@ namespace Food_Crawler
             BuyHelmetButton.Image = HelmetImage;
 
             ButtonCreator(ref BuyHelmetButton, "HelmetForm", 850, 30, 80, 80, "", BuyHelmetFunc);
+            Application.DoEvents();
 
+            Button leaveButton = new();
+            ButtonCreator(ref leaveButton, "leaveButton", StartScreenPictureBox.Width/2, StartScreenPictureBox.Height - 160, 200, 80, "Leave", DisableButton);
 
+            while (leaveButton.Enabled == true)
+            {
+                Application.DoEvents();
+            }
+            Controls.Remove(leaveButton);
+            Controls.Remove(BuyBananaButton);
+            Controls.Remove(BuyHealthPotButton);
+            Controls.Remove(BuyHelmetButton);
+            Controls.Remove(BuyKnifeButton);
+            Controls.Remove(CheckMoneyButton);
+            BuyKnifeButton.Dispose();
+            BuyHealthPotButton.Dispose();
+            BuyHelmetButton.Dispose();
+            BuyKnifeButton.Dispose();
+            CheckMoneyButton.Dispose();
+            leaveButton.Dispose();
         }
 
         //Fighting Rooms
@@ -179,6 +221,8 @@ namespace Food_Crawler
 
             //we can launch the fight like so
             Arena.LaunchFight(ref mainPlayer, ref tempEnemey, tempRandGen, this);
+
+            GetNarratorTextBox().Text = "you march on";
         }
 
         public void CheckMoneyFunc(Object sender, EventArgs e) //Lucas
@@ -223,7 +267,7 @@ namespace Food_Crawler
 
                 mainPlayer.SetDamage(mainPlayer.GetDamage() + 1);
                 mainPlayer.SetMoney(money - 3);
-                MessageBox.Show("You bought a knife and gained 1 damage.\nYour damage is now: " + mainPlayer.GetDamage().ToString());
+                MessageBox.Show("You bought a knife and gained 1 damage.\nYour damage is now: " + mainPlayer.GetDamage().ToString());//use the narrator text box plox
             }
             else
             {
@@ -269,6 +313,54 @@ namespace Food_Crawler
             }
         }
 
+        public void ShopButton(Object sender, EventArgs e)
+        {
+            bool upgradedoor = false;
+            if (upgradeButton.Enabled == true)
+            {
+                upgradedoor = true;
+                upgradeButton.Hide();
+                upgradeButton.Enabled = false;
+            }
+            shopButton.Hide();
+            shopButton.Enabled = false;
+            caveButton.Hide();
+            caveButton.Enabled = false;
+            Shop();
+            shopButton.Show();
+            shopButton.Enabled = true;
+            caveButton.Show();
+            caveButton.Enabled = true;
+            if (upgradedoor)
+            {
+                upgradeButton.Show();
+                upgradeButton.Enabled = true;
+                mainImage = Image.FromFile(upgradeRoomPath);
+                StartScreenPictureBox.Image = mainImage;
+                return;
+            }
+            mainImage = Image.FromFile(notupgradeRoomPath);
+            StartScreenPictureBox.Image = mainImage;
+        }
+
+        public void UpgradeRoomButton(Object sender, EventArgs e)
+        {
+            shopButton.Hide();
+            shopButton.Enabled = false;
+            upgradeButton.Hide();
+            upgradeButton.Enabled = false;
+            caveButton.Hide();
+            caveButton.Enabled = false;
+            Room2();
+            shopButton.Show();
+            shopButton.Enabled = true;
+            upgradeButton.Show();
+            upgradeButton.Enabled = true;
+            caveButton.Show();
+            caveButton.Enabled = true;
+            mainImage = Image.FromFile(upgradeRoomPath);
+            StartScreenPictureBox.Image = mainImage;
+        }
 
         //EXTRA BUTTON FUNCTIONS
         public void healthButtonFunc(Object sender, EventArgs e)
@@ -329,6 +421,24 @@ namespace Food_Crawler
                 //update labels
                 PlayerStatsLabelUpdater();
             }
+        }
+
+        public void NextButtonClicked(Button button)
+        {
+            button.BringToFront();
+            button.Text = "NEXT";
+            button.Show();
+            button.Enabled = true;
+
+            EventHandler tempEvent = null;
+            tempEvent = (s, e) => //lamda function is the same as making a function called void somthing(Object sender, EventArgs, arg){stuff;}
+            {
+                button.Click -= tempEvent;
+                button.Enabled = false;
+                button.Hide();
+            };
+            //subscribe to the event lol
+            button.Click += tempEvent;
         }
 
         public void DisableButton(Object sender, EventArgs e)
