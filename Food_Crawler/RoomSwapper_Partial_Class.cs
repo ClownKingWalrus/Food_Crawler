@@ -16,8 +16,14 @@ namespace Food_Crawler
             String ReflectionPath = ResourcesPath + "/ReflectionOfSelf.png";
             mainImage = Image.FromFile(ReflectionPath);
             StartScreenPictureBox.Image = mainImage;
+            StartMenuTextBox.ReadOnly = true;
             StartMenuTextBox.Text = "Well your not as dashing as you remeber";
-
+            NextButtonClicked(NextButton);
+            while (NextButton.Enabled == true)
+            {
+                Application.DoEvents();
+            }
+            
         }
         public void Room2()
         {
@@ -26,7 +32,17 @@ namespace Food_Crawler
             mainImage = Image.FromFile(ReflectionPath);
             StartScreenPictureBox.Image = mainImage;
             StartMenuTextBox.Text = "Memories surge through your veins";
-            
+            if (healthButton != null)
+            {
+                healthButton.Hide();
+                healthButton.Dispose();
+                armorButton.Hide();
+                armorButton.Dispose();
+                damageButton.Hide();
+                damageButton.Dispose();
+                speedButton.Hide();
+                speedButton.Dispose();
+            }
             //set all buttons null so we not doing funky gamer stuff
             healthButton = null;
             armorButton = null;
@@ -55,7 +71,16 @@ namespace Food_Crawler
             armorButton.Image = upgradeImage;
             damageButton.Image = upgradeImage;
             speedButton.Image = upgradeImage;
-
+            //if labels are still there
+            if (healthLabel != null)
+            {
+                PlayerStatsHider();
+                healthLabel.Dispose();
+                armorLabel.Dispose();
+                damageLabel.Dispose();
+                speedLabel.Dispose();
+                looseStatPoints.Dispose();
+            }
             //set up all labels
             healthLabel = null;
             armorLabel = null;
@@ -68,6 +93,8 @@ namespace Food_Crawler
             damageLabel = new Label();
             speedLabel = new Label();
             looseStatPoints = new Label();
+            
+
 
             //set params for the labels UPDATE SO IT AUTO AJUST THE LABELS
             LabelCreator(ref healthLabel, "healthLabelForm", 30, 0, 100, 70, $"HP: {mainPlayer.GetHealth()}");
@@ -75,11 +102,114 @@ namespace Food_Crawler
             LabelCreator(ref damageLabel, "damageLabelForm", armorLabel.Location.X + armorLabel.Size.Width + 30, 0, 100, 70, $"DMG: {mainPlayer.GetDamage()}");
             LabelCreator(ref speedLabel, "speedLabelForm", damageLabel.Location.X + damageLabel.Size.Width + 30, 0, 100, 70, $"SPD: {mainPlayer.GetSpeed()}");
             LabelCreator(ref looseStatPoints, "looseStatPointsForm", speedLabel.Location.X + speedLabel.Size.Width + 30, 0, 100, 70, $"LSP: {mainPlayer.GetLooseStatPoints()}");
+            
             Application.DoEvents();
             while (mainPlayer.GetLooseStatPoints() > 0)
             {
                 Application.DoEvents();
             }
+            this.Controls.Remove(healthButton);
+            this.Controls.Remove(speedButton);
+            this.Controls.Remove(armorButton);
+            this.Controls.Remove(damageButton);
+            healthButton.Dispose();
+            speedButton.Dispose();
+            armorButton.Dispose();
+            damageButton.Dispose();
+
+
+
+            NextButtonClicked(NextButton);
+            while (NextButton.Enabled == true)
+            {
+                Application.DoEvents();
+            }
+
+        }
+
+        public void Shop() //Lucas
+        {
+            String Background = ResourcesPath + "/Shop.png";
+            mainImage = Image.FromFile(Background);
+            StartScreenPictureBox.Image = mainImage;
+            StartMenuTextBox.ReadOnly = true;
+            StartMenuTextBox.Text = "What do you want to buy weary traveler?";
+
+            CheckMoneyButton = null;
+
+            CheckMoneyButton = new Button();
+
+            string MoneyFile = ResourcesPath + "/Money.png";
+            Image MoneyImage = Image.FromFile(MoneyFile);
+            MoneyImage = ImageResizer(MoneyImage, CheckMoneyButton.Width * 3, CheckMoneyButton.Height * 9);
+            CheckMoneyButton.Image = MoneyImage;
+
+            ButtonCreator(ref CheckMoneyButton, "MoneyForm", 50, 30, 200, 200, "", CheckMoneyFunc);
+
+            BuyHealthPotButton = null;
+
+            BuyHealthPotButton = new Button();
+
+            string HPotFile = ResourcesPath + "/HealthPotion.png";
+            Image HPotImage = Image.FromFile(HPotFile);
+            HPotImage = ImageResizer(HPotImage, BuyHealthPotButton.Width, BuyHealthPotButton.Height * 3);
+            BuyHealthPotButton.Image = HPotImage;
+
+            ButtonCreator(ref BuyHealthPotButton, "HealthPotForm", 550, 30, 80, 80, "", BuyHealthPotFunc);
+
+            BuyKnifeButton = null;
+
+            BuyKnifeButton = new Button();
+
+            string KnifeFile = ResourcesPath + "/Knife.png";
+            Image KnifeImage = Image.FromFile(KnifeFile);
+            KnifeImage = ImageResizer(KnifeImage, BuyKnifeButton.Width, BuyKnifeButton.Height * 3);
+            BuyKnifeButton.Image = KnifeImage;
+
+            ButtonCreator(ref BuyKnifeButton, "KnifeForm", 650, 30, 80, 80, "", BuyKnifeFunc);
+
+            BuyBananaButton = null;
+
+            BuyBananaButton = new Button();
+
+            string BananaFile = ResourcesPath + "/Banana.png";
+            Image BananaImage = Image.FromFile(BananaFile);
+            BananaImage = ImageResizer(BananaImage, BuyBananaButton.Width, BuyBananaButton.Height * 3);
+            BuyBananaButton.Image = BananaImage;
+
+            ButtonCreator(ref BuyBananaButton, "BananaForm", 750, 30, 80, 80, "", BuyBananaFunc);
+
+            BuyHelmetButton = null;
+
+            BuyHelmetButton = new Button();
+
+            string HelmetFile = ResourcesPath + "/Helmet.png";
+            Image HelmetImage = Image.FromFile(HelmetFile);
+            HelmetImage = ImageResizer(HelmetImage, BuyHelmetButton.Width, BuyHelmetButton.Height * 3);
+            BuyHelmetButton.Image = HelmetImage;
+
+            ButtonCreator(ref BuyHelmetButton, "HelmetForm", 850, 30, 80, 80, "", BuyHelmetFunc);
+            Application.DoEvents();
+
+            Button leaveButton = new();
+            ButtonCreator(ref leaveButton, "leaveButton", StartScreenPictureBox.Width/2, StartScreenPictureBox.Height - 160, 200, 80, "Leave", DisableButton);
+
+            while (leaveButton.Enabled == true)
+            {
+                Application.DoEvents();
+            }
+            Controls.Remove(leaveButton);
+            Controls.Remove(BuyBananaButton);
+            Controls.Remove(BuyHealthPotButton);
+            Controls.Remove(BuyHelmetButton);
+            Controls.Remove(BuyKnifeButton);
+            Controls.Remove(CheckMoneyButton);
+            BuyKnifeButton.Dispose();
+            BuyHealthPotButton.Dispose();
+            BuyHelmetButton.Dispose();
+            BuyKnifeButton.Dispose();
+            CheckMoneyButton.Dispose();
+            leaveButton.Dispose();
         }
 
         //Fighting Rooms
@@ -107,11 +237,173 @@ namespace Food_Crawler
             enemeyWeaponPictureBox = null;
             enemeyWeaponPictureBox = new();
             PictureBoxCreator(ref enemeyWeaponPictureBox, 200, 200, enemeyPictureBox.Location.X, enemeyPictureBox.Location.Y + enemeyPictureBox.Height/2, EnemeyWeaponImage);
-
+            EnemeyStatsLabelUpdater(ref tempEnemey);
             //we can launch the fight like so
-            Arena.LaunchFight(ref mainPlayer, ref tempEnemey, tempRandGen, this);
+            if (staycounter < 10)
+            {
+                Arena.LaunchFight(ref mainPlayer, ref tempEnemey, tempRandGen, this);
+            } else if (staycounter < 30)
+            {
+                enemeyWeaponPictureBox.Hide();
+                EnemeyImagePath = ResourcesPath + @"\ancientGobo_Crawl.png";
+                EnemeyImage = Image.FromFile(EnemeyImagePath);
+                PictureBoxCreator(ref enemeyPictureBox, 500, 500, this.StartScreenPictureBox.Width - 1000, this.Height - 1000, EnemeyImage);
+                Arena.LaunchFight(ref mainPlayer, ref ancientGobbo, tempRandGen, this);
+            } else
+            {
+                enemeyWeaponPictureBox.Hide();
+                EnemeyImagePath = ResourcesPath + @"\Dungeon_Soul.png";
+                EnemeyImage = Image.FromFile(EnemeyImagePath);
+                PictureBoxCreator(ref enemeyPictureBox, 500, 500, this.StartScreenPictureBox.Width - 1000, this.Height - 1000, EnemeyImage);
+                Arena.LaunchFight(ref mainPlayer, ref Dungeon_Soul, tempRandGen, this);
+            }
+            EnemeyStatsCleaner();
+            this.Controls.Remove(enemeyWeaponPictureBox);
+            enemeyWeaponPictureBox.Dispose();
+            this.Controls.Remove(enemeyPictureBox);
+            enemeyPictureBox.Dispose();
+
+            GetNarratorTextBox().Text = "you march on";
         }
-           
+
+        public void CheckMoneyFunc(Object sender, EventArgs e) //Lucas
+        {
+            String CashSound = ResourcesPath + "/MoneySound.wav";
+            System.Media.SoundPlayer player = new System.Media.SoundPlayer(CashSound);
+            player.Play();
+
+            string money = mainPlayer.GetMoney().ToString();
+            MessageBox.Show($"You Have ${money}");
+        }
+
+        public void BuyHealthPotFunc(Object sender, EventArgs e) //Lucas
+        {
+            int money = mainPlayer.GetMoney();
+
+            if (money >= 8)
+            {
+                String BuySound = ResourcesPath + "/ItemGot.wav";
+                System.Media.SoundPlayer player = new System.Media.SoundPlayer(BuySound);
+                player.Play();
+
+                mainPlayer.IncreaseHealthPotion();
+                mainPlayer.PrintAllPotions();
+
+                mainPlayer.SetMoney(money - 8);
+            }
+            else
+            {
+                MessageBox.Show("You don't have enough money for that. Remaining balance is $" + money.ToString());
+            }
+        }
+
+        public void BuyKnifeFunc(Object sender, EventArgs e) //Lucas
+        {
+            int money = mainPlayer.GetMoney();
+            if (money >= 3)
+            {
+                String BuySound = ResourcesPath + "/ItemGot.wav";
+                System.Media.SoundPlayer player = new System.Media.SoundPlayer(BuySound);
+                player.Play();
+
+                mainPlayer.SetDamage(mainPlayer.GetDamage() + 1);
+                mainPlayer.SetMoney(money - 3);
+                MessageBox.Show("You bought a knife and gained 1 damage.\nYour damage is now: " + mainPlayer.GetDamage().ToString());//use the narrator text box plox
+            }
+            else
+            {
+                MessageBox.Show("You don't have enough money for that. Remaining balance is $" + money.ToString());
+            }
+        }
+
+        public void BuyBananaFunc(Object sender, EventArgs e) //Lucas
+        {
+            int money = mainPlayer.GetMoney();
+            if (money >= 4)
+            {
+                String BuySound = ResourcesPath + "/ItemGot.wav";
+                System.Media.SoundPlayer player = new System.Media.SoundPlayer(BuySound);
+                player.Play();
+
+                mainPlayer.SetSpeed(mainPlayer.GetSpeed() + 1);
+                mainPlayer.SetMoney(money - 4);
+                MessageBox.Show("You bought a banana and gained 1 speed.\nYour speed is now: " + mainPlayer.GetSpeed().ToString());
+            }
+            else
+            {
+                MessageBox.Show("You don't have enough money for that. Remaining balance is $" + money.ToString());
+            }
+        }
+
+        public void BuyHelmetFunc(Object sender, EventArgs e) //Lucas
+        {
+            int money = mainPlayer.GetMoney();
+            if (money >= 3)
+            {
+                String BuySound = ResourcesPath + "/ItemGot.wav";
+                System.Media.SoundPlayer player = new System.Media.SoundPlayer(BuySound);
+                player.Play();
+
+                mainPlayer.SetArmor(mainPlayer.GetArmor() + 1);
+                mainPlayer.SetMoney(money - 3);
+                MessageBox.Show("You bought a helmet and gained 1 armor point.\nYour armor is now: " + mainPlayer.GetArmor().ToString());
+            }
+            else
+            {
+                MessageBox.Show("You don't have enough money for that. Remaining balance is $" + money.ToString());
+            }
+        }
+
+        public void ShopButton(Object sender, EventArgs e)
+        {
+            PlayerStatsHider();
+            bool upgradedoor = false;
+            if (upgradeButton.Enabled == true)
+            {
+                upgradedoor = true;
+                upgradeButton.Hide();
+                upgradeButton.Enabled = false;
+            }
+            shopButton.Hide();
+            shopButton.Enabled = false;
+            caveButton.Hide();
+            caveButton.Enabled = false;
+            Shop();
+            shopButton.Show();
+            shopButton.Enabled = true;
+            caveButton.Show();
+            caveButton.Enabled = true;
+            PlayerStatsShow();
+            if (upgradedoor)
+            {
+                upgradeButton.Show();
+                upgradeButton.Enabled = true;
+                mainImage = Image.FromFile(upgradeRoomPath);
+                StartScreenPictureBox.Image = mainImage;
+                return;
+            }
+            mainImage = Image.FromFile(notupgradeRoomPath);
+            StartScreenPictureBox.Image = mainImage;
+        }
+
+        public void UpgradeRoomButton(Object sender, EventArgs e)
+        {
+            shopButton.Hide();
+            shopButton.Enabled = false;
+            upgradeButton.Hide();
+            upgradeButton.Enabled = false;
+            caveButton.Hide();
+            caveButton.Enabled = false;
+            Room2();
+            shopButton.Show();
+            shopButton.Enabled = true;
+            upgradeButton.Show();
+            upgradeButton.Enabled = true;
+            caveButton.Show();
+            caveButton.Enabled = true;
+            mainImage = Image.FromFile(upgradeRoomPath);
+            StartScreenPictureBox.Image = mainImage;
+        }
 
         //EXTRA BUTTON FUNCTIONS
         public void healthButtonFunc(Object sender, EventArgs e)
@@ -120,6 +412,10 @@ namespace Food_Crawler
             {
                 mainPlayer.SetHealth(mainPlayer.GetHealth() + 1);
                 mainPlayer.SetLooseStatPoints(mainPlayer.GetLooseStatPoints() - 1);
+                //play sound as you upgrade
+                String upgradeSound = ResourcesPath + "/upgradeSound.wav";
+                System.Media.SoundPlayer player = new System.Media.SoundPlayer(upgradeSound);
+                player.Play();
                 //visually update
                 PlayerStatsLabelUpdater();
             }
@@ -131,6 +427,10 @@ namespace Food_Crawler
             {
                 mainPlayer.SetSpeed(mainPlayer.GetSpeed() + 1);
                 mainPlayer.SetLooseStatPoints(mainPlayer.GetLooseStatPoints() - 1);
+                //play sound as you upgrade
+                String upgradeSound = ResourcesPath + "/upgradeSound.wav";
+                System.Media.SoundPlayer player = new System.Media.SoundPlayer(upgradeSound);
+                player.Play();
                 //update labels
                 PlayerStatsLabelUpdater();
             }
@@ -142,6 +442,10 @@ namespace Food_Crawler
             {
                 mainPlayer.SetArmor(mainPlayer.GetArmor() + 1);
                 mainPlayer.SetLooseStatPoints(mainPlayer.GetLooseStatPoints() - 1);
+                //play sound as you upgrade
+                String upgradeSound = ResourcesPath + "/upgradeSound.wav";
+                System.Media.SoundPlayer player = new System.Media.SoundPlayer(upgradeSound);
+                player.Play();
                 //update labels
                 PlayerStatsLabelUpdater();
             }
@@ -153,9 +457,31 @@ namespace Food_Crawler
             {
                 mainPlayer.SetDamage(mainPlayer.GetDamage() + 1);
                 mainPlayer.SetLooseStatPoints(mainPlayer.GetLooseStatPoints() - 1);
+                //play sound as you upgrade
+                String upgradeSound = ResourcesPath + "/upgradeSound.wav";
+                System.Media.SoundPlayer player = new System.Media.SoundPlayer(upgradeSound);
+                player.Play();
                 //update labels
                 PlayerStatsLabelUpdater();
             }
+        }
+
+        public void NextButtonClicked(Button button)
+        {
+            button.BringToFront();
+            button.Text = "NEXT";
+            button.Show();
+            button.Enabled = true;
+
+            EventHandler tempEvent = null;
+            tempEvent = (s, e) => //lamda function is the same as making a function called void somthing(Object sender, EventArgs, arg){stuff;}
+            {
+                button.Click -= tempEvent;
+                button.Enabled = false;
+                button.Hide();
+            };
+            //subscribe to the event lol
+            button.Click += tempEvent;
         }
 
         public void DisableButton(Object sender, EventArgs e)
@@ -192,6 +518,70 @@ namespace Food_Crawler
             Application.DoEvents();
         }
 
+        public void EnemeyStatsLabelUpdater(ref Enemey enemey)
+        {
+            if (enemeyhealthLabel == null || enemeyarmorLabel == null || enemeydamageLabel == null || enemeyspeedLabel == null)
+            {
+                enemeyhealthLabel = null;
+                enemeyarmorLabel = null;
+                enemeydamageLabel = null;
+                enemeyspeedLabel = null;
+
+                enemeyhealthLabel = new Label();
+                enemeyarmorLabel = new Label();
+                enemeydamageLabel = new Label();
+                enemeyspeedLabel = new Label();
+
+            }
+            //this is probably overkill but im not trying to figure out why label.Location.X = some number does not work thats not very fortnite
+            LabelCreator(ref enemeyhealthLabel, "enemeyhealthLabelForm", 950, 120, 50, 50, $"HP: {enemey.GetHealth()}", Color.Red);
+            LabelCreator(ref enemeyarmorLabel, "enemeyarmorLabelForm", enemeyhealthLabel.Location.X + enemeyhealthLabel.Size.Width + 30, enemeyhealthLabel.Location.Y, 50, 50, $"AMR: {enemey.GetArmor()}", Color.Red);
+            LabelCreator(ref enemeydamageLabel, "enemeydamageLabelForm", enemeyarmorLabel.Location.X + enemeyarmorLabel.Size.Width + 30, enemeyhealthLabel.Location.Y, 50, 50, $"DMG: {enemey.GetDamage()}", Color.Red);
+            LabelCreator(ref enemeyspeedLabel, "enemeyspeedLabelForm", enemeydamageLabel.Location.X + enemeydamageLabel.Size.Width + 30, enemeyhealthLabel.Location.Y, 50, 50, $"SPD: {enemey.GetSpeed()}", Color.Red);
+            Application.DoEvents();
+        }
+
+        public void EnemeyStatsCleaner()
+        {
+            enemeyhealthLabel.Hide();
+            enemeyarmorLabel.Hide();
+            enemeydamageLabel.Hide();
+            enemeyspeedLabel.Hide();
+            Controls.Remove(enemeyhealthLabel);
+            Controls.Remove(enemeyarmorLabel);
+            Controls.Remove(enemeydamageLabel);
+            Controls.Remove(enemeyspeedLabel);
+            enemeyhealthLabel.Dispose();
+            enemeyarmorLabel.Dispose();
+            enemeydamageLabel.Dispose();
+            enemeyspeedLabel.Dispose();
+            enemeyhealthLabel = null;
+            enemeyarmorLabel = null;
+            enemeydamageLabel = null;
+            enemeyspeedLabel = null;
+            Application.DoEvents();
+        }
+
+        public void PlayerStatsHider()
+        {
+            healthLabel.Hide();
+            armorLabel.Hide();
+            damageLabel.Hide();
+            speedLabel.Hide();
+            looseStatPoints.Hide();
+            Application.DoEvents();
+        }
+
+        public void PlayerStatsShow()
+        {
+            healthLabel.Show();
+            armorLabel.Show();
+            damageLabel.Show();
+            speedLabel.Show();
+            looseStatPoints.Show();
+            Application.DoEvents();
+        }
+
         public void ButtonCreator(ref Button button, string name, int x, int y, int sizeX, int sizeY, string text, EventHandler theFunction)
         {
             button.Location = new Point(x, y);
@@ -216,6 +606,23 @@ namespace Food_Crawler
             label.Text = text;
             label.BorderStyle = BorderStyle.Fixed3D;
             label.BackColor = Color.Khaki;
+            label.Font = new Font("Poor Richard", 26);
+            //label.Click += theFunction; //we might be able to do somthin wth this later
+            //set up to the forms
+            Controls.Add(label);
+            label.Show();
+            label.BringToFront();
+        }
+
+        public void LabelCreator(ref Label label, string name, int x, int y, int sizeX, int sizeY, string text, Color color)
+        {
+            label.Location = new Point(x, y);
+            label.Name = name;
+            label.Size = new Size(sizeX, sizeY);
+            label.AutoSize = true;
+            label.Text = text;
+            label.BorderStyle = BorderStyle.Fixed3D;
+            label.BackColor = color;
             label.Font = new Font("Poor Richard", 26);
             //label.Click += theFunction; //we might be able to do somthin wth this later
             //set up to the forms

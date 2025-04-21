@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Food_Crawler
 {
-    class Player
+    public class Player
     {
         public struct Weapons//temp will make its own class at some point
         {
@@ -34,13 +34,26 @@ namespace Food_Crawler
         private int looseStatPoints;
         private Weapons weapon;
         
+        private int money;
         private List<int>? ingredientPouch; //someone should make a ingredient class
+        private List<string>? potionPack;
 
         //players customization
         private string? name = "Player";
         PlayersColor currentColor = PlayersColor.Red; //we can treat this as a upgrade or a customization option
-        
+
         //constuctor
+
+        public Player(int H, int A, int W, int S, int D, int M)
+        {
+            this.health = H;
+            this.armor = A;
+            this.weight = W;
+            this.speed = S;
+            this.damage = D;
+            this.money = M;
+        }
+
         public Player(int H, int A, int W, int S, int D)
         {
             this.health = H;
@@ -72,7 +85,9 @@ namespace Food_Crawler
             this.health = 1;
             this.speed = 1;
             this.damage = 2;
+            this.money = 20;
             this.looseStatPoints = 20;
+            potionPack = new List<string>();
         }
 
 
@@ -100,6 +115,11 @@ namespace Food_Crawler
         public void SetDamage(int Damage)
         {
             this.damage = Damage;
+        }
+
+        public void SetMoney(int Money)
+        {
+            this.money = Money;
         }
 
         public void SetNewLootBag()
@@ -148,6 +168,11 @@ namespace Food_Crawler
             return this.damage;
         }
 
+        public int GetMoney()
+        {
+            return this.money;
+        }
+
         public int GetLooseStatPoints()
         {
             return this.looseStatPoints;
@@ -158,6 +183,15 @@ namespace Food_Crawler
             if (this.ingredientPouch != null)
             {
                 return this.ingredientPouch;
+            }
+            return null;
+        }
+
+        public List<string>? GetPotionPack()
+        {
+            if (this.potionPack != null)
+            {
+                return this.potionPack;
             }
             return null;
         }
@@ -174,6 +208,33 @@ namespace Food_Crawler
         public Weapons GetWeapon()
         {
             return this.weapon;
+        }
+
+        public void DrinkPotion(int playersMaxHp, Form1 mainForm)
+        {
+            int hpPotion = 5;
+            if (this.GetHealth() >= playersMaxHp)
+            {
+                mainForm.GetNarratorTextBox().Text = "Your HP is already maxed";
+                mainForm.NextButtonClicked(mainForm.NextButton);
+                while (mainForm.NextButton.Enabled == true)
+                {
+                    Application.DoEvents();
+                }
+                return;
+            }
+            while (this.GetHealth() + hpPotion > playersMaxHp)
+            {
+                hpPotion--;
+            }
+            mainForm.GetNarratorTextBox().Text = $"Healing for {hpPotion}";
+            mainForm.NextButtonClicked(mainForm.NextButton);
+            while (mainForm.NextButton.Enabled == true)
+            {
+                Application.DoEvents();
+            }
+            this.SetHealth(this.GetHealth() + hpPotion);
+            mainForm.PlayerStatsLabelUpdater();
         }
         public void PrintAllIngredients(Form1 mainForm)
         {
@@ -193,6 +254,7 @@ namespace Food_Crawler
             }
         }
 
+
         public void PushLootIntoBag(ref Player player, ref Enemey enemey)
         {
             if (enemey.GetLootBag() != null && player.GetLootBag() != null)
@@ -202,6 +264,26 @@ namespace Food_Crawler
                     player.GetLootBag().Add(enemey.GetLootBag()[i]);
                 }
             }
+        }
+
+        public void IncreaseHealthPotion() //Lucas
+        {
+            potionPack.Add("Health Potion");
+        }
+
+        public void PrintAllPotions() //Lucas
+        {
+            string finalString;
+            if (potionPack == null || potionPack.Count <= 0)
+            {
+                //System.Console.WriteLine("No Ingredients");
+                return;
+            }
+
+            //from stackoverflow and programiz
+            finalString = string.Join(" | ", potionPack);
+            MessageBox.Show(finalString);
+
         }
     }
 }
