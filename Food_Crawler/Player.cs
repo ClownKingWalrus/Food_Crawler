@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Food_Crawler
 {
-    class Player
+    public class Player
     {
         public struct Weapons//temp will make its own class at some point
         {
@@ -209,6 +209,33 @@ namespace Food_Crawler
         {
             return this.weapon;
         }
+
+        public void DrinkPotion(int playersMaxHp, Form1 mainForm)
+        {
+            int hpPotion = 5;
+            if (this.GetHealth() >= playersMaxHp)
+            {
+                mainForm.GetNarratorTextBox().Text = "Your HP is already maxed";
+                mainForm.NextButtonClicked(mainForm.NextButton);
+                while (mainForm.NextButton.Enabled == true)
+                {
+                    Application.DoEvents();
+                }
+                return;
+            }
+            while (this.GetHealth() + hpPotion > playersMaxHp)
+            {
+                hpPotion--;
+            }
+            mainForm.GetNarratorTextBox().Text = $"Healing for {hpPotion}";
+            mainForm.NextButtonClicked(mainForm.NextButton);
+            while (mainForm.NextButton.Enabled == true)
+            {
+                Application.DoEvents();
+            }
+            this.SetHealth(this.GetHealth() + hpPotion);
+            mainForm.PlayerStatsLabelUpdater();
+        }
         public void PrintAllIngredients(Form1 mainForm)
         {
             if (ingredientPouch == null || ingredientPouch.Count <= 0)
@@ -226,6 +253,7 @@ namespace Food_Crawler
                 tempConstruct = mainForm.GetNarratorTextBox().Text;
             }
         }
+
 
         public void PushLootIntoBag(ref Player player, ref Enemey enemey)
         {

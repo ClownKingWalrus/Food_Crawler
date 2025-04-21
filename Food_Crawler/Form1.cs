@@ -1,5 +1,7 @@
+using System.Media;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography.X509Certificates;
+using NAudio.Wave;
 
 namespace Food_Crawler
 {
@@ -29,18 +31,38 @@ namespace Food_Crawler
         Label? speedLabel;
         Label? damageLabel;
         Label? looseStatPoints;
+        public int staycounter;
+
+        Label enemeyhealthLabel;
+        Label? enemeyarmorLabel;
+        Label? enemeyspeedLabel;
+        Label? enemeydamageLabel;
         PictureBox? enemeyPictureBox;
         PictureBox? enemeyWeaponPictureBox;
         PictureBox? playerPictureBox;
         public bool gameOver = false;
 
+        //music moment
+        SoundPlayer mainMusic;
+        WaveOutEvent musicOutput;
+        AudioFileReader musicReader;
+        
+        String casualMusicPath;
+        String ancientGobboMusicPath;
+        String dungeonSoulMusicPath;
+        String finalBossMusicPath;
+        String treasureRoomMusicPath;
+
         public String ResourcesPath = @"..\..\..\Resources";
         public String? upgradeRoomPath;
         public String? notupgradeRoomPath;
         public String? BADROOMPath;
+        public String? ChoiceDownFloor;
         public Image mainImage;
 
         Player mainPlayer;
+        Enemey ancientGobbo;
+        Enemey Dungeon_Soul;
         public int TowerLevel = 1;
         public Form1()
         {   //startmenubutton is the NextButton
@@ -60,24 +82,121 @@ namespace Food_Crawler
             NextButton.Height = StartMenuButton.Height;
             NextButton.Location = StartMenuButton.Location;
             this.Controls.Add(NextButton);
+            //music stuff
+            casualMusicPath = ResourcesPath + "/Dungeon Crawl.wav";
+            ancientGobboMusicPath = ResourcesPath + "/WAR - Divide.wav";
+            dungeonSoulMusicPath = ResourcesPath + "/More than Just Comrades, We Fight!.wav";
+            treasureRoomMusicPath = ResourcesPath + "/Spindash.wav";
+            finalBossMusicPath = ResourcesPath + "/Bow Down - Divide.wav";
+            mainMusic = new();
         }
 
         private void StartMenuButton_Click(object sender, EventArgs e)
         {
+            int counter = 0;
+            staycounter = 0;
             Random tempRandom = new();
-            int tempnum = 10;
+            int tempnum = 0;
             upgradeRoomPath = ResourcesPath + "/tempRoomUpgrade.png";
             notupgradeRoomPath = ResourcesPath + "/tempRoomNoUpgrade.png";
             BADROOMPath = ResourcesPath + "/tempRoomBAD.png";
+            ChoiceDownFloor = ResourcesPath + "/ChoiceToGoDown.png";
             //disable as we will use another button here since this controls our main functions
             StartMenuButton.Enabled = false;
             StartMenuButton.Hide();
+            //initate music
+            MusicHelperNewSong(casualMusicPath);
             Room1();
-            //Room2();
+            Room2();
+            //staycounter = 40;
+            //counter = 3;
+            //TowerLevel = 3;
             int playerHpBeforeFight = mainPlayer.GetHealth();
-            //GenericFight();
             while (!gameOver)
             {
+                MusicFakeLooper();
+                if (TowerLevel >= 10)
+                {
+                    MusicHelperNewSong(treasureRoomMusicPath);
+                    //add a button that waits for ten seconds if they touch they get hurt if not they keep full hp
+
+                    mainImage = Image.FromFile(ResourcesPath + "/mimic_hide.png");
+                    StartScreenPictureBox.Image = mainImage;
+                    this.GetNarratorTextBox().Text = "Temporary";
+                    NextButtonClicked(NextButton);
+                    while (NextButton.Enabled == true)
+                    {
+                        Application.DoEvents();
+                    }
+
+                    MusicHelperNewSong(finalBossMusicPath);
+                    mainImage = Image.FromFile(ResourcesPath + "/mimic.png");
+                    StartScreenPictureBox.Image = mainImage;
+
+
+                    //and the actual ending here
+                }
+                if (counter > 2)
+                {
+                    this.GetNarratorTextBox().Text = "or you can march ahead for a higher chance for oppurtunties";
+                    Button tempChoiceStay = new();
+                    Button tempChoiceGoDown = new();
+                    ButtonCreator(ref tempChoiceStay, "tempChoiceStay", tempChoiceStay.Width, GetNarratorTextBox().Location.Y - 100, 100, 100, "Stay", DisableButton);
+                    ButtonCreator(ref tempChoiceGoDown, "tempChoiceGoDown", tempChoiceGoDown.Width + 500, GetNarratorTextBox().Location.Y - 100, 100, 100, "Go Down", DisableButton);
+                    while (tempChoiceGoDown.Enabled && tempChoiceStay.Enabled)
+                    {
+                        Application.DoEvents();
+                    }
+                    if (tempChoiceGoDown.Enabled) //if they choose to stay
+                    {
+                        staycounter++;
+                        tempChoiceGoDown.Hide();
+                        tempChoiceStay.Hide();
+                        this.GetNarratorTextBox().Text = "You decide to stay on this level however it seems more baron then before";
+                        NextButtonClicked(NextButton);
+                        while (NextButton.Enabled == true)
+                        {
+                            Application.DoEvents();
+                        }
+                        tempnum = tempnum - counter;
+                        if (staycounter >= 30)
+                        {
+                            MusicHelperNewSong(dungeonSoulMusicPath);
+                            Dungeon_Soul = Enemey.GenerateEnemey(TowerLevel + (staycounter * 2));
+                        } 
+                        else if (staycounter >= 10)
+                        {
+                            MusicHelperNewSong(ancientGobboMusicPath);
+                            ancientGobbo = Enemey.GenerateEnemey(TowerLevel + (staycounter / 2));
+                        }
+                    }
+                    else //if they go down a level
+                    {
+                        staycounter = 0;
+                        tempChoiceGoDown.Hide();
+                        tempChoiceStay.Hide();
+                        this.GetNarratorTextBox().Text = "The dungeon air seems to be more stagnet than before";
+                        NextButtonClicked(NextButton);
+                        while (NextButton.Enabled == true)
+                        {
+                            Application.DoEvents();
+                        }
+                        TowerLevel++;
+                        counter = 0;
+                        this.GetNarratorTextBox().Text = "this area seems to be a staging area? increasing odds by 50%";
+                        NextButtonClicked(NextButton);
+                        while (NextButton.Enabled == true)
+                        {
+                            Application.DoEvents();
+                        }
+                        tempnum = tempnum + 5;
+                    }
+                    this.Controls.Remove(tempChoiceStay);
+                    this.Controls.Remove(tempChoiceGoDown);
+                    tempChoiceGoDown.Dispose();
+                    tempChoiceGoDown.Dispose();
+                    
+                }
                 this.GetNarratorTextBox().Text = "You can decide decide to rest here for a chance to possibly miss oppurnities";
                 NextButtonClicked(NextButton);
                 while (NextButton.Enabled == true)
@@ -153,6 +272,7 @@ namespace Food_Crawler
                     caveButton.Enabled = true;
                     while (caveButton.Enabled)
                     {
+                        MusicFakeLooper();
                         Application.DoEvents();
                     }
                     Controls.Remove(shopButton);
@@ -199,12 +319,39 @@ namespace Food_Crawler
                     caveButton.Dispose();
                     GenericFight();
                 }
+                counter++;
+                tempnum = 0;
             }
         }
 
         public TextBox GetNarratorTextBox()
         {
             return this.StartMenuTextBox;
+        }
+
+        public void MusicHelperNewSong(String musicPath)
+        {
+            if (musicOutput == null || musicReader == null)
+            {
+                musicReader = new(musicPath);
+                musicOutput = new();
+            }
+            musicOutput.Dispose();
+            musicReader.Dispose();
+            musicReader = new(musicPath);
+            musicOutput = new();
+            musicOutput.Volume = (float)0.1;
+            musicOutput.Init(musicReader);
+            musicOutput.Play();
+        }
+
+        public void MusicFakeLooper()
+        {
+            if (musicOutput.PlaybackState == PlaybackState.Stopped)
+            {
+                musicReader.Position = 0;
+                musicOutput.Play();
+            }
         }
     }
 }

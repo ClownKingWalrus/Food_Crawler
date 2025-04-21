@@ -32,7 +32,17 @@ namespace Food_Crawler
             mainImage = Image.FromFile(ReflectionPath);
             StartScreenPictureBox.Image = mainImage;
             StartMenuTextBox.Text = "Memories surge through your veins";
-
+            if (healthButton != null)
+            {
+                healthButton.Hide();
+                healthButton.Dispose();
+                armorButton.Hide();
+                armorButton.Dispose();
+                damageButton.Hide();
+                damageButton.Dispose();
+                speedButton.Hide();
+                speedButton.Dispose();
+            }
             //set all buttons null so we not doing funky gamer stuff
             healthButton = null;
             armorButton = null;
@@ -61,7 +71,16 @@ namespace Food_Crawler
             armorButton.Image = upgradeImage;
             damageButton.Image = upgradeImage;
             speedButton.Image = upgradeImage;
-
+            //if labels are still there
+            if (healthLabel != null)
+            {
+                PlayerStatsHider();
+                healthLabel.Dispose();
+                armorLabel.Dispose();
+                damageLabel.Dispose();
+                speedLabel.Dispose();
+                looseStatPoints.Dispose();
+            }
             //set up all labels
             healthLabel = null;
             armorLabel = null;
@@ -218,9 +237,31 @@ namespace Food_Crawler
             enemeyWeaponPictureBox = null;
             enemeyWeaponPictureBox = new();
             PictureBoxCreator(ref enemeyWeaponPictureBox, 200, 200, enemeyPictureBox.Location.X, enemeyPictureBox.Location.Y + enemeyPictureBox.Height/2, EnemeyWeaponImage);
-
+            EnemeyStatsLabelUpdater(ref tempEnemey);
             //we can launch the fight like so
-            Arena.LaunchFight(ref mainPlayer, ref tempEnemey, tempRandGen, this);
+            if (staycounter < 10)
+            {
+                Arena.LaunchFight(ref mainPlayer, ref tempEnemey, tempRandGen, this);
+            } else if (staycounter < 30)
+            {
+                enemeyWeaponPictureBox.Hide();
+                EnemeyImagePath = ResourcesPath + @"\ancientGobo_Crawl.png";
+                EnemeyImage = Image.FromFile(EnemeyImagePath);
+                PictureBoxCreator(ref enemeyPictureBox, 500, 500, this.StartScreenPictureBox.Width - 1000, this.Height - 1000, EnemeyImage);
+                Arena.LaunchFight(ref mainPlayer, ref ancientGobbo, tempRandGen, this);
+            } else
+            {
+                enemeyWeaponPictureBox.Hide();
+                EnemeyImagePath = ResourcesPath + @"\Dungeon_Soul.png";
+                EnemeyImage = Image.FromFile(EnemeyImagePath);
+                PictureBoxCreator(ref enemeyPictureBox, 500, 500, this.StartScreenPictureBox.Width - 1000, this.Height - 1000, EnemeyImage);
+                Arena.LaunchFight(ref mainPlayer, ref Dungeon_Soul, tempRandGen, this);
+            }
+            EnemeyStatsCleaner();
+            this.Controls.Remove(enemeyWeaponPictureBox);
+            enemeyWeaponPictureBox.Dispose();
+            this.Controls.Remove(enemeyPictureBox);
+            enemeyPictureBox.Dispose();
 
             GetNarratorTextBox().Text = "you march on";
         }
@@ -315,6 +356,7 @@ namespace Food_Crawler
 
         public void ShopButton(Object sender, EventArgs e)
         {
+            PlayerStatsHider();
             bool upgradedoor = false;
             if (upgradeButton.Enabled == true)
             {
@@ -331,6 +373,7 @@ namespace Food_Crawler
             shopButton.Enabled = true;
             caveButton.Show();
             caveButton.Enabled = true;
+            PlayerStatsShow();
             if (upgradedoor)
             {
                 upgradeButton.Show();
@@ -475,6 +518,70 @@ namespace Food_Crawler
             Application.DoEvents();
         }
 
+        public void EnemeyStatsLabelUpdater(ref Enemey enemey)
+        {
+            if (enemeyhealthLabel == null || enemeyarmorLabel == null || enemeydamageLabel == null || enemeyspeedLabel == null)
+            {
+                enemeyhealthLabel = null;
+                enemeyarmorLabel = null;
+                enemeydamageLabel = null;
+                enemeyspeedLabel = null;
+
+                enemeyhealthLabel = new Label();
+                enemeyarmorLabel = new Label();
+                enemeydamageLabel = new Label();
+                enemeyspeedLabel = new Label();
+
+            }
+            //this is probably overkill but im not trying to figure out why label.Location.X = some number does not work thats not very fortnite
+            LabelCreator(ref enemeyhealthLabel, "enemeyhealthLabelForm", 950, 120, 50, 50, $"HP: {enemey.GetHealth()}", Color.Red);
+            LabelCreator(ref enemeyarmorLabel, "enemeyarmorLabelForm", enemeyhealthLabel.Location.X + enemeyhealthLabel.Size.Width + 30, enemeyhealthLabel.Location.Y, 50, 50, $"AMR: {enemey.GetArmor()}", Color.Red);
+            LabelCreator(ref enemeydamageLabel, "enemeydamageLabelForm", enemeyarmorLabel.Location.X + enemeyarmorLabel.Size.Width + 30, enemeyhealthLabel.Location.Y, 50, 50, $"DMG: {enemey.GetDamage()}", Color.Red);
+            LabelCreator(ref enemeyspeedLabel, "enemeyspeedLabelForm", enemeydamageLabel.Location.X + enemeydamageLabel.Size.Width + 30, enemeyhealthLabel.Location.Y, 50, 50, $"SPD: {enemey.GetSpeed()}", Color.Red);
+            Application.DoEvents();
+        }
+
+        public void EnemeyStatsCleaner()
+        {
+            enemeyhealthLabel.Hide();
+            enemeyarmorLabel.Hide();
+            enemeydamageLabel.Hide();
+            enemeyspeedLabel.Hide();
+            Controls.Remove(enemeyhealthLabel);
+            Controls.Remove(enemeyarmorLabel);
+            Controls.Remove(enemeydamageLabel);
+            Controls.Remove(enemeyspeedLabel);
+            enemeyhealthLabel.Dispose();
+            enemeyarmorLabel.Dispose();
+            enemeydamageLabel.Dispose();
+            enemeyspeedLabel.Dispose();
+            enemeyhealthLabel = null;
+            enemeyarmorLabel = null;
+            enemeydamageLabel = null;
+            enemeyspeedLabel = null;
+            Application.DoEvents();
+        }
+
+        public void PlayerStatsHider()
+        {
+            healthLabel.Hide();
+            armorLabel.Hide();
+            damageLabel.Hide();
+            speedLabel.Hide();
+            looseStatPoints.Hide();
+            Application.DoEvents();
+        }
+
+        public void PlayerStatsShow()
+        {
+            healthLabel.Show();
+            armorLabel.Show();
+            damageLabel.Show();
+            speedLabel.Show();
+            looseStatPoints.Show();
+            Application.DoEvents();
+        }
+
         public void ButtonCreator(ref Button button, string name, int x, int y, int sizeX, int sizeY, string text, EventHandler theFunction)
         {
             button.Location = new Point(x, y);
@@ -499,6 +606,23 @@ namespace Food_Crawler
             label.Text = text;
             label.BorderStyle = BorderStyle.Fixed3D;
             label.BackColor = Color.Khaki;
+            label.Font = new Font("Poor Richard", 26);
+            //label.Click += theFunction; //we might be able to do somthin wth this later
+            //set up to the forms
+            Controls.Add(label);
+            label.Show();
+            label.BringToFront();
+        }
+
+        public void LabelCreator(ref Label label, string name, int x, int y, int sizeX, int sizeY, string text, Color color)
+        {
+            label.Location = new Point(x, y);
+            label.Name = name;
+            label.Size = new Size(sizeX, sizeY);
+            label.AutoSize = true;
+            label.Text = text;
+            label.BorderStyle = BorderStyle.Fixed3D;
+            label.BackColor = color;
             label.Font = new Font("Poor Richard", 26);
             //label.Click += theFunction; //we might be able to do somthin wth this later
             //set up to the forms
