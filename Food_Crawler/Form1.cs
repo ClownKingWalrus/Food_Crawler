@@ -19,6 +19,7 @@ namespace Food_Crawler
         Button? CheckMoneyButton;
         Button? BuyBananaButton;
         Button? BuyHelmetButton;
+        Button? musicButton;
 
         //3 main rooms
         Button shopButton;
@@ -31,6 +32,7 @@ namespace Food_Crawler
         Label? speedLabel;
         Label? damageLabel;
         Label? looseStatPoints;
+        Label? counterLabel;
         public int staycounter;
 
         Label enemeyhealthLabel;
@@ -63,7 +65,9 @@ namespace Food_Crawler
         Player mainPlayer;
         Enemey ancientGobbo;
         Enemey Dungeon_Soul;
+        Enemey FinalBoss;
         public int TowerLevel = 1;
+        public int musicCounter = 0;
         public Form1()
         {   //startmenubutton is the NextButton
 
@@ -108,9 +112,20 @@ namespace Food_Crawler
             MusicHelperNewSong(casualMusicPath);
             Room1();
             Room2();
-            //staycounter = 40;
-            //counter = 3;
-            //TowerLevel = 3;
+            //create music button
+            if (musicButton != null)
+            {
+                musicButton.Hide();
+                musicButton.Dispose();
+            }
+            musicButton = new();
+            ButtonCreator(ref musicButton, "music Button", StartScreenPictureBox.Width - 500, 0, 300, 70, "Next Song", MusicButton);
+            musicButton.BackColor = Color.DarkKhaki;
+            musicButton.FlatStyle = FlatStyle.Standard;
+            musicButton.Font = new Font("Poor Richard", 26);
+
+            staycounter = 30;
+            TowerLevel = 10;
             int playerHpBeforeFight = mainPlayer.GetHealth();
             while (!gameOver)
             {
@@ -122,7 +137,7 @@ namespace Food_Crawler
 
                     mainImage = Image.FromFile(ResourcesPath + "/mimic_hide.png");
                     StartScreenPictureBox.Image = mainImage;
-                    this.GetNarratorTextBox().Text = "Temporary";
+                    this.GetNarratorTextBox().Text = "Click for loot";
                     NextButtonClicked(NextButton);
                     while (NextButton.Enabled == true)
                     {
@@ -132,7 +147,8 @@ namespace Food_Crawler
                     MusicHelperNewSong(finalBossMusicPath);
                     mainImage = Image.FromFile(ResourcesPath + "/mimic.png");
                     StartScreenPictureBox.Image = mainImage;
-
+                    staycounter = 999;
+                    GenericFight();
 
                     //and the actual ending here
                 }

@@ -543,7 +543,6 @@ namespace Food_Crawler
                     player.SetHealth(player.GetHealth() - dmg);
                 } else
                 {
-                    dmg = dmg - (player.GetArmor() + (player.GetArmor() / 2));
                     player.SetHealth(player.GetHealth() - dmg);
                 }
                     mainForm.GetNarratorTextBox().Text = $"{player.GetName()} Damage is reduced to {dmg}";
