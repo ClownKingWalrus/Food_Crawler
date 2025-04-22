@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.DirectoryServices;
 using System.Linq;
 using System.Numerics;
 using System.Runtime.CompilerServices;
@@ -80,6 +81,7 @@ namespace Food_Crawler
                 damageLabel.Dispose();
                 speedLabel.Dispose();
                 looseStatPoints.Dispose();
+                counterLabel.Dispose();
             }
             //set up all labels
             healthLabel = null;
@@ -87,13 +89,14 @@ namespace Food_Crawler
             damageLabel = null;
             speedLabel = null;
             looseStatPoints = null;
+            counterLabel = null;
 
             healthLabel = new Label();
             armorLabel = new Label();
             damageLabel = new Label();
             speedLabel = new Label();
             looseStatPoints = new Label();
-            
+            counterLabel = new Label();
 
 
             //set params for the labels UPDATE SO IT AUTO AJUST THE LABELS
@@ -102,7 +105,7 @@ namespace Food_Crawler
             LabelCreator(ref damageLabel, "damageLabelForm", armorLabel.Location.X + armorLabel.Size.Width + 30, 0, 100, 70, $"DMG: {mainPlayer.GetDamage()}");
             LabelCreator(ref speedLabel, "speedLabelForm", damageLabel.Location.X + damageLabel.Size.Width + 30, 0, 100, 70, $"SPD: {mainPlayer.GetSpeed()}");
             LabelCreator(ref looseStatPoints, "looseStatPointsForm", speedLabel.Location.X + speedLabel.Size.Width + 30, 0, 100, 70, $"LSP: {mainPlayer.GetLooseStatPoints()}");
-            
+            LabelCreator(ref counterLabel, "counterLabel", looseStatPoints.Location.X + looseStatPoints.Size.Width + 30, 0, 100, 70, $"Counter: {staycounter}");
             Application.DoEvents();
             while (mainPlayer.GetLooseStatPoints() > 0)
             {
@@ -217,6 +220,14 @@ namespace Food_Crawler
         {//since we need to pass in the enemey and player we will decide how to generate a enemey here
             //this is temporary
             Random tempRandGen = new();
+
+            if (staycounter == 999)
+            {
+                FinalBoss = Enemey.GenerateEnemey(TowerLevel * TowerLevel);
+                FinalBoss.SetName("Mimic");
+                Arena.LaunchFight(ref mainPlayer, ref FinalBoss, tempRandGen, this);
+            }
+
             Enemey tempEnemey = Enemey.GenerateEnemey(TowerLevel);
 
 
@@ -242,27 +253,53 @@ namespace Food_Crawler
             if (staycounter < 10)
             {
                 Arena.LaunchFight(ref mainPlayer, ref tempEnemey, tempRandGen, this);
-            } else if (staycounter < 30)
+            } 
+            else if (staycounter < 30)
             {
+                if (staycounter == 10)
+                {
+                    Room2();
+                }
                 enemeyWeaponPictureBox.Hide();
                 EnemeyImagePath = ResourcesPath + @"\ancientGobo_Crawl.png";
                 EnemeyImage = Image.FromFile(EnemeyImagePath);
                 PictureBoxCreator(ref enemeyPictureBox, 500, 500, this.StartScreenPictureBox.Width - 1000, this.Height - 1000, EnemeyImage);
+                Dungeon_Soul.SetName("Ancient Gobbo");
                 Arena.LaunchFight(ref mainPlayer, ref ancientGobbo, tempRandGen, this);
+                int lspGained = tempRandGen.Next(TowerLevel, TowerLevel * 3);
+                GetNarratorTextBox().Text = $"Since you killed Ancient Gobbo extra LSP is granted {lspGained} for a total of {lspGained + mainPlayer.GetLooseStatPoints()}";
+                NextButtonClicked(NextButton);
+                while (NextButton.Enabled == true)
+                {
+                    Application.DoEvents();
+                }
+                mainPlayer.SetLooseStatPoints(mainPlayer.GetLooseStatPoints() + lspGained);
             } else
             {
                 enemeyWeaponPictureBox.Hide();
+                if (staycounter == 30 || staycounter == 35 || staycounter == 40)
+                {
+                    Room2();
+                }
                 EnemeyImagePath = ResourcesPath + @"\Dungeon_Soul.png";
                 EnemeyImage = Image.FromFile(EnemeyImagePath);
                 PictureBoxCreator(ref enemeyPictureBox, 500, 500, this.StartScreenPictureBox.Width - 1000, this.Height - 1000, EnemeyImage);
+                Dungeon_Soul.SetName("Dungeon Soul");
                 Arena.LaunchFight(ref mainPlayer, ref Dungeon_Soul, tempRandGen, this);
+                int lspGained = tempRandGen.Next(TowerLevel, TowerLevel * 5);
+                GetNarratorTextBox().Text = $"Since you killed DungeonSoul extra LSP is granted {lspGained} for a total of {lspGained + mainPlayer.GetLooseStatPoints()}";
+                NextButtonClicked(NextButton);
+                while (NextButton.Enabled == true)
+                {
+                    Application.DoEvents();
+                }
             }
             EnemeyStatsCleaner();
             this.Controls.Remove(enemeyWeaponPictureBox);
             enemeyWeaponPictureBox.Dispose();
             this.Controls.Remove(enemeyPictureBox);
             enemeyPictureBox.Dispose();
-
+            PlayerStatsLabelUpdater();
             GetNarratorTextBox().Text = "you march on";
         }
 
@@ -438,10 +475,10 @@ namespace Food_Crawler
 
         public void ArmorButtonFunc(Object sender, EventArgs e)
         {
-            if (mainPlayer.GetLooseStatPoints() > 0)
+            if (mainPlayer.GetLooseStatPoints() > 1)
             {
                 mainPlayer.SetArmor(mainPlayer.GetArmor() + 1);
-                mainPlayer.SetLooseStatPoints(mainPlayer.GetLooseStatPoints() - 1);
+                mainPlayer.SetLooseStatPoints(mainPlayer.GetLooseStatPoints() - 2);
                 //play sound as you upgrade
                 String upgradeSound = ResourcesPath + "/upgradeSound.wav";
                 System.Media.SoundPlayer player = new System.Media.SoundPlayer(upgradeSound);
@@ -494,20 +531,21 @@ namespace Food_Crawler
 
         public void PlayerStatsLabelUpdater()
         {
-            if (healthLabel == null || armorLabel == null || damageLabel == null || speedLabel == null || looseStatPoints == null)
+            if (healthLabel == null || armorLabel == null || damageLabel == null || speedLabel == null || looseStatPoints == null || counterLabel == null)
             {
                 healthLabel = null;
                 armorLabel = null;
                 damageLabel = null;
                 speedLabel = null;
                 looseStatPoints = null;
+                counterLabel = null;
 
                 healthLabel = new Label();
                 armorLabel = new Label();
                 damageLabel = new Label();
                 speedLabel = new Label();
                 looseStatPoints = new Label();
-
+                counterLabel = new Label();
             }
             //this is probably overkill but im not trying to figure out why label.Location.X = some number does not work thats not very fortnite
             LabelCreator(ref healthLabel, "healthLabelForm", 30, 0, 100, 70, $"HP: {mainPlayer.GetHealth()}");
@@ -515,6 +553,7 @@ namespace Food_Crawler
             LabelCreator(ref damageLabel, "damageLabelForm", armorLabel.Location.X + armorLabel.Size.Width + 30, 0, 100, 70, $"DMG: {mainPlayer.GetDamage()}");
             LabelCreator(ref speedLabel, "speedLabelForm", damageLabel.Location.X + damageLabel.Size.Width + 30, 0, 100, 70, $"SPD: {mainPlayer.GetSpeed()}");
             LabelCreator(ref looseStatPoints, "looseStatPointsForm", speedLabel.Location.X + speedLabel.Size.Width + 30, 0, 100, 70, $"LSP: {mainPlayer.GetLooseStatPoints()}");
+            LabelCreator(ref counterLabel, "counterLabel", looseStatPoints.Location.X + looseStatPoints.Size.Width + 30, 0, 100, 70, $"Counter: {staycounter}");
             Application.DoEvents();
         }
 
@@ -580,6 +619,78 @@ namespace Food_Crawler
             speedLabel.Show();
             looseStatPoints.Show();
             Application.DoEvents();
+        }
+
+        public void MusicButton(Object sender, EventArgs e)
+        {
+            string newMusic = casualMusicPath;
+            if (staycounter == 999)
+            {
+                if (musicCounter % 2 == 0)
+                {
+                    newMusic = ResourcesPath + "/Berserk - My Brother (Extended) (Definitive Version).wav";
+                    MusicHelperNewSong(newMusic);
+                    musicCounter++;
+                } else
+                {
+                    MusicHelperNewSong(finalBossMusicPath);
+                    musicCounter++;
+                }
+                    return;
+            }
+            if (musicCounter == 4 && TowerLevel < 3)
+            {
+                musicCounter++;
+            }
+            if (musicCounter == 5 && TowerLevel < 5)
+            {
+                musicCounter++;
+            }
+            if (staycounter < 10 && musicCounter == 6)
+            {
+                musicCounter++;
+            }
+            if (staycounter < 30 && musicCounter == 7)
+            {
+                musicCounter++;
+            }
+
+            if (musicCounter > 8)
+            {
+                musicCounter = 0;
+            }
+            switch (musicCounter)
+            {
+                case 0:
+                    newMusic = casualMusicPath;
+                    break;
+                case 1: 
+                    newMusic = ResourcesPath + "/Besomorph & Coopex - Faded (feat. Lunis).wav";
+                    break;
+                case 2:
+                    newMusic = ResourcesPath + "/[HYPER FULL THROTTLE] Yooh - Good bye, Merry-Go-Round. (Long Ver.) [Official Audio].wav";
+                    break;
+                case 3:
+                    newMusic = ResourcesPath + "/SNBRN feat. Kerli - Raindrops (Official Video).wav";
+                    break;
+                case 4:
+                        newMusic = ResourcesPath + "/Warak - Reanimate.wav";
+                    break;
+                case 5:
+                        newMusic = ResourcesPath + "/黒皇帝 - Galaxy Collapse.wav";
+                    break;
+                case 6:
+                       newMusic = ancientGobboMusicPath;
+                    break;
+                case 7:
+                    newMusic = dungeonSoulMusicPath;
+                    break;
+                case 8:
+                    newMusic = ResourcesPath + "/GUTS SONG ｜ ＂Pressure＂ ｜ Divide Music [Berserk].wav";
+                    break;
+            }
+            MusicHelperNewSong(newMusic);
+            musicCounter++;
         }
 
         public void ButtonCreator(ref Button button, string name, int x, int y, int sizeX, int sizeY, string text, EventHandler theFunction)

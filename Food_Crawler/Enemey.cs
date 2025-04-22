@@ -24,7 +24,7 @@ namespace Food_Crawler
             string ResPath = @"..\..\..\Resources";
             int TowerMultiplier = TowerLevel * 5;
             //generate a enemey with some random stats based on this
-            Enemey tempEnemey = new Enemey(randNumGen.Next(TowerMultiplier/2, TowerMultiplier), randNumGen.Next(TowerMultiplier/2, TowerMultiplier), 
+            Enemey tempEnemey = new Enemey(randNumGen.Next(TowerMultiplier/2, TowerMultiplier), (randNumGen.Next(TowerMultiplier/2, TowerMultiplier)/2), 
                 randNumGen.Next(TowerMultiplier / 2, TowerMultiplier), randNumGen.Next(TowerMultiplier / 2, TowerMultiplier), randNumGen.Next(TowerMultiplier / 2, TowerMultiplier));
             if (tempEnemey.GetLootBag() == null)
             {
