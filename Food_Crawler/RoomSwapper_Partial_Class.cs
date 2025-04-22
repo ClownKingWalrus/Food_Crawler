@@ -82,6 +82,7 @@ namespace Food_Crawler
                 speedLabel.Dispose();
                 looseStatPoints.Dispose();
                 counterLabel.Dispose();
+                potionCountLabel.Dispose();
             }
             //set up all labels
             healthLabel = null;
@@ -90,6 +91,7 @@ namespace Food_Crawler
             speedLabel = null;
             looseStatPoints = null;
             counterLabel = null;
+            potionCountLabel = null;
 
             healthLabel = new Label();
             armorLabel = new Label();
@@ -97,6 +99,7 @@ namespace Food_Crawler
             speedLabel = new Label();
             looseStatPoints = new Label();
             counterLabel = new Label();
+            potionCountLabel = new Label();
 
 
             //set params for the labels UPDATE SO IT AUTO AJUST THE LABELS
@@ -106,6 +109,7 @@ namespace Food_Crawler
             LabelCreator(ref speedLabel, "speedLabelForm", damageLabel.Location.X + damageLabel.Size.Width + 30, 0, 100, 70, $"SPD: {mainPlayer.GetSpeed()}");
             LabelCreator(ref looseStatPoints, "looseStatPointsForm", speedLabel.Location.X + speedLabel.Size.Width + 30, 0, 100, 70, $"LSP: {mainPlayer.GetLooseStatPoints()}");
             LabelCreator(ref counterLabel, "counterLabel", looseStatPoints.Location.X + looseStatPoints.Size.Width + 30, 0, 100, 70, $"Counter: {staycounter}");
+            LabelCreator(ref potionCountLabel, "potionCountLabel", counterLabel.Location.X + counterLabel.Size.Width + 30, 0, 100, 70, $"Potions: {mainPlayer.GetPotionCount()}");
             Application.DoEvents();
             while (mainPlayer.GetLooseStatPoints() > 0)
             {
@@ -228,6 +232,16 @@ namespace Food_Crawler
                 Arena.LaunchFight(ref mainPlayer, ref FinalBoss, tempRandGen, this);
             }
 
+            if (staycounter == 10 || staycounter == 12 || staycounter == 15  || staycounter == 18)
+            {
+                Room2();
+            }
+
+            if (staycounter == 30 || staycounter == 35 || staycounter == 40)
+            {
+                Room2();
+            }
+
             Enemey tempEnemey = Enemey.GenerateEnemey(TowerLevel);
 
 
@@ -256,17 +270,17 @@ namespace Food_Crawler
             } 
             else if (staycounter < 30)
             {
-                if (staycounter == 10)
+                if (ancientGobbo == null)
                 {
-                    Room2();
+                    ancientGobbo = Enemey.GenerateEnemey(TowerLevel + (staycounter / 2));
                 }
                 enemeyWeaponPictureBox.Hide();
                 EnemeyImagePath = ResourcesPath + @"\ancientGobo_Crawl.png";
                 EnemeyImage = Image.FromFile(EnemeyImagePath);
                 PictureBoxCreator(ref enemeyPictureBox, 500, 500, this.StartScreenPictureBox.Width - 1000, this.Height - 1000, EnemeyImage);
-                Dungeon_Soul.SetName("Ancient Gobbo");
+                ancientGobbo.SetName("Ancient Gobbo");
                 Arena.LaunchFight(ref mainPlayer, ref ancientGobbo, tempRandGen, this);
-                int lspGained = tempRandGen.Next(TowerLevel, TowerLevel * 3);
+                int lspGained = tempRandGen.Next(TowerLevel, TowerLevel * 5);
                 GetNarratorTextBox().Text = $"Since you killed Ancient Gobbo extra LSP is granted {lspGained} for a total of {lspGained + mainPlayer.GetLooseStatPoints()}";
                 NextButtonClicked(NextButton);
                 while (NextButton.Enabled == true)
@@ -276,17 +290,17 @@ namespace Food_Crawler
                 mainPlayer.SetLooseStatPoints(mainPlayer.GetLooseStatPoints() + lspGained);
             } else
             {
-                enemeyWeaponPictureBox.Hide();
-                if (staycounter == 30 || staycounter == 35 || staycounter == 40)
+                if (Dungeon_Soul == null)
                 {
-                    Room2();
+                    Dungeon_Soul = Enemey.GenerateEnemey(TowerLevel + (staycounter * 2));
                 }
+                enemeyWeaponPictureBox.Hide();
                 EnemeyImagePath = ResourcesPath + @"\Dungeon_Soul.png";
                 EnemeyImage = Image.FromFile(EnemeyImagePath);
                 PictureBoxCreator(ref enemeyPictureBox, 500, 500, this.StartScreenPictureBox.Width - 1000, this.Height - 1000, EnemeyImage);
                 Dungeon_Soul.SetName("Dungeon Soul");
                 Arena.LaunchFight(ref mainPlayer, ref Dungeon_Soul, tempRandGen, this);
-                int lspGained = tempRandGen.Next(TowerLevel, TowerLevel * 5);
+                int lspGained = tempRandGen.Next(TowerLevel + 5 * 2, TowerLevel + 6 * 5);
                 GetNarratorTextBox().Text = $"Since you killed DungeonSoul extra LSP is granted {lspGained} for a total of {lspGained + mainPlayer.GetLooseStatPoints()}";
                 NextButtonClicked(NextButton);
                 while (NextButton.Enabled == true)
@@ -531,7 +545,7 @@ namespace Food_Crawler
 
         public void PlayerStatsLabelUpdater()
         {
-            if (healthLabel == null || armorLabel == null || damageLabel == null || speedLabel == null || looseStatPoints == null || counterLabel == null)
+            if (healthLabel == null || armorLabel == null || damageLabel == null || speedLabel == null || looseStatPoints == null || counterLabel == null || potionCountLabel == null)
             {
                 healthLabel = null;
                 armorLabel = null;
@@ -539,6 +553,7 @@ namespace Food_Crawler
                 speedLabel = null;
                 looseStatPoints = null;
                 counterLabel = null;
+                potionCountLabel = null;
 
                 healthLabel = new Label();
                 armorLabel = new Label();
@@ -546,6 +561,7 @@ namespace Food_Crawler
                 speedLabel = new Label();
                 looseStatPoints = new Label();
                 counterLabel = new Label();
+                potionCountLabel = new Label();
             }
             //this is probably overkill but im not trying to figure out why label.Location.X = some number does not work thats not very fortnite
             LabelCreator(ref healthLabel, "healthLabelForm", 30, 0, 100, 70, $"HP: {mainPlayer.GetHealth()}");
@@ -554,6 +570,7 @@ namespace Food_Crawler
             LabelCreator(ref speedLabel, "speedLabelForm", damageLabel.Location.X + damageLabel.Size.Width + 30, 0, 100, 70, $"SPD: {mainPlayer.GetSpeed()}");
             LabelCreator(ref looseStatPoints, "looseStatPointsForm", speedLabel.Location.X + speedLabel.Size.Width + 30, 0, 100, 70, $"LSP: {mainPlayer.GetLooseStatPoints()}");
             LabelCreator(ref counterLabel, "counterLabel", looseStatPoints.Location.X + looseStatPoints.Size.Width + 30, 0, 100, 70, $"Counter: {staycounter}");
+            LabelCreator(ref potionCountLabel, "potionCountLabel", counterLabel.Location.X + counterLabel.Size.Width + 30, 0, 100, 70, $"Potions: {mainPlayer.GetPotionCount()}");
             Application.DoEvents();
         }
 
@@ -608,6 +625,8 @@ namespace Food_Crawler
             damageLabel.Hide();
             speedLabel.Hide();
             looseStatPoints.Hide();
+            counterLabel.Hide();
+            potionCountLabel.Hide();
             Application.DoEvents();
         }
 
@@ -618,6 +637,8 @@ namespace Food_Crawler
             damageLabel.Show();
             speedLabel.Show();
             looseStatPoints.Show();
+            counterLabel.Hide();
+            potionCountLabel.Hide();
             Application.DoEvents();
         }
 
