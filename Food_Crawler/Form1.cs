@@ -33,6 +33,7 @@ namespace Food_Crawler
         Label? damageLabel;
         Label? looseStatPoints;
         Label? counterLabel;
+        Label? potionCountLabel;
         public int staycounter;
 
         Label enemeyhealthLabel;
@@ -124,8 +125,10 @@ namespace Food_Crawler
             musicButton.FlatStyle = FlatStyle.Standard;
             musicButton.Font = new Font("Poor Richard", 26);
 
-            staycounter = 30;
-            TowerLevel = 10;
+            //staycounter = 30;
+            //counter = 3;
+            //TowerLevel = 5;
+
             int playerHpBeforeFight = mainPlayer.GetHealth();
             while (!gameOver)
             {
@@ -178,7 +181,7 @@ namespace Food_Crawler
                         if (staycounter >= 30)
                         {
                             MusicHelperNewSong(dungeonSoulMusicPath);
-                            Dungeon_Soul = Enemey.GenerateEnemey(TowerLevel + (staycounter * 2));
+                            Dungeon_Soul = Enemey.GenerateEnemey(TowerLevel * TowerLevel + (staycounter * 2));
                         } 
                         else if (staycounter >= 10)
                         {
@@ -231,12 +234,9 @@ namespace Food_Crawler
                 if (tempChoiceMarch.Enabled) //if they choose to rest
                 {
                     int beforehp = mainPlayer.GetHealth();
-                    mainPlayer.SetHealth(mainPlayer.GetHealth() + (playerHpBeforeFight / 3));
-                    if (mainPlayer.GetHealth() > playerHpBeforeFight)
-                    {
-                        mainPlayer.SetHealth(playerHpBeforeFight);
-                    }
-                    this.GetNarratorTextBox().Text = $"Youve chosen to heal for {mainPlayer.GetHealth() - beforehp}";
+                    mainPlayer.SetHealth(playerHpBeforeFight);
+                    this.GetNarratorTextBox().Text = $"You eat some moldy bread or somthing";
+                    PlayerStatsLabelUpdater();
                     NextButtonClicked(NextButton);
                     while (NextButton.Enabled == true)
                     {

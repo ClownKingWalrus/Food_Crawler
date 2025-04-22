@@ -196,6 +196,11 @@ namespace Food_Crawler
             return null;
         }
 
+        public int GetPotionCount()
+        {
+            return this.potionPack.Count;
+        }
+
         public string GetName()
         {
             if (this.name != null)
@@ -212,7 +217,17 @@ namespace Food_Crawler
 
         public void DrinkPotion(int playersMaxHp, Form1 mainForm)
         {
-            int hpPotion = 5;
+            if (this.potionPack.Count <= 0)
+            {
+                mainForm.GetNarratorTextBox().Text = $"u aint got potions";
+                mainForm.NextButtonClicked(mainForm.NextButton);
+                while (mainForm.NextButton.Enabled == true)
+                {
+                    Application.DoEvents();
+                }
+                return;
+            }
+            int hpPotion = 100;
             if (this.GetHealth() >= playersMaxHp)
             {
                 mainForm.GetNarratorTextBox().Text = "Your HP is already maxed";
@@ -234,7 +249,9 @@ namespace Food_Crawler
                 Application.DoEvents();
             }
             this.SetHealth(this.GetHealth() + hpPotion);
+            potionPack.RemoveAt(potionPack.Count - 1);
             mainForm.PlayerStatsLabelUpdater();
+            
         }
         public void PrintAllIngredients(Form1 mainForm)
         {
