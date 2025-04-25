@@ -99,10 +99,10 @@ namespace Food_Crawler
             this.Controls.Add(NextButton);
             //music stuff
             casualMusicPath = ResourcesPath + "/Dungeon_Crawl.mp3";
-            ancientGobboMusicPath = ResourcesPath + "/WAR_Divide.wav";
-            dungeonSoulMusicPath = ResourcesPath + "/WE_FIGHT.wav";
-            treasureRoomMusicPath = ResourcesPath + "/Spindash.wav";
-            finalBossMusicPath = ResourcesPath + "/Bow_Down.wav";
+            ancientGobboMusicPath = ResourcesPath + "/WAR_Divide.mp3";
+            dungeonSoulMusicPath = ResourcesPath + "/WE_FIGHT.mp3";
+            treasureRoomMusicPath = ResourcesPath + "/Spindash.mp3";
+            finalBossMusicPath = ResourcesPath + "/Bow_Down.mp3";
             mainMusic = new();
         }
 

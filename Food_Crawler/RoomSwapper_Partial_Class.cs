@@ -649,7 +649,7 @@ namespace Food_Crawler
             {
                 if (musicCounter % 2 == 0)
                 {
-                    newMusic = ResourcesPath + "/Beserk_My_Brother.wav";
+                    newMusic = ResourcesPath + "/Beserk_My_Brother.mp3";
                     MusicHelperNewSong(newMusic);
                     musicCounter++;
                 } else
@@ -686,19 +686,19 @@ namespace Food_Crawler
                     newMusic = casualMusicPath;
                     break;
                 case 1: 
-                    newMusic = ResourcesPath + "/Faded.wav";
+                    newMusic = ResourcesPath + "/Faded.mp3";
                     break;
                 case 2:
-                    newMusic = ResourcesPath + "/Hyper_Full_Throttle.wav";
+                    newMusic = ResourcesPath + "/Hyper_Full_Throttle.mp3";
                     break;
                 case 3:
-                    newMusic = ResourcesPath + "/SNBRN_Raindrops.wav";
+                    newMusic = ResourcesPath + "/SNBRN_Raindrops.mp3";
                     break;
                 case 4:
-                        newMusic = ResourcesPath + "/Warak_Reanimate.wav";
+                        newMusic = ResourcesPath + "/Warak_Reanimate.mp3";
                     break;
                 case 5:
-                        newMusic = ResourcesPath + "/GalaxyCollapse.wav";
+                        newMusic = ResourcesPath + "/GalaxyCollapse.mp3";
                     break;
                 case 6:
                        newMusic = ancientGobboMusicPath;
@@ -707,7 +707,7 @@ namespace Food_Crawler
                     newMusic = dungeonSoulMusicPath;
                     break;
                 case 8:
-                    newMusic = ResourcesPath + "/Guts_Pressure.wav";
+                    newMusic = ResourcesPath + "/Guts_Pressure.mp3";
                     break;
             }
             MusicHelperNewSong(newMusic);
