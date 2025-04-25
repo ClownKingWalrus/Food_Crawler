@@ -571,6 +571,7 @@ namespace Food_Crawler
             LabelCreator(ref looseStatPoints, "looseStatPointsForm", speedLabel.Location.X + speedLabel.Size.Width + 30, 0, 100, 70, $"LSP: {mainPlayer.GetLooseStatPoints()}");
             LabelCreator(ref counterLabel, "counterLabel", looseStatPoints.Location.X + looseStatPoints.Size.Width + 30, 0, 100, 70, $"Counter: {staycounter}");
             LabelCreator(ref potionCountLabel, "potionCountLabel", counterLabel.Location.X + counterLabel.Size.Width + 30, 0, 100, 70, $"Potions: {mainPlayer.GetPotionCount()}");
+            musicButton.Location = new Point(potionCountLabel.Location.X + potionCountLabel.Width + 30, 0);
             Application.DoEvents();
         }
 
