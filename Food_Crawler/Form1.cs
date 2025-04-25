@@ -154,7 +154,7 @@ namespace Food_Crawler
             //staycounter = 10;
             //counter = 3;
             //TowerLevel = 10;
-
+            //mainPlayer.SetLooseStatPoints(100);
             int playerHpBeforeFight = mainPlayer.GetHealth();
             while (!gameOver && !isClosing)
             {
