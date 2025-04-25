@@ -125,9 +125,9 @@ namespace Food_Crawler
             musicButton.FlatStyle = FlatStyle.Standard;
             musicButton.Font = new Font("Poor Richard", 26);
 
-            //staycounter = 30;
+            //staycounter = 10;
             //counter = 3;
-            //TowerLevel = 5;
+            //TowerLevel = 10;
 
             int playerHpBeforeFight = mainPlayer.GetHealth();
             while (!gameOver)
