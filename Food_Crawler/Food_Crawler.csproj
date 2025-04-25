@@ -13,14 +13,9 @@
     <None Remove="Resources\arena.png" />
     <None Remove="Resources\Banana.png" />
     <None Remove="Resources\beatingstick_weapon.png" />
-    <None Remove="Resources\Berserk - My Brother %28Extended%29 %28Definitive Version%29.wav" />
-    <None Remove="Resources\Besomorph &amp; Coopex - Faded %28feat. Lunis%29.wav" />
-    <None Remove="Resources\Bow Down - Divide.wav" />
     <None Remove="Resources\ChoiceToGoDown.png" />
-    <None Remove="Resources\Dungeon Crawl.wav" />
     <None Remove="Resources\Dungeon_Soul.png" />
     <None Remove="Resources\Goblin.png" />
-    <None Remove="Resources\GUTS SONG ｜ ＂Pressure＂ ｜ Divide Music [Berserk].wav" />
     <None Remove="Resources\HealthPotion.png" />
     <None Remove="Resources\Helmet.png" />
     <None Remove="Resources\ItemGot.wav" />
@@ -30,7 +25,6 @@
     <None Remove="Resources\mimic_hide.png" />
     <None Remove="Resources\Money.png" />
     <None Remove="Resources\MoneySound.wav" />
-    <None Remove="Resources\More than Just Comrades, We Fight!.wav" />
     <None Remove="Resources\numchucks_weapon.png" />
     <None Remove="Resources\paintdoors.png" />
     <None Remove="Resources\paintUpgrade.png" />
@@ -38,21 +32,16 @@
     <None Remove="Resources\RockMan.png" />
     <None Remove="Resources\Shop.png" />
     <None Remove="Resources\Sickle_Weapon.png" />
-    <None Remove="Resources\SNBRN feat. Kerli - Raindrops %28Official Video%29.wav" />
     <None Remove="Resources\Spindash.wav" />
     <None Remove="Resources\StatusScreen.png" />
     <None Remove="Resources\tempRoomBAD.png" />
     <None Remove="Resources\tempRoomNoUpgrade.png" />
     <None Remove="Resources\tempRoomUpgrade.png" />
     <None Remove="Resources\upgradeSound.wav" />
-    <None Remove="Resources\WAR - Divide.wav" />
-    <None Remove="Resources\Warak - Reanimate.wav" />
-    <None Remove="Resources\[HYPER FULL THROTTLE] Yooh - Good bye, Merry-Go-Round. %28Long Ver.%29 [Official Audio].wav" />
-    <None Remove="Resources\黒皇帝 - Galaxy Collapse.wav" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Resources\More than Just Comrades, We Fight!.wav">
+    <Content Include="Resources\WE_FIGHT.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\numchucks_weapon.png">
@@ -76,7 +65,7 @@
     <Content Include="Resources\Sickle_Weapon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\SNBRN feat. Kerli - Raindrops (Official Video).wav">
+    <Content Include="Resources\SNBRN_Raindrops.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Spindash.wav">
@@ -97,13 +86,13 @@
     <Content Include="Resources\upgradeSound.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\WAR - Divide.wav">
+    <Content Include="Resources\WAR_Divide.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\Warak - Reanimate.wav">
+    <Content Include="Resources\Warak_Reanimate.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\黒皇帝 - Galaxy Collapse.wav">
+    <Content Include="Resources\GalaxyCollapse.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -125,13 +114,13 @@
     <Content Include="Resources\beatingstick_weapon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\Besomorph &amp; Coopex - Faded (feat. Lunis).wav">
+    <Content Include="Resources\Faded.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\Bow Down - Divide.wav">
+    <Content Include="Resources\Bow_Down.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\Dungeon Crawl.wav">
+    <Content Include="Resources\Dungeon_Crawl.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Dungeon_Soul.png">
@@ -140,7 +129,7 @@
     <Content Include="Resources\Goblin.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\GUTS SONG ｜ ＂Pressure＂ ｜ Divide Music [Berserk].wav">
+    <Content Include="Resources\Guts_Pressure.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\HealthPotion.png">
@@ -170,13 +159,13 @@
     <Content Include="Resources\MoneySound.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\[HYPER FULL THROTTLE] Yooh - Good bye, Merry-Go-Round. (Long Ver.) [Official Audio].wav">
+    <Content Include="Resources\Hyper_Full_Throttle.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Resources\Berserk - My Brother (Extended) (Definitive Version).wav">
+    <Content Include="Resources\Beserk_My_Brother.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

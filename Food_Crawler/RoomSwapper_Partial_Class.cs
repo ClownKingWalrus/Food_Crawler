@@ -649,7 +649,7 @@ namespace Food_Crawler
             {
                 if (musicCounter % 2 == 0)
                 {
-                    newMusic = ResourcesPath + "/Berserk - My Brother (Extended) (Definitive Version).wav";
+                    newMusic = ResourcesPath + "/Beserk_My_Brother.wav";
                     MusicHelperNewSong(newMusic);
                     musicCounter++;
                 } else
@@ -686,19 +686,19 @@ namespace Food_Crawler
                     newMusic = casualMusicPath;
                     break;
                 case 1: 
-                    newMusic = ResourcesPath + "/Besomorph & Coopex - Faded (feat. Lunis).wav";
+                    newMusic = ResourcesPath + "/Faded.wav";
                     break;
                 case 2:
-                    newMusic = ResourcesPath + "/[HYPER FULL THROTTLE] Yooh - Good bye, Merry-Go-Round. (Long Ver.) [Official Audio].wav";
+                    newMusic = ResourcesPath + "/Hyper_Full_Throttle.wav";
                     break;
                 case 3:
-                    newMusic = ResourcesPath + "/SNBRN feat. Kerli - Raindrops (Official Video).wav";
+                    newMusic = ResourcesPath + "/SNBRN_Raindrops.wav";
                     break;
                 case 4:
-                        newMusic = ResourcesPath + "/Warak - Reanimate.wav";
+                        newMusic = ResourcesPath + "/Warak_Reanimate.wav";
                     break;
                 case 5:
-                        newMusic = ResourcesPath + "/黒皇帝 - Galaxy Collapse.wav";
+                        newMusic = ResourcesPath + "/GalaxyCollapse.wav";
                     break;
                 case 6:
                        newMusic = ancientGobboMusicPath;
@@ -707,7 +707,7 @@ namespace Food_Crawler
                     newMusic = dungeonSoulMusicPath;
                     break;
                 case 8:
-                    newMusic = ResourcesPath + "/GUTS SONG ｜ ＂Pressure＂ ｜ Divide Music [Berserk].wav";
+                    newMusic = ResourcesPath + "/Guts_Pressure.wav";
                     break;
             }
             MusicHelperNewSong(newMusic);

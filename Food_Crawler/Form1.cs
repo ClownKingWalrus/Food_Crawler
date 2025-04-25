@@ -81,18 +81,11 @@ namespace Food_Crawler
             ResourcesPath = @"..\..\..\Resources";
 #else
             ResourcesPath = Application.StartupPath;
-            ResourcesPath = ResourcesPath + @"\Resources"
+            ResourcesPath = ResourcesPath + @"\Resources";
 #endif
 
-            MessageBox.Show($"Loading from: {ResourcesPath}");
             String paintDoorsPath = ResourcesPath + "/paintdoors.png";
-            if (!File.Exists(paintDoorsPath))
-            {
-                MessageBox.Show($"File not found: {paintDoorsPath}");
-                return; // or throw, or fallback
-            }
             mainImage = Image.FromFile(paintDoorsPath);
-            MessageBox.Show("made it past first path");
             mainPlayer = new Player();
 
             this.StartScreenPictureBox.SizeMode = PictureBoxSizeMode.CenterImage;
@@ -105,11 +98,11 @@ namespace Food_Crawler
             NextButton.Location = StartMenuButton.Location;
             this.Controls.Add(NextButton);
             //music stuff
-            casualMusicPath = ResourcesPath + "/Dungeon Crawl.wav";
-            ancientGobboMusicPath = ResourcesPath + "/WAR - Divide.wav";
-            dungeonSoulMusicPath = ResourcesPath + "/More than Just Comrades, We Fight!.wav";
+            casualMusicPath = ResourcesPath + "/Dungeon_Crawl.wav";
+            ancientGobboMusicPath = ResourcesPath + "/WAR_Divide.wav";
+            dungeonSoulMusicPath = ResourcesPath + "/WE_FIGHT.wav";
             treasureRoomMusicPath = ResourcesPath + "/Spindash.wav";
-            finalBossMusicPath = ResourcesPath + "/Bow Down - Divide.wav";
+            finalBossMusicPath = ResourcesPath + "/Bow_Down.wav";
             mainMusic = new();
         }
 
@@ -157,7 +150,7 @@ namespace Food_Crawler
             musicButton.FlatStyle = FlatStyle.Standard;
             musicButton.Font = new Font("Poor Richard", 26);
 
-            //staycounter = 30;
+            //staycounter = 10;
             //counter = 3;
             //TowerLevel = 10;
 
