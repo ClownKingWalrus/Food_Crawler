@@ -135,7 +135,8 @@ namespace Food_Crawler
             StartMenuButton.Enabled = false;
             StartMenuButton.Hide();
             //initate music
-            MusicHelperNewSong(casualMusicPath);
+            MusicHelperNewSong(casualMusicPath, (float)0.05);
+            
             Room1();
             Room2();
             //create music button
@@ -160,7 +161,7 @@ namespace Food_Crawler
                 MusicFakeLooper();
                 if (TowerLevel >= 10)
                 {
-                    MusicHelperNewSong(treasureRoomMusicPath);
+                    MusicHelperNewSong(treasureRoomMusicPath, musicOutput.Volume);
                     //add a button that waits for ten seconds if they touch they get hurt if not they keep full hp
 
                     mainImage = Image.FromFile(ResourcesPath + "/mimic_hide.png");
@@ -172,7 +173,7 @@ namespace Food_Crawler
                         Application.DoEvents();
                     }
 
-                    MusicHelperNewSong(finalBossMusicPath);
+                    MusicHelperNewSong(finalBossMusicPath, musicOutput.Volume);
                     mainImage = Image.FromFile(ResourcesPath + "/mimic.png");
                     StartScreenPictureBox.Image = mainImage;
                     staycounter = 999;
@@ -205,12 +206,12 @@ namespace Food_Crawler
                         tempnum = tempnum - counter;
                         if (staycounter >= 30)
                         {
-                            MusicHelperNewSong(dungeonSoulMusicPath);
+                            MusicHelperNewSong(dungeonSoulMusicPath, musicOutput.Volume);
                             Dungeon_Soul = Enemey.GenerateEnemey(TowerLevel * TowerLevel + (staycounter * 2));
                         } 
                         else if (staycounter >= 10)
                         {
-                            MusicHelperNewSong(ancientGobboMusicPath);
+                            MusicHelperNewSong(ancientGobboMusicPath, musicOutput.Volume);
                             ancientGobbo = Enemey.GenerateEnemey(TowerLevel + (staycounter / 2));
                         }
                     }
@@ -370,8 +371,9 @@ namespace Food_Crawler
             return this.StartMenuTextBox;
         }
 
-        public void MusicHelperNewSong(String musicPath)
+        public void MusicHelperNewSong(String musicPath, float volume)
         {
+            
             if (musicOutput == null || musicReader == null)
             {
                 musicReader = new(musicPath);
@@ -381,7 +383,7 @@ namespace Food_Crawler
             musicReader.Dispose();
             musicReader = new(musicPath);
             musicOutput = new();
-            musicOutput.Volume = (float)0.1;
+            musicOutput.Volume = volume;
             musicOutput.Init(musicReader);
             musicOutput.Play();
         }
