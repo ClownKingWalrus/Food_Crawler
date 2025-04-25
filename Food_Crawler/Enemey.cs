@@ -25,8 +25,8 @@ namespace Food_Crawler
 #if DEBUG
             ResPath = @"..\..\..\Resources";
 #else
-            ResourcesPath = Application.StartupPath;
-            ResourcesPath = ResourcesPath + @"\Resources";
+            ResPath = Application.StartupPath;
+            ResPath = ResPath + @"\Resources";
 #endif
             int TowerMultiplier = TowerLevel * 5;
             //generate a enemey with some random stats based on this

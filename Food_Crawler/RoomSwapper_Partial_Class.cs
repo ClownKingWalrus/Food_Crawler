@@ -650,11 +650,11 @@ namespace Food_Crawler
                 if (musicCounter % 2 == 0)
                 {
                     newMusic = ResourcesPath + "/Beserk_My_Brother.mp3";
-                    MusicHelperNewSong(newMusic);
+                    MusicHelperNewSong(newMusic, musicOutput.Volume);
                     musicCounter++;
                 } else
                 {
-                    MusicHelperNewSong(finalBossMusicPath);
+                    MusicHelperNewSong(finalBossMusicPath, musicOutput.Volume);
                     musicCounter++;
                 }
                     return;
@@ -710,7 +710,7 @@ namespace Food_Crawler
                     newMusic = ResourcesPath + "/Guts_Pressure.mp3";
                     break;
             }
-            MusicHelperNewSong(newMusic);
+            MusicHelperNewSong(newMusic, musicOutput.Volume);
             musicCounter++;
         }
 
