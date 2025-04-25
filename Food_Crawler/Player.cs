@@ -33,6 +33,7 @@ namespace Food_Crawler
         private int damage;
         private int looseStatPoints;
         private Weapons weapon;
+        bool isClosing = false;
         
         private int money;
         private List<int>? ingredientPouch; //someone should make a ingredient class
@@ -215,13 +216,19 @@ namespace Food_Crawler
             return this.weapon;
         }
 
+        public void SetIsClosingTrue()
+        {
+            this.isClosing = true;
+        }
+
+
         public void DrinkPotion(int playersMaxHp, Form1 mainForm)
         {
             if (this.potionPack.Count <= 0)
             {
                 mainForm.GetNarratorTextBox().Text = $"u aint got potions";
                 mainForm.NextButtonClicked(mainForm.NextButton);
-                while (mainForm.NextButton.Enabled == true)
+                while (mainForm.NextButton.Enabled == true && !isClosing)
                 {
                     Application.DoEvents();
                 }
@@ -238,13 +245,13 @@ namespace Food_Crawler
                 }
                 return;
             }
-            while (this.GetHealth() + hpPotion > playersMaxHp)
+            while (this.GetHealth() + hpPotion > playersMaxHp && !isClosing)
             {
                 hpPotion--;
             }
             mainForm.GetNarratorTextBox().Text = $"Healing for {hpPotion}";
             mainForm.NextButtonClicked(mainForm.NextButton);
-            while (mainForm.NextButton.Enabled == true)
+            while (mainForm.NextButton.Enabled == true && !isClosing)
             {
                 Application.DoEvents();
             }

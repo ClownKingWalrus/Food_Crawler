@@ -20,7 +20,7 @@ namespace Food_Crawler
             StartMenuTextBox.ReadOnly = true;
             StartMenuTextBox.Text = "Well your not as dashing as you remeber";
             NextButtonClicked(NextButton);
-            while (NextButton.Enabled == true)
+            while (NextButton.Enabled == true && !isClosing)
             {
                 Application.DoEvents();
             }
@@ -57,10 +57,10 @@ namespace Food_Crawler
             speedButton = new Button();
 
             //set up their parameters
-            ButtonCreator(ref healthButton, "healbuttonForm", 300, 230, 70, 70, "HP", healthButtonFunc);
-            ButtonCreator(ref armorButton, "armorButtonForm", 900, 230, 70, 70, "AMR", ArmorButtonFunc);
-            ButtonCreator(ref damageButton, "damageButtonForm", 270, 600, 70, 70, "DMG", DamageButtonFunc);
-            ButtonCreator(ref speedButton, "speedButtonForm", 1600, 230, 70, 70, "SPD", speedButtonFunc);
+            ButtonCreator(ref healthButton, "healbuttonForm", StartScreenPictureBox.Width/7, StartScreenPictureBox.Height/5, 70, 70, "HP", healthButtonFunc);
+            ButtonCreator(ref armorButton, "armorButtonForm", StartScreenPictureBox.Width / 3 + StartScreenPictureBox.Width / 9 + 20, StartScreenPictureBox.Height / 4, 70, 70, "AMR", ArmorButtonFunc);
+            ButtonCreator(ref damageButton, "damageButtonForm", StartScreenPictureBox.Width / 8, StartScreenPictureBox.Height / 2 + StartScreenPictureBox.Height / 12, 70, 70, "DMG", DamageButtonFunc);
+            ButtonCreator(ref speedButton, "speedButtonForm", StartScreenPictureBox.Width - StartScreenPictureBox.Width/4 + 30, StartScreenPictureBox.Height / 5, 70, 70, "SPD", speedButtonFunc);
 
             //set img seperatly might automate later?
             string paintUpgrade = ResourcesPath + "/paintUpgrade.png";
@@ -111,7 +111,7 @@ namespace Food_Crawler
             LabelCreator(ref counterLabel, "counterLabel", looseStatPoints.Location.X + looseStatPoints.Size.Width + 30, 0, 100, 70, $"Counter: {staycounter}");
             LabelCreator(ref potionCountLabel, "potionCountLabel", counterLabel.Location.X + counterLabel.Size.Width + 30, 0, 100, 70, $"Potions: {mainPlayer.GetPotionCount()}");
             Application.DoEvents();
-            while (mainPlayer.GetLooseStatPoints() > 0)
+            while (mainPlayer.GetLooseStatPoints() > 0 && !isClosing)
             {
                 Application.DoEvents();
             }
@@ -127,7 +127,7 @@ namespace Food_Crawler
 
 
             NextButtonClicked(NextButton);
-            while (NextButton.Enabled == true)
+            while (NextButton.Enabled == true && !isClosing)
             {
                 Application.DoEvents();
             }
@@ -201,7 +201,7 @@ namespace Food_Crawler
             Button leaveButton = new();
             ButtonCreator(ref leaveButton, "leaveButton", StartScreenPictureBox.Width/2, StartScreenPictureBox.Height - 160, 200, 80, "Leave", DisableButton);
 
-            while (leaveButton.Enabled == true)
+            while (leaveButton.Enabled == true && !isClosing)
             {
                 Application.DoEvents();
             }
@@ -254,7 +254,7 @@ namespace Food_Crawler
             Image EnemeyImage = Image.FromFile(EnemeyImagePath);
             enemeyPictureBox = null;
             enemeyPictureBox = new();
-            PictureBoxCreator(ref enemeyPictureBox, 500, 500, this.StartScreenPictureBox.Width- 1000, this.Height - 1000, EnemeyImage);;
+            PictureBoxCreator(ref enemeyPictureBox, 500, 500, this.StartScreenPictureBox.Width / 2 + this.StartScreenPictureBox.Width / 16, this.Height / 4, EnemeyImage);;
 
             //full weapon path already
             String EnemeyWeaponPath = tempEnemey.GetWeapon().weaponpng;
@@ -277,13 +277,13 @@ namespace Food_Crawler
                 enemeyWeaponPictureBox.Hide();
                 EnemeyImagePath = ResourcesPath + @"\ancientGobo_Crawl.png";
                 EnemeyImage = Image.FromFile(EnemeyImagePath);
-                PictureBoxCreator(ref enemeyPictureBox, 500, 500, this.StartScreenPictureBox.Width - 1000, this.Height - 1000, EnemeyImage);
+                PictureBoxCreator(ref enemeyPictureBox, 500, 500, this.StartScreenPictureBox.Width / 2 + this.StartScreenPictureBox.Width / 16, this.Height / 4, EnemeyImage);
                 ancientGobbo.SetName("Ancient Gobbo");
                 Arena.LaunchFight(ref mainPlayer, ref ancientGobbo, tempRandGen, this);
                 int lspGained = tempRandGen.Next(TowerLevel, TowerLevel * 5);
                 GetNarratorTextBox().Text = $"Since you killed Ancient Gobbo extra LSP is granted {lspGained} for a total of {lspGained + mainPlayer.GetLooseStatPoints()}";
                 NextButtonClicked(NextButton);
-                while (NextButton.Enabled == true)
+                while (NextButton.Enabled == true && !isClosing)
                 {
                     Application.DoEvents();
                 }
@@ -297,13 +297,13 @@ namespace Food_Crawler
                 enemeyWeaponPictureBox.Hide();
                 EnemeyImagePath = ResourcesPath + @"\Dungeon_Soul.png";
                 EnemeyImage = Image.FromFile(EnemeyImagePath);
-                PictureBoxCreator(ref enemeyPictureBox, 500, 500, this.StartScreenPictureBox.Width - 1000, this.Height - 1000, EnemeyImage);
+                PictureBoxCreator(ref enemeyPictureBox, 500, 500, this.StartScreenPictureBox.Width / 2 + this.StartScreenPictureBox.Width / 16, this.Height / 4, EnemeyImage);
                 Dungeon_Soul.SetName("Dungeon Soul");
                 Arena.LaunchFight(ref mainPlayer, ref Dungeon_Soul, tempRandGen, this);
                 int lspGained = tempRandGen.Next(TowerLevel + 5 * 2, TowerLevel + 6 * 5);
                 GetNarratorTextBox().Text = $"Since you killed DungeonSoul extra LSP is granted {lspGained} for a total of {lspGained + mainPlayer.GetLooseStatPoints()}";
                 NextButtonClicked(NextButton);
-                while (NextButton.Enabled == true)
+                while (NextButton.Enabled == true && !isClosing)
                 {
                     Application.DoEvents();
                 }
@@ -590,7 +590,7 @@ namespace Food_Crawler
 
             }
             //this is probably overkill but im not trying to figure out why label.Location.X = some number does not work thats not very fortnite
-            LabelCreator(ref enemeyhealthLabel, "enemeyhealthLabelForm", 950, 120, 50, 50, $"HP: {enemey.GetHealth()}", Color.Red);
+            LabelCreator(ref enemeyhealthLabel, "enemeyhealthLabelForm", this.StartScreenPictureBox.Width / 3 + this.StartScreenPictureBox.Width / 6, this.Height / 6, 50, 50, $"HP: {enemey.GetHealth()}", Color.Red);
             LabelCreator(ref enemeyarmorLabel, "enemeyarmorLabelForm", enemeyhealthLabel.Location.X + enemeyhealthLabel.Size.Width + 30, enemeyhealthLabel.Location.Y, 50, 50, $"AMR: {enemey.GetArmor()}", Color.Red);
             LabelCreator(ref enemeydamageLabel, "enemeydamageLabelForm", enemeyarmorLabel.Location.X + enemeyarmorLabel.Size.Width + 30, enemeyhealthLabel.Location.Y, 50, 50, $"DMG: {enemey.GetDamage()}", Color.Red);
             LabelCreator(ref enemeyspeedLabel, "enemeyspeedLabelForm", enemeydamageLabel.Location.X + enemeydamageLabel.Size.Width + 30, enemeyhealthLabel.Location.Y, 50, 50, $"SPD: {enemey.GetSpeed()}", Color.Red);
