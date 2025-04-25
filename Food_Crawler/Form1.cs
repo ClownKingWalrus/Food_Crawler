@@ -76,8 +76,23 @@ namespace Food_Crawler
             //AllocConsole(); //console for testing
             InitializeComponent();
             this.FormClosing += CloseProperly;
+
+#if DEBUG
+            ResourcesPath = @"..\..\..\Resources";
+#else
+            ResourcesPath = Application.StartupPath;
+            ResourcesPath = ResourcesPath + @"\Resources"
+#endif
+
+            MessageBox.Show($"Loading from: {ResourcesPath}");
             String paintDoorsPath = ResourcesPath + "/paintdoors.png";
+            if (!File.Exists(paintDoorsPath))
+            {
+                MessageBox.Show($"File not found: {paintDoorsPath}");
+                return; // or throw, or fallback
+            }
             mainImage = Image.FromFile(paintDoorsPath);
+            MessageBox.Show("made it past first path");
             mainPlayer = new Player();
 
             this.StartScreenPictureBox.SizeMode = PictureBoxSizeMode.CenterImage;
@@ -119,7 +134,6 @@ namespace Food_Crawler
             staycounter = 0;
             Random tempRandom = new();
             int tempnum = 0;
-            ResourcesPath = Application.StartupPath;
             upgradeRoomPath = ResourcesPath + "/tempRoomUpgrade.png";
             notupgradeRoomPath = ResourcesPath + "/tempRoomNoUpgrade.png";
             BADROOMPath = ResourcesPath + "/tempRoomBAD.png";
