@@ -57,7 +57,7 @@ namespace Food_Crawler
         String finalBossMusicPath;
         String treasureRoomMusicPath;
 
-        public String ResourcesPath = @"..\..\..\Resources";
+        public String ResourcesPath;
         public String? upgradeRoomPath;
         public String? notupgradeRoomPath;
         public String? BADROOMPath;
@@ -119,6 +119,7 @@ namespace Food_Crawler
             staycounter = 0;
             Random tempRandom = new();
             int tempnum = 0;
+            ResourcesPath = Application.StartupPath;
             upgradeRoomPath = ResourcesPath + "/tempRoomUpgrade.png";
             notupgradeRoomPath = ResourcesPath + "/tempRoomNoUpgrade.png";
             BADROOMPath = ResourcesPath + "/tempRoomBAD.png";
