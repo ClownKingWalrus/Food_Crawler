@@ -98,7 +98,7 @@ namespace Food_Crawler
             NextButton.Location = StartMenuButton.Location;
             this.Controls.Add(NextButton);
             //music stuff
-            casualMusicPath = ResourcesPath + "/Dungeon_Crawl.wav";
+            casualMusicPath = ResourcesPath + "/Dungeon_Crawl.mp3";
             ancientGobboMusicPath = ResourcesPath + "/WAR_Divide.wav";
             dungeonSoulMusicPath = ResourcesPath + "/WE_FIGHT.wav";
             treasureRoomMusicPath = ResourcesPath + "/Spindash.wav";
