@@ -20,6 +20,7 @@ namespace Food_Crawler
         Button? BuyBananaButton;
         Button? BuyHelmetButton;
         Button? musicButton;
+        bool isClosing = false;
 
         //3 main rooms
         Button shopButton;
@@ -74,6 +75,7 @@ namespace Food_Crawler
 
             //AllocConsole(); //console for testing
             InitializeComponent();
+            this.FormClosing += CloseProperly;
             String paintDoorsPath = ResourcesPath + "/paintdoors.png";
             mainImage = Image.FromFile(paintDoorsPath);
             mainPlayer = new Player();
@@ -94,6 +96,21 @@ namespace Food_Crawler
             treasureRoomMusicPath = ResourcesPath + "/Spindash.wav";
             finalBossMusicPath = ResourcesPath + "/Bow Down - Divide.wav";
             mainMusic = new();
+        }
+
+        protected void CloseProperly(object sender, FormClosingEventArgs e)
+        {
+            isClosing = true;
+            mainPlayer.SetIsClosingTrue();
+            if (musicOutput == null || musicReader == null)
+            {
+                musicReader = new(casualMusicPath);
+                musicOutput = new();
+            }
+            musicOutput.Dispose();
+            musicReader.Dispose();
+            Application.Exit();
+            //Environment.Exit(0);
         }
 
         private void StartMenuButton_Click(object sender, EventArgs e)
@@ -125,12 +142,12 @@ namespace Food_Crawler
             musicButton.FlatStyle = FlatStyle.Standard;
             musicButton.Font = new Font("Poor Richard", 26);
 
-            //staycounter = 10;
+            //staycounter = 30;
             //counter = 3;
             //TowerLevel = 10;
 
             int playerHpBeforeFight = mainPlayer.GetHealth();
-            while (!gameOver)
+            while (!gameOver && !isClosing)
             {
                 MusicFakeLooper();
                 if (TowerLevel >= 10)
@@ -142,7 +159,7 @@ namespace Food_Crawler
                     StartScreenPictureBox.Image = mainImage;
                     this.GetNarratorTextBox().Text = "Click for loot";
                     NextButtonClicked(NextButton);
-                    while (NextButton.Enabled == true)
+                    while (NextButton.Enabled == true && !isClosing)
                     {
                         Application.DoEvents();
                     }
@@ -162,7 +179,7 @@ namespace Food_Crawler
                     Button tempChoiceGoDown = new();
                     ButtonCreator(ref tempChoiceStay, "tempChoiceStay", tempChoiceStay.Width, GetNarratorTextBox().Location.Y - 100, 100, 100, "Stay", DisableButton);
                     ButtonCreator(ref tempChoiceGoDown, "tempChoiceGoDown", tempChoiceGoDown.Width + 500, GetNarratorTextBox().Location.Y - 100, 100, 100, "Go Down", DisableButton);
-                    while (tempChoiceGoDown.Enabled && tempChoiceStay.Enabled)
+                    while (tempChoiceGoDown.Enabled && tempChoiceStay.Enabled && !isClosing)
                     {
                         Application.DoEvents();
                     }
@@ -173,7 +190,7 @@ namespace Food_Crawler
                         tempChoiceStay.Hide();
                         this.GetNarratorTextBox().Text = "You decide to stay on this level however it seems more baron then before";
                         NextButtonClicked(NextButton);
-                        while (NextButton.Enabled == true)
+                        while (NextButton.Enabled == true && !isClosing)
                         {
                             Application.DoEvents();
                         }
@@ -196,7 +213,7 @@ namespace Food_Crawler
                         tempChoiceStay.Hide();
                         this.GetNarratorTextBox().Text = "The dungeon air seems to be more stagnet than before";
                         NextButtonClicked(NextButton);
-                        while (NextButton.Enabled == true)
+                        while (NextButton.Enabled == true && !isClosing)
                         {
                             Application.DoEvents();
                         }
@@ -204,7 +221,7 @@ namespace Food_Crawler
                         counter = 0;
                         this.GetNarratorTextBox().Text = "this area seems to be a staging area? increasing odds by 50%";
                         NextButtonClicked(NextButton);
-                        while (NextButton.Enabled == true)
+                        while (NextButton.Enabled == true && !isClosing)
                         {
                             Application.DoEvents();
                         }
@@ -218,7 +235,7 @@ namespace Food_Crawler
                 }
                 this.GetNarratorTextBox().Text = "You can decide decide to rest here for a chance to possibly miss oppurnities";
                 NextButtonClicked(NextButton);
-                while (NextButton.Enabled == true)
+                while (NextButton.Enabled == true && !isClosing)
                 {
                     Application.DoEvents();
                 }
@@ -227,7 +244,7 @@ namespace Food_Crawler
                 Button tempChoiceMarch = new();
                 ButtonCreator(ref tempChoiceRest, "tempChoiceRest", tempChoiceRest.Width, GetNarratorTextBox().Location.Y - 100, 100, 100, "Rest", DisableButton);
                 ButtonCreator(ref tempChoiceMarch, "tempChoiceMarch", tempChoiceMarch.Width + 500, GetNarratorTextBox().Location.Y - 100, 100, 100, "March", DisableButton);
-                while (tempChoiceMarch.Enabled && tempChoiceRest.Enabled)
+                while (tempChoiceMarch.Enabled && tempChoiceRest.Enabled && !isClosing)
                 {
                     Application.DoEvents();
                 }
@@ -238,7 +255,7 @@ namespace Food_Crawler
                     this.GetNarratorTextBox().Text = $"You eat some moldy bread or somthing";
                     PlayerStatsLabelUpdater();
                     NextButtonClicked(NextButton);
-                    while (NextButton.Enabled == true)
+                    while (NextButton.Enabled == true && !isClosing)
                     {
                         Application.DoEvents();
                     }
@@ -248,7 +265,7 @@ namespace Food_Crawler
                     tempnum = tempnum + 2;
                     this.GetNarratorTextBox().Text = $"increasing odds by 20%";
                     NextButtonClicked(NextButton);
-                    while (NextButton.Enabled == true)
+                    while (NextButton.Enabled == true && !isClosing)
                     {
                         Application.DoEvents();
                     }
@@ -262,9 +279,9 @@ namespace Food_Crawler
                 shopButton = new();
                 upgradeButton = new();
                 caveButton = new();
-                ButtonCreator(ref shopButton, "shopButton", 600, GetNarratorTextBox().Location.Y - 400, 100, 100, "1", ShopButton);
-                ButtonCreator(ref upgradeButton, "upgradeButton", 1800, GetNarratorTextBox().Location.Y - 400, 100, 100, "2", UpgradeRoomButton);
-                ButtonCreator(ref caveButton, "caveButton", 1200, GetNarratorTextBox().Location.Y -400, 100, 100, "3", DisableButton);
+                ButtonCreator(ref shopButton, "shopButton", StartScreenPictureBox.Width/4 + StartScreenPictureBox.Width / 14, StartScreenPictureBox.Height / 2, 100, 100, "1", ShopButton);
+                ButtonCreator(ref upgradeButton, "upgradeButton", StartScreenPictureBox.Width - StartScreenPictureBox.Width / 7, StartScreenPictureBox.Height / 2, 100, 100, "2", UpgradeRoomButton);
+                ButtonCreator(ref caveButton, "caveButton", StartScreenPictureBox.Width / 2 + StartScreenPictureBox.Width / 11, StartScreenPictureBox.Height / 2, 100, 100, "3", DisableButton);
                 shopButton.Hide();
                 shopButton.Enabled = false;
                 upgradeButton.Hide();
@@ -286,7 +303,7 @@ namespace Food_Crawler
                     upgradeButton.Enabled = true;
                     caveButton.Show();
                     caveButton.Enabled = true;
-                    while (caveButton.Enabled)
+                    while (caveButton.Enabled && !isClosing)
                     {
                         MusicFakeLooper();
                         Application.DoEvents();
@@ -306,7 +323,7 @@ namespace Food_Crawler
                     shopButton.Enabled = true;
                     caveButton.Show();
                     caveButton.Enabled = true;
-                    while (caveButton.Enabled)
+                    while (caveButton.Enabled && !isClosing)
                     {
                         Application.DoEvents();
                     }
@@ -323,7 +340,7 @@ namespace Food_Crawler
                     this.GetNarratorTextBox().Text = "seems you will need to grit your teeth for the trials ahead";
                     caveButton.Show();
                     caveButton.Enabled = true;
-                    while (caveButton.Enabled)
+                    while (caveButton.Enabled && !isClosing)
                     {
                         Application.DoEvents();
                     }
@@ -368,6 +385,10 @@ namespace Food_Crawler
                 musicReader.Position = 0;
                 musicOutput.Play();
             }
+        }
+        public bool GetIsClosing()
+        {
+            return isClosing;
         }
     }
 }

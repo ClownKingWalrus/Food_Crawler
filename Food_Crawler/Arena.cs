@@ -21,7 +21,7 @@ namespace Food_Crawler
                 mainForm.GetNarratorTextBox().Text = $"{enemey.GetName()} Was broke and had no loot fight an investor next time";
                 Application.DoEvents();
                 mainForm.NextButtonClicked(mainForm.NextButton);
-                while (mainForm.NextButton.Enabled == true)
+                while (mainForm.NextButton.Enabled == true && !mainForm.GetIsClosing())
                 {
                     Application.DoEvents();
                 }
@@ -30,20 +30,20 @@ namespace Food_Crawler
             mainForm.GetNarratorTextBox().Text = "The enemey was not completly broke here his the loot";
             Application.DoEvents();
             mainForm.NextButtonClicked(mainForm.NextButton);
-            while (mainForm.NextButton.Enabled == true)
+            while (mainForm.NextButton.Enabled == true && !mainForm.GetIsClosing())
             {
                 Application.DoEvents();
             }
             enemey.PrintAllIngredients(mainForm);
             mainForm.NextButtonClicked(mainForm.NextButton);
-            while (mainForm.NextButton.Enabled == true)
+            while (mainForm.NextButton.Enabled == true && !mainForm.GetIsClosing())
             {
                 Application.DoEvents();
             }
             mainForm.GetNarratorTextBox().Text = "You throw the loot into your bag";
             Application.DoEvents();
             mainForm.NextButtonClicked(mainForm.NextButton);
-            while (mainForm.NextButton.Enabled == true)
+            while (mainForm.NextButton.Enabled == true && !mainForm.GetIsClosing())
             {
                 Application.DoEvents();
             }
@@ -53,7 +53,7 @@ namespace Food_Crawler
                 mainForm.GetNarratorTextBox().Text = "Did you lose your loot bag or somthing? its null let me reconsruct your loot bag for you";
                 Application.DoEvents();
                 mainForm.NextButtonClicked(mainForm.NextButton);
-                while (mainForm.NextButton.Enabled == true)
+                while (mainForm.NextButton.Enabled == true && !mainForm.GetIsClosing())
                 {
                     Application.DoEvents();
                 }
@@ -61,7 +61,7 @@ namespace Food_Crawler
                 mainForm.GetNarratorTextBox().Text = "pushing in enemey loot into your bag homeslice breadslice dawg";
                 Application.DoEvents();
                 mainForm.NextButtonClicked(mainForm.NextButton);
-                while (mainForm.NextButton.Enabled == true)
+                while (mainForm.NextButton.Enabled == true && !mainForm.GetIsClosing())
                 {
                     Application.DoEvents();
                 }
@@ -69,7 +69,7 @@ namespace Food_Crawler
             }
             mainForm.GetNarratorTextBox().Text = $"like a beast you steal {enemey.GetName()} Money";
             mainForm.NextButtonClicked(mainForm.NextButton);
-            while (mainForm.NextButton.Enabled == true)
+            while (mainForm.NextButton.Enabled == true && !mainForm.GetIsClosing())
             {
                 Application.DoEvents();
             }
@@ -78,7 +78,7 @@ namespace Food_Crawler
             randnum = randnumgen.Next(1, 10);
             mainForm.GetNarratorTextBox().Text = $"{player.GetName()} found ${randnum} total money ${player.GetMoney() + randnum}";
             mainForm.NextButtonClicked(mainForm.NextButton);
-            while (mainForm.NextButton.Enabled == true)
+            while (mainForm.NextButton.Enabled == true && !mainForm.GetIsClosing())
             {
                 Application.DoEvents();
             }
@@ -96,7 +96,7 @@ namespace Food_Crawler
                 Application.DoEvents();
 
                 mainForm.NextButtonClicked(mainForm.NextButton);
-                while (mainForm.NextButton.Enabled == true)
+                while (mainForm.NextButton.Enabled == true && !mainForm.GetIsClosing())
                 {
                     Application.DoEvents();
                 }
@@ -108,7 +108,7 @@ namespace Food_Crawler
                 Application.DoEvents();
 
                 mainForm.NextButtonClicked(mainForm.NextButton);
-                while (mainForm.NextButton.Enabled == true)
+                while (mainForm.NextButton.Enabled == true && !mainForm.GetIsClosing())
                 {
                     Application.DoEvents();
                 }
@@ -128,7 +128,7 @@ namespace Food_Crawler
                 lspGained = lspGained + exphpmuli;
                 mainForm.GetNarratorTextBox().Text = $"LSP gained from fight is {lspGained} for a total of {lspGained + player.GetLooseStatPoints()}";
                 mainForm.NextButtonClicked(mainForm.NextButton);
-                while (mainForm.NextButton.Enabled == true)
+                while (mainForm.NextButton.Enabled == true && !mainForm.GetIsClosing())
                 {
                     Application.DoEvents();
                 }
@@ -145,7 +145,7 @@ namespace Food_Crawler
                 mainForm.GetNarratorTextBox().Text = $"{enemey.GetName()} sees you sprinting towards him like a mad man {enemey.GetName()} wishes he did more legs";
                 Application.DoEvents();
                 mainForm.NextButtonClicked(mainForm.NextButton);
-                while (mainForm.NextButton.Enabled == true)
+                while (mainForm.NextButton.Enabled == true && !mainForm.GetIsClosing())
                 {
                     Application.DoEvents();
                 }
@@ -153,7 +153,7 @@ namespace Food_Crawler
                 Application.DoEvents();
 
                 mainForm.NextButtonClicked(mainForm.NextButton);
-                while (mainForm.NextButton.Enabled == true)
+                while (mainForm.NextButton.Enabled == true && !mainForm.GetIsClosing())
                 {
                     Application.DoEvents();
                 }
@@ -179,7 +179,7 @@ namespace Food_Crawler
                 Application.DoEvents();
                 mainForm.NextButtonClicked(mainForm.NextButton);
 
-                while (mainForm.NextButton.Enabled == true)
+                while (mainForm.NextButton.Enabled == true && !mainForm.GetIsClosing())
                 {
                     Application.DoEvents();
                 }
@@ -189,7 +189,7 @@ namespace Food_Crawler
                     mainForm.GetNarratorTextBox().Text = $"{enemey.GetName()} sheds a tear";
                     Application.DoEvents();
                     mainForm.NextButtonClicked(mainForm.NextButton);
-                    while (mainForm.NextButton.Enabled == true)
+                    while (mainForm.NextButton.Enabled == true && !mainForm.GetIsClosing())
                     {
                         Application.DoEvents();
                     }
@@ -205,14 +205,14 @@ namespace Food_Crawler
                     mainForm.GetNarratorTextBox().Text = $"{enemey.GetName()} armor reduced this much Damage: {enemey.GetArmor() / 2}";
                     Application.DoEvents();
                     mainForm.NextButtonClicked(mainForm.NextButton);
-                    while (mainForm.NextButton.Enabled == true)
+                    while (mainForm.NextButton.Enabled == true && !mainForm.GetIsClosing())
                     {
                         Application.DoEvents();
                     }
                     mainForm.GetNarratorTextBox().Text = $"{player.GetName()} just dealt {dmg} damage";
                     Application.DoEvents();
                     mainForm.NextButtonClicked(mainForm.NextButton);
-                    while (mainForm.NextButton.Enabled == true)
+                    while (mainForm.NextButton.Enabled == true && !mainForm.GetIsClosing())
                     {
                         Application.DoEvents();
                     }
@@ -227,7 +227,7 @@ namespace Food_Crawler
                     Application.DoEvents();
 
                     mainForm.NextButtonClicked(mainForm.NextButton);
-                    while (mainForm.NextButton.Enabled == true)
+                    while (mainForm.NextButton.Enabled == true && !mainForm.GetIsClosing())
                     {
                         Application.DoEvents();
                     }
@@ -236,14 +236,14 @@ namespace Food_Crawler
                 mainForm.GetNarratorTextBox().Text = "It's pretty fast its approaching for an attack";
                 Application.DoEvents();
                 mainForm.NextButtonClicked(mainForm.NextButton);
-                while (mainForm.NextButton.Enabled == true)
+                while (mainForm.NextButton.Enabled == true && !mainForm.GetIsClosing())
                 {
                     Application.DoEvents();
                 }
                 mainForm.GetNarratorTextBox().Text = $"{enemey.GetName()} is rolling for intital attack chance must be above 5";
                 Application.DoEvents();
                 mainForm.NextButtonClicked(mainForm.NextButton);
-                while (mainForm.NextButton.Enabled == true)
+                while (mainForm.NextButton.Enabled == true && !mainForm.GetIsClosing())
                 {
                     Application.DoEvents();
                 }
@@ -265,7 +265,7 @@ namespace Food_Crawler
                 Application.DoEvents();
 
                 mainForm.NextButtonClicked(mainForm.NextButton);
-                while (mainForm.NextButton.Enabled == true)
+                while (mainForm.NextButton.Enabled == true && !mainForm.GetIsClosing())
                 {
                     Application.DoEvents();
                 }
@@ -285,14 +285,14 @@ namespace Food_Crawler
                         mainForm.GetNarratorTextBox().Text = $"Your armor reduced this much damage: {player.GetArmor() / 2}";
                     Application.DoEvents();
                     mainForm.NextButtonClicked(mainForm.NextButton);
-                    while (mainForm.NextButton.Enabled == true)
+                    while (mainForm.NextButton.Enabled == true && !mainForm.GetIsClosing())
                     {
                         Application.DoEvents();
                     }
                     mainForm.GetNarratorTextBox().Text = $"{enemey.GetName()} just dealt {dmg} damage";
                     Application.DoEvents();
                     mainForm.NextButtonClicked(mainForm.NextButton);
-                    while (mainForm.NextButton.Enabled == true)
+                    while (mainForm.NextButton.Enabled == true && !mainForm.GetIsClosing())
                     {
                         Application.DoEvents();
                     }
@@ -305,7 +305,7 @@ namespace Food_Crawler
                     mainForm.GetNarratorTextBox().Text = "You evade the enemey Inital strike";
                     Application.DoEvents();
                     mainForm.NextButtonClicked(mainForm.NextButton);
-                    while (mainForm.NextButton.Enabled == true)
+                    while (mainForm.NextButton.Enabled == true && !mainForm.GetIsClosing())
                     {
                         Application.DoEvents();
                     }
@@ -346,7 +346,7 @@ namespace Food_Crawler
         {
             mainForm.GetNarratorTextBox().Text = $"Player aims there next attack at {enemey.GetName()}";
             mainForm.NextButtonClicked(mainForm.NextButton);
-            while (mainForm.NextButton.Enabled == true)
+            while (mainForm.NextButton.Enabled == true && !mainForm.GetIsClosing())
             {
                 Application.DoEvents();
             }
@@ -355,7 +355,7 @@ namespace Food_Crawler
             mainForm.GetNarratorTextBox().Text = $"{player.GetName()} Strike at {enemey.GetName()} For: {player.GetDamage()}";
             Application.DoEvents();
             mainForm.NextButtonClicked(mainForm.NextButton);
-            while (mainForm.NextButton.Enabled == true)
+            while (mainForm.NextButton.Enabled == true && !mainForm.GetIsClosing())
             {
                 Application.DoEvents();
             }
@@ -364,14 +364,14 @@ namespace Food_Crawler
                 mainForm.GetNarratorTextBox().Text = $"{enemey.GetName()} Decides to hunker down increasing is armor by half for a total of {enemey.GetArmor() + enemey.GetArmor() / 2}";
                 Application.DoEvents();
                 mainForm.NextButtonClicked(mainForm.NextButton);
-                while (mainForm.NextButton.Enabled == true)
+                while (mainForm.NextButton.Enabled == true && !mainForm.GetIsClosing())
                 {
                     Application.DoEvents();
                 }
                 mainForm.GetNarratorTextBox().Text = $"{player.GetName()} Damage is currently {player.GetDamage()}";
                 Application.DoEvents();
                 mainForm.NextButtonClicked(mainForm.NextButton);
-                while (mainForm.NextButton.Enabled == true)
+                while (mainForm.NextButton.Enabled == true && !mainForm.GetIsClosing())
                 {
                     Application.DoEvents();
                 }
@@ -388,7 +388,7 @@ namespace Food_Crawler
                     mainForm.GetNarratorTextBox().Text = $"{player.GetName()} Damage is reduced to {dmg}";
                 Application.DoEvents();
                 mainForm.NextButtonClicked(mainForm.NextButton);
-                while (mainForm.NextButton.Enabled == true)
+                while (mainForm.NextButton.Enabled == true && !mainForm.GetIsClosing())
                 {
                     Application.DoEvents();
                 }
@@ -420,7 +420,7 @@ namespace Food_Crawler
                 mainForm.GetNarratorTextBox().Text = $"{enemey.GetName()} Rolled: {randomNum}";
                 Application.DoEvents();
                 mainForm.NextButtonClicked(mainForm.NextButton);
-                while (mainForm.NextButton.Enabled == true)
+                while (mainForm.NextButton.Enabled == true && !mainForm.GetIsClosing())
                 {
                     Application.DoEvents();
                 }
@@ -429,7 +429,7 @@ namespace Food_Crawler
                     mainForm.GetNarratorTextBox().Text = $"giving two pity points because {enemey.GetName()} managed to roll a zero D:";
                     Application.DoEvents();
                     mainForm.NextButtonClicked(mainForm.NextButton);
-                    while (mainForm.NextButton.Enabled == true)
+                    while (mainForm.NextButton.Enabled == true && !mainForm.GetIsClosing())
                     {
                         Application.DoEvents();
                     }
@@ -438,7 +438,7 @@ namespace Food_Crawler
                 mainForm.GetNarratorTextBox().Text = $"Initating Roll phase Highest number decides winner";
                 Application.DoEvents();
                 mainForm.NextButtonClicked(mainForm.NextButton);
-                while (mainForm.NextButton.Enabled == true)
+                while (mainForm.NextButton.Enabled == true && !mainForm.GetIsClosing())
                 {
                     Application.DoEvents();
                 }
@@ -447,7 +447,7 @@ namespace Food_Crawler
                     mainForm.GetNarratorTextBox().Text = $"{enemey.GetName()} weaves your attack by the luck of the gods";
                     Application.DoEvents();
                     mainForm.NextButtonClicked(mainForm.NextButton);
-                    while (mainForm.NextButton.Enabled == true)
+                    while (mainForm.NextButton.Enabled == true && !mainForm.GetIsClosing())
                     {
                         Application.DoEvents();
                     }
@@ -467,7 +467,7 @@ namespace Food_Crawler
                     mainForm.GetNarratorTextBox().Text = $"{enemey.GetName()} Gets clobberd over the head for {dmg}";
                     Application.DoEvents();
                     mainForm.NextButtonClicked(mainForm.NextButton);
-                    while (mainForm.NextButton.Enabled == true)
+                    while (mainForm.NextButton.Enabled == true && !mainForm.GetIsClosing())
                     {
                         Application.DoEvents();
                     }
@@ -483,7 +483,7 @@ namespace Food_Crawler
         {
             mainForm.GetNarratorTextBox().Text = $"{enemey.GetName()} aims there next attack at {player.GetName()}";
             mainForm.NextButtonClicked(mainForm.NextButton);
-            while (mainForm.NextButton.Enabled == true)
+            while (mainForm.NextButton.Enabled == true && !mainForm.GetIsClosing())
             {
                 Application.DoEvents();
             }
@@ -495,7 +495,7 @@ namespace Food_Crawler
             Button tempChoiceDodge = new();
             mainForm.ButtonCreator(ref tempChoiceHunker, "tempChoiceHunker", tempChoiceHunker.Width, mainForm.GetNarratorTextBox().Location.Y - 100, 100, 100, "1", mainForm.DisableButton);
             mainForm.ButtonCreator(ref tempChoiceDodge, "tempChoiceDodge", tempChoiceHunker.Width + 500, mainForm.GetNarratorTextBox().Location.Y - 100, 100, 100, "2", mainForm.DisableButton);
-            while (tempChoiceHunker.Enabled && tempChoiceDodge.Enabled)
+            while (tempChoiceHunker.Enabled && tempChoiceDodge.Enabled && !mainForm.GetIsClosing())
             {
                 Application.DoEvents();
             }
@@ -515,7 +515,7 @@ namespace Food_Crawler
             mainForm.GetNarratorTextBox().Text = $"{enemey.GetName()} Strike at {player.GetName()} For: {enemey.GetDamage()}";
             Application.DoEvents();
             mainForm.NextButtonClicked(mainForm.NextButton);
-            while (mainForm.NextButton.Enabled == true)
+            while (mainForm.NextButton.Enabled == true && !mainForm.GetIsClosing())
             {
                 Application.DoEvents();
             }
@@ -524,14 +524,14 @@ namespace Food_Crawler
                 mainForm.GetNarratorTextBox().Text = $"{player.GetName()} Decides to hunker down increasing is armor by half for a total of {player.GetArmor() + player.GetArmor() / 2}";
                 Application.DoEvents();
                 mainForm.NextButtonClicked(mainForm.NextButton);
-                while (mainForm.NextButton.Enabled == true)
+                while (mainForm.NextButton.Enabled == true && !mainForm.GetIsClosing())
                 {
                     Application.DoEvents();
                 }
                 mainForm.GetNarratorTextBox().Text = $"{enemey.GetName()} Damage is currently {enemey.GetDamage()}";
                 Application.DoEvents();
                 mainForm.NextButtonClicked(mainForm.NextButton);
-                while (mainForm.NextButton.Enabled == true)
+                while (mainForm.NextButton.Enabled == true && !mainForm.GetIsClosing())
                 {
                     Application.DoEvents();
                 }
@@ -548,7 +548,7 @@ namespace Food_Crawler
                     mainForm.GetNarratorTextBox().Text = $"{player.GetName()} Damage is reduced to {dmg}";
                 Application.DoEvents();
                 mainForm.NextButtonClicked(mainForm.NextButton);
-                while (mainForm.NextButton.Enabled == true)
+                while (mainForm.NextButton.Enabled == true && !mainForm.GetIsClosing())
                 {
                     Application.DoEvents();
                 }
@@ -561,7 +561,7 @@ namespace Food_Crawler
                 mainForm.GetNarratorTextBox().Text = $"{player.GetName()} Decides not to become a shish kebob and attempts to dodge";
                 Application.DoEvents();
                 mainForm.NextButtonClicked(mainForm.NextButton);
-                while (mainForm.NextButton.Enabled == true)
+                while (mainForm.NextButton.Enabled == true && !mainForm.GetIsClosing())
                 {
                     Application.DoEvents();
                 }
@@ -594,7 +594,7 @@ namespace Food_Crawler
                 mainForm.GetNarratorTextBox().Text = $"Initating Roll phase Highest number decides winner";
                 Application.DoEvents();
                 mainForm.NextButtonClicked(mainForm.NextButton);
-                while (mainForm.NextButton.Enabled == true)
+                while (mainForm.NextButton.Enabled == true && !mainForm.GetIsClosing())
                 {
                     Application.DoEvents();
                 }
@@ -651,7 +651,7 @@ namespace Food_Crawler
                 mainForm.GetNarratorTextBox().Text = "Since you are just as fast as eachother you coin flip to see who attacks first";
                 Application.DoEvents();
                 mainForm.NextButtonClicked(mainForm.NextButton);
-                while (mainForm.NextButton.Enabled == true)
+                while (mainForm.NextButton.Enabled == true && !mainForm.GetIsClosing())
                 {
                     Application.DoEvents();
                 }
@@ -659,7 +659,7 @@ namespace Food_Crawler
                     mainForm.GetNarratorTextBox().Text = $"good job {player.GetName()} won the coin flip";
                     Application.DoEvents();
                     mainForm.NextButtonClicked(mainForm.NextButton);
-                    while (mainForm.NextButton.Enabled == true)
+                    while (mainForm.NextButton.Enabled == true && !mainForm.GetIsClosing())
                     {
                         Application.DoEvents();
                     }
@@ -675,7 +675,7 @@ namespace Food_Crawler
                     mainForm.GetNarratorTextBox().Text = $"{enemey.GetName()} won the coin flip";
                     Application.DoEvents();
                     mainForm.NextButtonClicked(mainForm.NextButton);
-                    while (mainForm.NextButton.Enabled == true)
+                    while (mainForm.NextButton.Enabled == true && !mainForm.GetIsClosing())
                     {
                         Application.DoEvents();
                     }
@@ -700,13 +700,13 @@ namespace Food_Crawler
             mainForm.GetNarratorTextBox().Text = $"You Encounterd {enemey.GetName()}";
             Application.DoEvents();
             mainForm.NextButtonClicked(mainForm.NextButton);
-            while (mainForm.NextButton.Enabled == true)
+            while (mainForm.NextButton.Enabled == true && !mainForm.GetIsClosing())
             {
                 Application.DoEvents();
             }
             //First strike attack phase
             InitalStrikePhase(ref player, ref enemey, randNumGen, mainForm);
-            while (true && enemey.GetHealth() > 0)
+            while (true && enemey.GetHealth() > 0 && !mainForm.GetIsClosing())
             {
                 if (NormalStrikePhase(ref player, ref enemey, randNumGen, mainForm, maxHP))
                 {
@@ -731,7 +731,7 @@ namespace Food_Crawler
             }
             mainForm.GetNarratorTextBox().Text = "you can choose to drink a potion";
             mainForm.NextButtonClicked(mainForm.NextButton);
-            while (mainForm.NextButton.Enabled == true)
+            while (mainForm.NextButton.Enabled == true && !mainForm.GetIsClosing())
             {
                 Application.DoEvents();
             }
@@ -739,7 +739,7 @@ namespace Food_Crawler
             Button DontDrinkPotion = new();
             mainForm.ButtonCreator(ref DrinkPotion, "DrinkPotion", DrinkPotion.Width, mainForm.GetNarratorTextBox().Location.Y - 100, 100, 100, "Drink Potion", mainForm.DisableButton);
             mainForm.ButtonCreator(ref DontDrinkPotion, "DontDrinkPotion", DontDrinkPotion.Width + 500, mainForm.GetNarratorTextBox().Location.Y - 100, 100, 100, "Dont Drink Potion", mainForm.DisableButton);
-            while (DrinkPotion.Enabled && DontDrinkPotion.Enabled)
+            while (DrinkPotion.Enabled && DontDrinkPotion.Enabled && !mainForm.GetIsClosing())
             {
                 Application.DoEvents();
             }
