@@ -145,7 +145,7 @@ namespace Food_Crawler
                 musicButton.Dispose();
             }
             musicButton = new();
-            ButtonCreator(ref musicButton, "music Button", StartScreenPictureBox.Width - 500, 0, 300, 70, "Next Song", MusicButton);
+            ButtonCreator(ref musicButton, "music Button", potionCountLabel.Location.X + potionCountLabel.Width + 30, 0, 300, 70, "Next Song", MusicButton);
             musicButton.BackColor = Color.DarkKhaki;
             musicButton.FlatStyle = FlatStyle.Standard;
             musicButton.Font = new Font("Poor Richard", 26);
