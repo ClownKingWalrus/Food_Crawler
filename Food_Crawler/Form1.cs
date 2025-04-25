@@ -57,7 +57,7 @@ namespace Food_Crawler
         String finalBossMusicPath;
         String treasureRoomMusicPath;
 
-        public String ResourcesPath = @"..\..\..\Resources";
+        public String ResourcesPath;
         public String? upgradeRoomPath;
         public String? notupgradeRoomPath;
         public String? BADROOMPath;
@@ -76,6 +76,14 @@ namespace Food_Crawler
             //AllocConsole(); //console for testing
             InitializeComponent();
             this.FormClosing += CloseProperly;
+
+#if DEBUG
+            ResourcesPath = @"..\..\..\Resources";
+#else
+            ResourcesPath = Application.StartupPath;
+            ResourcesPath = ResourcesPath + @"\Resources";
+#endif
+
             String paintDoorsPath = ResourcesPath + "/paintdoors.png";
             mainImage = Image.FromFile(paintDoorsPath);
             mainPlayer = new Player();
@@ -90,11 +98,11 @@ namespace Food_Crawler
             NextButton.Location = StartMenuButton.Location;
             this.Controls.Add(NextButton);
             //music stuff
-            casualMusicPath = ResourcesPath + "/Dungeon Crawl.wav";
-            ancientGobboMusicPath = ResourcesPath + "/WAR - Divide.wav";
-            dungeonSoulMusicPath = ResourcesPath + "/More than Just Comrades, We Fight!.wav";
-            treasureRoomMusicPath = ResourcesPath + "/Spindash.wav";
-            finalBossMusicPath = ResourcesPath + "/Bow Down - Divide.wav";
+            casualMusicPath = ResourcesPath + "/Dungeon_Crawl.mp3";
+            ancientGobboMusicPath = ResourcesPath + "/WAR_Divide.mp3";
+            dungeonSoulMusicPath = ResourcesPath + "/WE_FIGHT.mp3";
+            treasureRoomMusicPath = ResourcesPath + "/Spindash.mp3";
+            finalBossMusicPath = ResourcesPath + "/Bow_Down.mp3";
             mainMusic = new();
         }
 
@@ -142,7 +150,7 @@ namespace Food_Crawler
             musicButton.FlatStyle = FlatStyle.Standard;
             musicButton.Font = new Font("Poor Richard", 26);
 
-            //staycounter = 30;
+            //staycounter = 10;
             //counter = 3;
             //TowerLevel = 10;
 

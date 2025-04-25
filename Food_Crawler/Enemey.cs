@@ -21,7 +21,13 @@ namespace Food_Crawler
         {
             //temporary will pass random generator
             Random randNumGen = new();
-            string ResPath = @"..\..\..\Resources";
+            string ResPath;
+#if DEBUG
+            ResPath = @"..\..\..\Resources";
+#else
+            ResourcesPath = Application.StartupPath;
+            ResourcesPath = ResourcesPath + @"\Resources";
+#endif
             int TowerMultiplier = TowerLevel * 5;
             //generate a enemey with some random stats based on this
             Enemey tempEnemey = new Enemey(randNumGen.Next(TowerMultiplier/2, TowerMultiplier), (randNumGen.Next(TowerMultiplier/2, TowerMultiplier)/2), 
