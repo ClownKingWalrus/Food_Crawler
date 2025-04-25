@@ -13,11 +13,18 @@
     <None Remove="Resources\arena.png" />
     <None Remove="Resources\Banana.png" />
     <None Remove="Resources\beatingstick_weapon.png" />
+    <None Remove="Resources\Beserk_My_Brother.mp3" />
+    <None Remove="Resources\Bow_Down.mp3" />
     <None Remove="Resources\ChoiceToGoDown.png" />
+    <None Remove="Resources\Dungeon_Crawl.mp3" />
     <None Remove="Resources\Dungeon_Soul.png" />
+    <None Remove="Resources\Faded.mp3" />
+    <None Remove="Resources\GalaxyCollapse.mp3" />
     <None Remove="Resources\Goblin.png" />
+    <None Remove="Resources\Guts_Pressure.mp3" />
     <None Remove="Resources\HealthPotion.png" />
     <None Remove="Resources\Helmet.png" />
+    <None Remove="Resources\Hyper_Full_Throttle.mp3" />
     <None Remove="Resources\ItemGot.wav" />
     <None Remove="Resources\Knife.png" />
     <None Remove="Resources\Knife_Weapon.png" />
@@ -32,15 +39,47 @@
     <None Remove="Resources\RockMan.png" />
     <None Remove="Resources\Shop.png" />
     <None Remove="Resources\Sickle_Weapon.png" />
+    <None Remove="Resources\SNBRN_Raindrops.mp3" />
+    <None Remove="Resources\Spindash.mp3" />
     <None Remove="Resources\Spindash.wav" />
     <None Remove="Resources\StatusScreen.png" />
     <None Remove="Resources\tempRoomBAD.png" />
     <None Remove="Resources\tempRoomNoUpgrade.png" />
     <None Remove="Resources\tempRoomUpgrade.png" />
     <None Remove="Resources\upgradeSound.wav" />
+    <None Remove="Resources\Warak_Reanimate.mp3" />
+    <None Remove="Resources\WAR_Divide.mp3" />
+    <None Remove="Resources\WE_FIGHT.mp3" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Resources\WE_FIGHT.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\Beserk_My_Brother.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Bow_Down.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Dungeon_Crawl.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Faded.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\GalaxyCollapse.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Guts_Pressure.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Hyper_Full_Throttle.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\numchucks_weapon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -62,6 +101,12 @@
     <Content Include="Resources\Sickle_Weapon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\SNBRN_Raindrops.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Spindash.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\StatusScreen.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -75,6 +120,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\upgradeSound.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Warak_Reanimate.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\WAR_Divide.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
